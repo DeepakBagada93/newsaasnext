@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Palette, Bot, LineChart, ArrowRight } from "lucide-react";
+import { Palette, Bot, LineChart, ArrowRight, MailCheck } from "lucide-react";
 import Link from "next/link";
 
 const services = [
@@ -8,7 +8,7 @@ const services = [
     icon: Palette,
     title: "Web Development",
     description: "Building high-performance, scalable, and engaging websites and web applications.",
-    href: "/services#web-development" // Or link to a specific part of services page
+    href: "/services#web-development"
   },
   {
     icon: Bot,
@@ -21,6 +21,12 @@ const services = [
     title: "Lead Generation",
     description: "Driving growth through targeted strategies that attract and convert high-quality leads.",
     href: "/services#lead-generation"
+  },
+  {
+    icon: MailCheck,
+    title: "Email Marketing",
+    description: "Engaging your audience and nurturing leads with targeted email campaigns.",
+    href: "/services#email-marketing"
   }
 ];
 
@@ -36,7 +42,7 @@ export default function ServicesOverviewSection() {
             Empowering your business with cutting-edge technology and strategic insights.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {services.map((service) => (
             <Card key={service.title} className="bg-card/50 hover:shadow-primary/10 hover:shadow-lg transition-shadow duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col h-full">
               <CardHeader className="flex flex-row items-start space-x-4 pb-3">

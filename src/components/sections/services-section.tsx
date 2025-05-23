@@ -1,5 +1,5 @@
 import ServiceCard from "@/components/common/service-card";
-import { Globe, Cpu, Users, Search, ShoppingCart, Bot, LineChart, Palette } from "lucide-react";
+import { Globe, Cpu, Users, Search, ShoppingCart, Bot, LineChart, Palette, MailCheck } from "lucide-react";
 
 const services = [
   {
@@ -41,12 +41,27 @@ const services = [
       "Search Engine Optimization (SEO) & content strategy",
       "Pay-Per-Click (PPC) advertising (Google, Social Media)",
       "Conversion Rate Optimization (CRO)",
-      "Email marketing automation & campaigns",
       "Social media marketing & management",
       "Marketing analytics and performance tracking",
       "Sales funnel development and optimization",
+      "Content marketing creation and distribution",
     ],
   },
+  {
+    icon: MailCheck,
+    title: "Email Marketing",
+    description: "Engaging your audience, nurturing leads, and driving conversions through targeted and personalized email campaigns.",
+    details: [
+      "Email campaign strategy & planning",
+      "Custom email template design & coding",
+      "Audience segmentation & list management",
+      "Marketing automation & drip campaigns",
+      "A/B testing for content & subject lines",
+      "Performance tracking & analytics reporting",
+      "Compliance & deliverability best practices",
+      "Integration with CRM and sales platforms",
+    ],
+  }
 ];
 
 export default function ServicesSection() {
@@ -61,7 +76,7 @@ export default function ServicesSection() {
             We provide a comprehensive suite of services designed to elevate your business in the digital landscape and drive sustainable growth.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8">
           {services.map((service) => (
             <ServiceCard
               key={service.title}

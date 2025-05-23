@@ -36,7 +36,7 @@ const prompt = ai.definePrompt({
   name: 'serviceRecommendationPrompt',
   input: {schema: ServiceRecommendationInputSchema},
   output: {schema: ServiceRecommendationOutputSchema},
-  prompt: `You are an expert consultant at SaaSnext, a leading web development, AI automation, and lead generation company.
+  prompt: `You are an expert consultant at SaaSnext, a leading web development, AI automation, lead generation, and email marketing company.
 
   A user has described their needs and goals. Based on this description, you will recommend the most relevant services offered by SaaSnext.
 
@@ -44,6 +44,7 @@ const prompt = ai.definePrompt({
   - Web Development: Creating modern, responsive, and user-friendly websites tailored to client needs.
   - AI Automation: Automating business processes using artificial intelligence to improve efficiency and reduce costs.
   - Lead Generation: Identifying and attracting potential customers through targeted marketing strategies.
+  - Email Marketing: Engaging audiences and nurturing leads through targeted email campaigns.
 
   Analyze the user's needs and recommend the services that would best help them achieve their goals. Explain your reasoning for each recommendation.
 
