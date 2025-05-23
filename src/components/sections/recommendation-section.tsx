@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -6,36 +7,56 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2, Sparkles, Lightbulb } from 'lucide-react';
+import { Loader2, Sparkles, Lightbulb, Send } from 'lucide-react';
 import { recommendServices, type ServiceRecommendationOutput } from '@/ai/flows/service-recommendation';
+import { sendRecommendationFollowUpEmail, type SendRecommendationFollowUpInput } from '@/actions/send-recommendation-follow-up-email';
 import { useToast } from "@/hooks/use-toast";
 
 const recommendationSchema = z.object({
   needsDescription: z.string().min(20, { message: "Please describe your needs in at least 20 characters." }).max(1000),
 });
-
 type RecommendationFormValues = z.infer<typeof recommendationSchema>;
 
+const followUpSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  email: z.string().email({ message: "Please enter a valid email address." }),
+  whatsapp: z.string().optional(),
+  projectDetails: z.string().min(10, { message: "Please provide some details about your project (min 10 characters)." }),
+});
+type FollowUpFormValues = z.infer<typeof followUpSchema>;
+
 export default function RecommendationSection() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isRecommending, setIsRecommending] = useState(false);
+  const [isSendingFollowUp, setIsSendingFollowUp] = useState(false);
   const [recommendationResult, setRecommendationResult] = useState<ServiceRecommendationOutput | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [recommendationError, setRecommendationError] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const form = useForm<RecommendationFormValues>({
+  const recommendationForm = useForm<RecommendationFormValues>({
     resolver: zodResolver(recommendationSchema),
     defaultValues: {
       needsDescription: '',
     },
   });
 
-  const onSubmit: SubmitHandler<RecommendationFormValues> = async (data) => {
-    setIsLoading(true);
+  const followUpForm = useForm<FollowUpFormValues>({
+    resolver: zodResolver(followUpSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      whatsapp: '',
+      projectDetails: '',
+    },
+  });
+
+  const handleRecommendationSubmit: SubmitHandler<RecommendationFormValues> = async (data) => {
+    setIsRecommending(true);
     setRecommendationResult(null);
-    setError(null);
+    setRecommendationError(null);
     try {
       const result = await recommendServices({ needsDescription: data.needsDescription });
       setRecommendationResult(result);
@@ -46,14 +67,55 @@ export default function RecommendationSection() {
     } catch (err) {
       console.error("Error fetching recommendation:", err);
       const errorMessage = err instanceof Error ? err.message : "An unexpected error occurred.";
-      setError(`Failed to get recommendation: ${errorMessage}`);
+      setRecommendationError(`Failed to get recommendation: ${errorMessage}`);
       toast({
         variant: "destructive",
-        title: "Error",
+        title: "Recommendation Error",
         description: `Could not generate recommendation. ${errorMessage}`,
       });
     } finally {
-      setIsLoading(false);
+      setIsRecommending(false);
+    }
+  };
+
+  const handleFollowUpSubmit: SubmitHandler<FollowUpFormValues> = async (data) => {
+    if (!recommendationResult) {
+      toast({ variant: "destructive", title: "Error", description: "No recommendation to send." });
+      return;
+    }
+    setIsSendingFollowUp(true);
+    try {
+      const inputData: SendRecommendationFollowUpInput = {
+        ...data,
+        aiRecommendedServices: recommendationResult.recommendedServices,
+        aiReasoning: recommendationResult.reasoning,
+      };
+      const result = await sendRecommendationFollowUpEmail(inputData);
+      if (result.success) {
+        toast({
+          title: "Information Sent!",
+          description: result.message,
+        });
+        followUpForm.reset();
+        // Optionally, could hide the follow-up form or clear recommendationResult to "reset" the page
+        // setRecommendationResult(null); 
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error Sending Information",
+          description: result.message || "An unexpected error occurred.",
+        });
+      }
+    } catch (err) {
+      console.error("Error sending follow-up email:", err);
+      const errorMessage = err instanceof Error ? err.message : "An unexpected error occurred.";
+      toast({
+        variant: "destructive",
+        title: "Submission Error",
+        description: `Could not send your information. ${errorMessage}`,
+      });
+    } finally {
+      setIsSendingFollowUp(false);
     }
   };
 
@@ -76,10 +138,10 @@ export default function RecommendationSection() {
             <CardDescription>Tell us about your goals and challenges.</CardDescription>
           </CardHeader>
           <CardContent>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <Form {...recommendationForm}>
+              <form onSubmit={recommendationForm.handleSubmit(handleRecommendationSubmit)} className="space-y-6">
                 <FormField
-                  control={form.control}
+                  control={recommendationForm.control}
                   name="needsDescription"
                   render={({ field }) => (
                     <FormItem>
@@ -91,15 +153,15 @@ export default function RecommendationSection() {
                           rows={5}
                           className="bg-background focus:ring-primary"
                           {...field}
-                          disabled={isLoading}
+                          disabled={isRecommending || !!recommendationResult}
                         />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" disabled={isLoading}>
-                  {isLoading ? (
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" disabled={isRecommending || !!recommendationResult}>
+                  {isRecommending ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Getting Recommendation...
@@ -114,10 +176,10 @@ export default function RecommendationSection() {
               </form>
             </Form>
 
-            {error && (
+            {recommendationError && !recommendationResult && (
               <Alert variant="destructive" className="mt-6">
                 <AlertTitle>Error</AlertTitle>
-                <AlertDescription>{error}</AlertDescription>
+                <AlertDescription>{recommendationError}</AlertDescription>
               </Alert>
             )}
 
@@ -141,8 +203,86 @@ export default function RecommendationSection() {
               </div>
             )}
           </CardContent>
+
+          {recommendationResult && (
+            <CardFooter className="flex-col items-start p-6 mt-4 border-t border-border">
+              <h3 className="text-xl font-semibold text-foreground mb-4">Ready to Discuss Further?</h3>
+              <p className="text-muted-foreground mb-6">Provide your details below, and we'll get in touch to discuss how we can tailor these recommendations to your project.</p>
+              <Form {...followUpForm}>
+                <form onSubmit={followUpForm.handleSubmit(handleFollowUpSubmit)} className="w-full space-y-6">
+                  <FormField
+                    control={followUpForm.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel htmlFor="followUpName">Full Name</FormLabel>
+                        <FormControl>
+                          <Input id="followUpName" placeholder="John Doe" {...field} disabled={isSendingFollowUp} className="bg-background focus:ring-primary" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={followUpForm.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel htmlFor="followUpEmail">Email Address</FormLabel>
+                        <FormControl>
+                          <Input id="followUpEmail" type="email" placeholder="you@example.com" {...field} disabled={isSendingFollowUp} className="bg-background focus:ring-primary" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={followUpForm.control}
+                    name="whatsapp"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel htmlFor="followUpWhatsapp">WhatsApp Number (Optional)</FormLabel>
+                        <FormControl>
+                          <Input id="followUpWhatsapp" placeholder="+1234567890" {...field} disabled={isSendingFollowUp} className="bg-background focus:ring-primary" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={followUpForm.control}
+                    name="projectDetails"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel htmlFor="followUpProjectDetails">Additional Project Details</FormLabel>
+                        <FormControl>
+                          <Textarea id="followUpProjectDetails" placeholder="Tell us more about your specific requirements, timeline, or any questions you have..." rows={4} {...field} disabled={isSendingFollowUp} className="bg-background focus:ring-primary" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" disabled={isSendingFollowUp}>
+                    {isSendingFollowUp ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Sending Details...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="mr-2 h-4 w-4" />
+                        Send Project Details
+                      </>
+                    )}
+                  </Button>
+                </form>
+              </Form>
+            </CardFooter>
+          )}
         </Card>
       </div>
     </section>
   );
 }
+
+    
