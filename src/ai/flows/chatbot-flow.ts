@@ -55,22 +55,26 @@ const prompt = ai.definePrompt({
   input: {schema: ChatbotInputSchema},
   output: {schema: ChatbotOutputSchema},
   system: systemInstruction,
-  prompt: (input) => {
-    const historyMessages: MessageData[] = (input.history ?? []).flatMap(item => {
-      const messages: MessageData[] = [];
-      if (item.user) messages.push({role: 'user', content: [{text: item.user}]});
-      if (item.model) messages.push({role: 'model', content: [{text: item.model}]});
-      return messages;
-    });
-    // The history (input.history) from client now represents actual conversation turns.
-    // The current user's message is in input.userInput.
-    return [
-      ...historyMessages,
-      {role: 'user', content: [{text: input.userInput}]},
-    ];
+  prompt: (input: ChatbotInput): (string | MessageData)[] => {
+    const messagesForModel: (string | MessageData)[] = [];
+    // Process history: User messages become strings, model messages become structured objects.
+    if (input.history) {
+      for (const item of input.history) {
+        if (item.user) {
+          messagesForModel.push(item.user); // User messages as simple strings
+        }
+        if (item.model) {
+          // Model messages must be structured objects
+          messagesForModel.push({role: 'model', content: [{text: item.model}]});
+        }
+      }
+    }
+    // Add current user input as a simple string
+    messagesForModel.push(input.userInput);
+    return messagesForModel;
   },
   config: {
-    model: 'googleai/gemini-1.5-flash-latest', // Updated model
+    model: 'googleai/gemini-1.5-flash-latest',
   }
 });
 
@@ -84,8 +88,9 @@ const chatbotFlow = ai.defineFlow(
     const llmResponse = await prompt(input);
     // Ensure output is consistently accessed, prioritizing structured output then raw text.
     const responseText = llmResponse.output?.botResponse ?? 
-                         (llmResponse.text ? llmResponse.text : null) ?? // Check if text is a function or property based on Genkit version
+                         (llmResponse.text ? llmResponse.text : null) ??
                          "I'm sorry, I couldn't generate a response at this moment.";
     return { botResponse: responseText };
   }
 );
+
