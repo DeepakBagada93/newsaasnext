@@ -55,22 +55,21 @@ const prompt = ai.definePrompt({
   input: {schema: ChatbotInputSchema},
   output: {schema: ChatbotOutputSchema},
   system: systemInstruction,
-  prompt: (input: ChatbotInput): (string | MessageData)[] => {
-    const messagesForModel: (string | MessageData)[] = [];
-    // Process history: User messages become strings, model messages become structured objects.
+  prompt: (input: ChatbotInput): MessageData[] => { // Return type changed to MessageData[]
+    const messagesForModel: MessageData[] = [];
+    // Process history: User and model messages are structured as MessageData objects.
     if (input.history) {
       for (const item of input.history) {
         if (item.user) {
-          messagesForModel.push(item.user); // User messages as simple strings
+          messagesForModel.push({role: 'user', content: [{text: item.user}]});
         }
         if (item.model) {
-          // Model messages must be structured objects
           messagesForModel.push({role: 'model', content: [{text: item.model}]});
         }
       }
     }
-    // Add current user input as a simple string
-    messagesForModel.push(input.userInput);
+    // Add current user input, also structured as MessageData
+    messagesForModel.push({role: 'user', content: [{text: input.userInput}]});
     return messagesForModel;
   },
   config: {
