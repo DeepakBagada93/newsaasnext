@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -11,6 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Loader2, Send, Mail, Phone, MapPin } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { sendContactEmail, type SendContactEmailInput } from '@/actions/send-contact-email';
 
 const contactSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -35,20 +37,44 @@ export default function ContactSection() {
     },
   });
 
-  // Simulate form submission
   const onSubmit: SubmitHandler<ContactFormValues> = async (data) => {
     setIsLoading(true);
-    console.log("Contact form data:", data); 
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
-    setIsLoading(false);
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for contacting us. We'll get back to you shortly.",
-    });
-    form.reset();
+    try {
+      const result = await sendContactEmail(data);
+      if (result.success) {
+        toast({
+          title: "Message Sent!",
+          description: result.message,
+        });
+        form.reset();
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error Sending Message",
+          description: result.message || "An unexpected error occurred.",
+        });
+        // If there are specific field errors from Zod on the server
+        if (result.errors) {
+          Object.entries(result.errors).forEach(([fieldName, fieldErrors]) => {
+            if (fieldErrors && fieldErrors.length > 0) {
+              form.setError(fieldName as keyof ContactFormValues, {
+                type: 'server',
+                message: fieldErrors.join(', '),
+              });
+            }
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Contact form submission error:", error);
+      toast({
+        variant: "destructive",
+        title: "Submission Error",
+        description: "An unexpected error occurred while submitting the form.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -67,7 +93,7 @@ export default function ContactSection() {
           <Card className="bg-card/50 shadow-xl">
             <CardHeader>
               <CardTitle>Send Us a Message</CardTitle>
-              <CardDescription>Fill out the form and our team will respond within 24 hours.</CardDescription>
+              <CardDescription>Fill out the form and our team will respond as soon as possible.</CardDescription>
             </CardHeader>
             <CardContent>
               <Form {...form}>
