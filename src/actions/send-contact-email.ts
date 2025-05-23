@@ -27,23 +27,21 @@ export async function sendContactEmail(data: SendContactEmailInput): Promise<{ s
       return { success: false, message: 'Server configuration error. Email functionality is not available.' };
     }
      if (brevoSmtpUser === "your-brevo-login-email@example.com" || contactFormSenderEmail === "noreply@your-verified-domain.com") {
-      console.warn('Using placeholder email configuration. Please update .env with actual Brevo credentials and a verified sender domain.');
+      console.warn('Using placeholder email configuration. Please update .env with actual Brevo credentials and a verified sender domain for emails to be delivered correctly.');
       // Optionally, you could prevent sending emails with placeholder values here for production.
       // For now, we'll log a warning and proceed if the user still has placeholder values.
     }
 
-
     const transporter = nodemailer.createTransport({
-      host: 'smtp-relay.brevo.com',
+      host: 'smtp-relay.brevo.com', // or smtp-relay.sendinblue.com
       port: 587,
-      secure: false, // Brevo uses STARTTLS on port 587
+      secure: false, // true for 465, false for other ports (like 587 with STARTTLS)
       auth: {
-        user: brevoSmtpUser, // Your Brevo account email
+        user: brevoSmtpUser, // Your Brevo account login email or API key username
         pass: brevoSmtpKey,   // Your Brevo SMTP key (API v3 key)
       },
-      tls: {
-        ciphers:'SSLv3'
-      }
+      // Removed problematic tls: { ciphers:'SSLv3' }
+      // Nodemailer will automatically use STARTTLS on port 587 if secure is false.
     });
 
     const mailOptions = {
@@ -68,13 +66,14 @@ export async function sendContactEmail(data: SendContactEmailInput): Promise<{ s
 
     return { success: true, message: 'Message sent successfully! We will get back to you shortly.' };
   } catch (error) {
-    console.error('Error sending contact email:', error);
+    console.error('Error sending contact email:', error); // Log the full error object
     if (error instanceof z.ZodError) {
         return { success: false, message: 'Invalid form data. Please check your input.', errors: error.flatten().fieldErrors };
     }
-    // Log the specific error for server-side debugging
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    console.error(`Nodemailer error details: ${errorMessage}`);
+    
+    // Provide a more generic message to the user but log specific details for debugging
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
+    console.error(`Nodemailer error details: ${errorMessage}`, error); // Log specific error message and the full error object
     
     return { success: false, message: 'Failed to send message. An unexpected error occurred. Please try again later or contact us directly if the issue persists.' };
   }
