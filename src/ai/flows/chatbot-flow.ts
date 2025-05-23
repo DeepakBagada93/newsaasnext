@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview A chatbot AI agent for SaaSnext.
@@ -9,13 +10,14 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import type {MessageData} from 'genkit';
 
 const ChatbotInputSchema = z.object({
   userInput: z.string().describe('The user\'s message to the chatbot.'),
   history: z.array(z.object({
     user: z.string().optional(),
     model: z.string().optional(),
-  })).optional().describe('The conversation history. Each object should have a user or model key.'),
+  })).optional().describe('The conversation history. Each object should have a user or model key, representing actual prior turns.'),
 });
 export type ChatbotInput = z.infer<typeof ChatbotInputSchema>;
 
@@ -54,19 +56,21 @@ const prompt = ai.definePrompt({
   output: {schema: ChatbotOutputSchema},
   system: systemInstruction,
   prompt: (input) => {
-    const historyMessages = (input.history ?? []).flatMap(item => {
-      const messages = [];
+    const historyMessages: MessageData[] = (input.history ?? []).flatMap(item => {
+      const messages: MessageData[] = [];
       if (item.user) messages.push({role: 'user', content: [{text: item.user}]});
       if (item.model) messages.push({role: 'model', content: [{text: item.model}]});
       return messages;
     });
+    // The history (input.history) from client now represents actual conversation turns.
+    // The current user's message is in input.userInput.
     return [
       ...historyMessages,
       {role: 'user', content: [{text: input.userInput}]},
     ];
   },
   config: {
-    model: 'googleai/gemini-2.0-flash', // Ensure this model supports conversation history
+    model: 'googleai/gemini-1.5-flash-latest', // Updated model
   }
 });
 
@@ -78,7 +82,10 @@ const chatbotFlow = ai.defineFlow(
   },
   async (input) => {
     const llmResponse = await prompt(input);
-    const responseText = llmResponse.output?.botResponse ?? llmResponse.text ?? "I'm sorry, I couldn't generate a response at this moment.";
+    // Ensure output is consistently accessed, prioritizing structured output then raw text.
+    const responseText = llmResponse.output?.botResponse ?? 
+                         (llmResponse.text ? llmResponse.text : null) ?? // Check if text is a function or property based on Genkit version
+                         "I'm sorry, I couldn't generate a response at this moment.";
     return { botResponse: responseText };
   }
 );

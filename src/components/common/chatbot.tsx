@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, useEffect, type FormEvent } from 'react';
@@ -17,6 +18,13 @@ interface Message {
   timestamp: Date;
 }
 
+const initialBotMessage: Message = {
+  id: 'initial-bot-message',
+  sender: 'bot',
+  text: "Hello! I'm the SaaSnext AI Assistant. How can I help you today? Feel free to ask about our services, company, or how we can help your business grow.",
+  timestamp: new Date(),
+};
+
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -25,18 +33,11 @@ export default function Chatbot() {
   const { toast } = useToast();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
-  const initialBotMessage: Message = {
-    id: 'initial-bot-message',
-    sender: 'bot',
-    text: "Hello! I'm the SaaSnext AI Assistant. How can I help you today? Feel free to ask about our services, company, or how we can help your business grow.",
-    timestamp: new Date(),
-  };
-
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       setMessages([initialBotMessage]);
     }
-  }, [isOpen]);
+  }, [isOpen, messages.length]); // Added messages.length to dependencies
 
 
   useEffect(() => {
@@ -55,22 +56,25 @@ export default function Chatbot() {
       text: inputValue,
       timestamp: new Date(),
     };
+
+    // `messages` state here is the conversation *before* adding the current `userMessage`.
+    // We slice(1) to remove the initialBotMessage from AI context,
+    // as system prompt handles the bot's persona.
+    const conversationHistory = messages
+      .slice(1) // Exclude initialBotMessage from history sent to AI
+      .map(msg => {
+        if (msg.sender === 'user') return { user: msg.text };
+        return { model: msg.text };
+      });
+
     setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInputValue('');
     setIsLoading(true);
 
-    const historyForAI = messages.map(msg => {
-      if (msg.sender === 'user') return { user: msg.text };
-      return { model: msg.text };
-    });
-    // Add the current user message to history for the AI call
-    historyForAI.push({ user: userMessage.text });
-
-
     try {
-      const chatbotInput: ChatbotInput = { 
-        userInput: userMessage.text,
-        history: historyForAI.slice(-10) // Send last 10 exchanges to keep context manageable
+      const chatbotInput: ChatbotInput = {
+        userInput: userMessage.text, // Current user input
+        history: conversationHistory.slice(-10) // Last 10 turns of actual conversation
       };
       const result = await askChatbot(chatbotInput);
       const botMessage: Message = {
@@ -178,7 +182,7 @@ export default function Chatbot() {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 disabled={isLoading}
-                className="flex-grow bg-background focus:ring-primary"
+                className="bg-background focus:ring-primary"
                 aria-label="Chat message input"
               />
               <Button type="submit" size="icon" disabled={isLoading} className="bg-primary hover:bg-primary/90 text-primary-foreground">
@@ -192,3 +196,4 @@ export default function Chatbot() {
     </>
   );
 }
+
