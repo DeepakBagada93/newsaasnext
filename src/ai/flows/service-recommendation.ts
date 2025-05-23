@@ -1,3 +1,4 @@
+
 // This file is machine-generated - edit with caution!
 'use server';
 /**
@@ -21,10 +22,10 @@ export type ServiceRecommendationInput = z.infer<typeof ServiceRecommendationInp
 const ServiceRecommendationOutputSchema = z.object({
   recommendedServices: z
     .array(z.string())
-    .describe('An array of service names that are most relevant to the user\'s needs.'),
+    .describe('An array of general service categories that are most relevant to the user\'s needs (e.g., "Web Development", "Lead Generation").'),
   reasoning: z
     .string()
-    .describe('Explanation of why these services are recommended for the specified needs.'),
+    .describe('Explanation of why these services are recommended, including specific suggestions for technologies or platforms (e.g., WordPress, Next.js, Google Ads, Meta Ads) based on the user\'s needs description.'),
 });
 export type ServiceRecommendationOutput = z.infer<typeof ServiceRecommendationOutputSchema>;
 
@@ -38,18 +39,39 @@ const prompt = ai.definePrompt({
   output: {schema: ServiceRecommendationOutputSchema},
   prompt: `You are an expert consultant at SaaSnext, a leading web development, AI automation, lead generation, and email marketing company.
 
-  A user has described their needs and goals. Based on this description, you will recommend the most relevant services offered by SaaSnext.
+A user has described their needs and goals. Based on this description, you will recommend the most relevant services offered by SaaSnext and provide specific suggestions within those services where applicable.
 
-  The services offered by SaaSnext are:
-  - Web Development: Creating modern, responsive, and user-friendly websites tailored to client needs.
-  - AI Automation: Automating business processes using artificial intelligence to improve efficiency and reduce costs.
-  - Lead Generation: Identifying and attracting potential customers through targeted marketing strategies.
-  - Email Marketing: Engaging audiences and nurturing leads through targeted email campaigns.
+The services offered by SaaSnext are:
+- Web Development: Creating modern, responsive, and user-friendly websites tailored to client needs. This can range from CMS-based sites to custom applications.
+- AI Automation: Automating business processes using artificial intelligence to improve efficiency and reduce costs.
+- Lead Generation: Identifying and attracting potential customers through targeted marketing strategies like online advertising.
+- Email Marketing: Engaging audiences and nurturing leads through targeted email campaigns.
 
-  Analyze the user's needs and recommend the services that would best help them achieve their goals. Explain your reasoning for each recommendation.
+Analyze the user's needs: {{{needsDescription}}}
 
-  User Needs: {{{needsDescription}}}
-  `,
+Based on the user's needs, recommend services and explain your reasoning.
+
+Specific Guidelines for Recommendations:
+
+1.  **Web Development:**
+    *   If the user's description suggests a **smaller budget, a need for simple content management, or a quick launch**, recommend "Web Development" as a service. In your 'reasoning', suggest approaches like **WordPress or other suitable CMS platforms**, explaining that these are cost-effective and user-friendly for managing content.
+    *   If the user's description implies a need for a **highly custom, scalable, complex application, specific performance requirements, or mentions a larger scope/budget**, recommend "Web Development" as a service. In your 'reasoning', suggest modern frameworks like **Next.js (for frontend-focused, performant web apps) or Laravel (for robust backend-heavy applications)**. Explain that these offer superior performance, scalability, and customization for sophisticated projects.
+    *   If budget or complexity is unclear from the user's description, you can mention both tiers of web development solutions as options in your 'reasoning', explaining the trade-offs.
+
+2.  **Lead Generation:**
+    *   If the user's description mentions **targeting specific demographics, interests, or behaviors typically found on social media platforms**, recommend "Lead Generation" as a service. In your 'reasoning', suggest **Meta Ads (Facebook/Instagram)** and explain why this platform is suitable.
+    *   If the user's description implies that potential customers are **actively searching for their products/services online (intent-based marketing)**, recommend "Lead Generation" as a service. In your 'reasoning', suggest **Google Ads (Search Ads)** and explain why this platform is suitable.
+    *   If a **broad reach, a combination of search intent and social targeting seems beneficial, or if the description is general** regarding lead generation needs, recommend "Lead Generation" as a service. In your 'reasoning', you can suggest using **both Google Ads and Meta Ads**, or explain which might be a good starting point based on common business needs.
+    *   Always clearly explain your choice of advertising platform(s) in the 'reasoning'.
+
+3.  **AI Automation and Email Marketing:**
+    *   Recommend "AI Automation" or "Email Marketing" if the user's needs explicitly or implicitly point towards process optimization, data insights, customer engagement through intelligent systems, or nurturing leads via email campaigns.
+
+Output Format:
+Ensure your output strictly adheres to the defined ServiceRecommendationOutputSchema.
+- The 'recommendedServices' array should list the general service categories (e.g., "Web Development", "Lead Generation").
+- The detailed suggestions (e.g., "WordPress", "Next.js", "Google Ads", "Meta Ads") and the rationale behind them should be included in the 'reasoning' field.
+`,
 });
 
 const recommendServicesFlow = ai.defineFlow(
@@ -60,6 +82,17 @@ const recommendServicesFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await prompt(input);
-    return output!;
+    // Ensure output is not null and adheres to the schema.
+    // If the model doesn't perfectly adhere, provide a fallback or log an error.
+    if (output && output.recommendedServices && output.reasoning) {
+        return output;
+    }
+    // Fallback if the model output is not as expected
+    console.error("AI model output did not match expected schema for service recommendation.", output);
+    return {
+        recommendedServices: ["General Consultation"],
+        reasoning: "The AI could not determine specific services based on the input. Please contact us for a detailed consultation."
+    };
   }
 );
+
