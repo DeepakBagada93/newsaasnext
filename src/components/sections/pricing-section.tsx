@@ -46,7 +46,7 @@ export default function PricingSection() {
                 </li>
               </ul>
               <Button asChild className="w-full mt-6 bg-primary hover:bg-primary/90 text-primary-foreground">
-                <Link href="#contact">
+                <Link href="/contact">
                   Request a Custom Quote
                 </Link>
               </Button>

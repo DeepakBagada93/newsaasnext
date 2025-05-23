@@ -18,12 +18,12 @@ export default function HeroSection() {
         </p>
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
           <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg transition-transform duration-300 hover:scale-105">
-            <Link href="#contact">
+            <Link href="/contact">
               Get Started <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
           <Button asChild variant="outline" size="lg" className="text-foreground border-primary hover:bg-primary/10 hover:text-primary shadow-lg transition-transform duration-300 hover:scale-105">
-            <Link href="#services">
+            <Link href="/services">
               Explore Services
             </Link>
           </Button>

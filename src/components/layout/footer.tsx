@@ -21,10 +21,10 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-foreground tracking-wider uppercase mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li><Link href="#services" className="text-sm text-muted-foreground hover:text-primary">Services</Link></li>
-              <li><Link href="#pricing" className="text-sm text-muted-foreground hover:text-primary">Pricing</Link></li>
-              <li><Link href="#portfolio" className="text-sm text-muted-foreground hover:text-primary">Portfolio</Link></li>
-              <li><Link href="#contact" className="text-sm text-muted-foreground hover:text-primary">Contact Us</Link></li>
+              <li><Link href="/services" className="text-sm text-muted-foreground hover:text-primary">Services</Link></li>
+              <li><Link href="/pricing" className="text-sm text-muted-foreground hover:text-primary">Pricing</Link></li>
+              <li><Link href="/portfolio" className="text-sm text-muted-foreground hover:text-primary">Portfolio</Link></li>
+              <li><Link href="/contact" className="text-sm text-muted-foreground hover:text-primary">Contact Us</Link></li>
             </ul>
           </div>
           <div>
