@@ -26,28 +26,33 @@ export async function sendContactEmail(data: SendContactEmailInput): Promise<{ s
       console.error('Missing Brevo SMTP configuration in .env. Ensure BREVO_SMTP_KEY, BREVO_SMTP_USER, CONTACT_FORM_RECIPIENT_EMAIL, and CONTACT_FORM_SENDER_EMAIL are set.');
       return { success: false, message: 'Server configuration error. Email functionality is not available.' };
     }
-     if (brevoSmtpUser === "your-brevo-login-email@example.com" || contactFormSenderEmail === "noreply@your-verified-domain.com") {
-      console.warn('Using placeholder email configuration. Please update .env with actual Brevo credentials and a verified sender domain for emails to be delivered correctly.');
-      // Optionally, you could prevent sending emails with placeholder values here for production.
-      // For now, we'll log a warning and proceed if the user still has placeholder values.
+
+    if (brevoSmtpUser === "your-brevo-login-email@example.com") {
+      const errMsg = 'Critical: BREVO_SMTP_USER in .env is still the placeholder "your-brevo-login-email@example.com". This must be updated to your actual Brevo login email for email sending to work.';
+      console.error(errMsg);
+      return { success: false, message: 'Email server configuration incomplete. Please contact the site administrator.' };
+    }
+
+    if (contactFormSenderEmail === "noreply@your-verified-domain.com") {
+      const errMsg = 'Critical: CONTACT_FORM_SENDER_EMAIL in .env is still the placeholder "noreply@your-verified-domain.com". This must be updated to an email address from a domain verified within your Brevo account.';
+      console.error(errMsg);
+      return { success: false, message: 'Email server configuration incomplete. Please contact the site administrator.' };
     }
 
     const transporter = nodemailer.createTransport({
-      host: 'smtp-relay.brevo.com', // or smtp-relay.sendinblue.com
+      host: 'smtp-relay.brevo.com',
       port: 587,
-      secure: false, // true for 465, false for other ports (like 587 with STARTTLS)
+      secure: false, 
       auth: {
-        user: brevoSmtpUser, // Your Brevo account login email or API key username
-        pass: brevoSmtpKey,   // Your Brevo SMTP key (API v3 key)
+        user: brevoSmtpUser,
+        pass: brevoSmtpKey,
       },
-      // Removed problematic tls: { ciphers:'SSLv3' }
-      // Nodemailer will automatically use STARTTLS on port 587 if secure is false.
     });
 
     const mailOptions = {
-      from: `"${validatedData.name}" <${contactFormSenderEmail}>`, // Display name is user's name, email is your verified sender
-      replyTo: validatedData.email, // User's actual email for easy reply
-      to: contactFormRecipientEmail, // Your email address to receive messages
+      from: `"${validatedData.name}" <${contactFormSenderEmail}>`,
+      replyTo: validatedData.email,
+      to: contactFormRecipientEmail, 
       subject: `New Contact Form Submission: ${validatedData.subject}`,
       text: `You have received a new message from your website contact form.\n\n` +
             `Name: ${validatedData.name}\n` +
@@ -66,14 +71,13 @@ export async function sendContactEmail(data: SendContactEmailInput): Promise<{ s
 
     return { success: true, message: 'Message sent successfully! We will get back to you shortly.' };
   } catch (error) {
-    console.error('Error sending contact email:', error); // Log the full error object
+    console.error('Error sending contact email:', error); 
     if (error instanceof z.ZodError) {
         return { success: false, message: 'Invalid form data. Please check your input.', errors: error.flatten().fieldErrors };
     }
     
-    // Provide a more generic message to the user but log specific details for debugging
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
-    console.error(`Nodemailer error details: ${errorMessage}`, error); // Log specific error message and the full error object
+    console.error(`Nodemailer error details: ${errorMessage}`, error); 
     
     return { success: false, message: 'Failed to send message. An unexpected error occurred. Please try again later or contact us directly if the issue persists.' };
   }
