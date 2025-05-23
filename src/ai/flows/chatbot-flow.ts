@@ -54,12 +54,9 @@ const prompt = ai.definePrompt({
   name: 'chatbotPrompt',
   input: {schema: ChatbotInputSchema},
   output: {schema: ChatbotOutputSchema},
-  // system: systemInstruction, // System instruction will be prepended to messages by the prompt function
+  system: systemInstruction, // Use the 'system' field for the system instruction
   prompt: (input: ChatbotInput): MessageData[] => {
     const messagesForModel: MessageData[] = [];
-
-    // Prepend system instruction as the first message
-    messagesForModel.push({ role: 'system', content: [{ text: systemInstruction }] });
 
     // Process history: User and model messages are structured as MessageData objects.
     if (input.history) {
@@ -74,7 +71,7 @@ const prompt = ai.definePrompt({
     }
     // Add current user input, also structured as MessageData
     messagesForModel.push({role: 'user', content: [{text: input.userInput}]});
-    return messagesForModel;
+    return messagesForModel; // This now only contains user/model messages for history and current input
   },
   config: {
     model: 'googleai/gemini-1.5-flash-latest',
@@ -92,8 +89,9 @@ const chatbotFlow = ai.defineFlow(
     // Ensure output is consistently accessed, prioritizing structured output then raw text.
     // Accessing llmResponse.text as a property (Genkit v1.x).
     const responseText = llmResponse.output?.botResponse ??
-                         llmResponse.text ?? // Use .text directly
+                         llmResponse.text ??
                          "I'm sorry, I couldn't generate a response at this moment.";
     return { botResponse: responseText };
   }
 );
+
