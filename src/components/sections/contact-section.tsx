@@ -1,0 +1,171 @@
+'use client';
+
+import { useState } from 'react';
+import { useForm, type SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Loader2, Send, Mail, Phone, MapPin } from 'lucide-react';
+import { useToast } from "@/hooks/use-toast";
+
+const contactSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  email: z.string().email({ message: "Please enter a valid email address." }),
+  subject: z.string().min(5, { message: "Subject must be at least 5 characters."}),
+  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
+});
+
+type ContactFormValues = z.infer<typeof contactSchema>;
+
+export default function ContactSection() {
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      subject: '',
+      message: '',
+    },
+  });
+
+  // Simulate form submission
+  const onSubmit: SubmitHandler<ContactFormValues> = async (data) => {
+    setIsLoading(true);
+    console.log("Contact form data:", data); 
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    setIsLoading(false);
+    toast({
+      title: "Message Sent!",
+      description: "Thank you for contacting us. We'll get back to you shortly.",
+    });
+    form.reset();
+  };
+
+  return (
+    <section id="contact" className="w-full py-16 md:py-24 bg-background">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Get in Touch
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Have a project in mind or want to learn more about our services? We'd love to hear from you.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-12 items-start">
+          <Card className="bg-card/50 shadow-xl">
+            <CardHeader>
+              <CardTitle>Send Us a Message</CardTitle>
+              <CardDescription>Fill out the form and our team will respond within 24 hours.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel htmlFor="name">Full Name</FormLabel>
+                        <FormControl>
+                          <Input id="name" placeholder="John Doe" {...field} disabled={isLoading} className="bg-background focus:ring-primary" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel htmlFor="email">Email Address</FormLabel>
+                        <FormControl>
+                          <Input id="email" type="email" placeholder="you@example.com" {...field} disabled={isLoading} className="bg-background focus:ring-primary" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="subject"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel htmlFor="subject">Subject</FormLabel>
+                        <FormControl>
+                          <Input id="subject" placeholder="Project Inquiry" {...field} disabled={isLoading} className="bg-background focus:ring-primary" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel htmlFor="message">Your Message</FormLabel>
+                        <FormControl>
+                          <Textarea id="message" placeholder="Tell us about your project or question..." rows={5} {...field} disabled={isLoading} className="bg-background focus:ring-primary" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" disabled={isLoading}>
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="mr-2 h-4 w-4" />
+                        Send Message
+                      </>
+                    )}
+                  </Button>
+                </form>
+              </Form>
+            </CardContent>
+          </Card>
+
+          <div className="space-y-8 pt-0 md:pt-10">
+            <h3 className="text-2xl font-semibold text-foreground">Contact Information</h3>
+            <div className="space-y-4 text-muted-foreground">
+              <div className="flex items-center space-x-3">
+                <MapPin className="h-6 w-6 text-primary" />
+                <span>123 Innovation Drive, Tech City, TX 75001</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Mail className="h-6 w-6 text-primary" />
+                <a href="mailto:info@saasnext.com" className="hover:text-primary">info@saasnext.com</a>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Phone className="h-6 w-6 text-primary" />
+                <a href="tel:+1234567890" className="hover:text-primary">+1 (234) 567-890</a>
+              </div>
+            </div>
+            <div>
+               <h4 className="text-lg font-medium text-foreground mb-2">Business Hours</h4>
+               <p className="text-muted-foreground">Monday - Friday: 9:00 AM - 6:00 PM (CST)</p>
+               <p className="text-muted-foreground">Saturday - Sunday: Closed</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
