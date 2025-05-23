@@ -54,9 +54,13 @@ const prompt = ai.definePrompt({
   name: 'chatbotPrompt',
   input: {schema: ChatbotInputSchema},
   output: {schema: ChatbotOutputSchema},
-  system: systemInstruction,
-  prompt: (input: ChatbotInput): MessageData[] => { // Return type changed to MessageData[]
+  // system: systemInstruction, // System instruction will be prepended to messages by the prompt function
+  prompt: (input: ChatbotInput): MessageData[] => {
     const messagesForModel: MessageData[] = [];
+
+    // Prepend system instruction as the first message
+    messagesForModel.push({ role: 'system', content: [{ text: systemInstruction }] });
+
     // Process history: User and model messages are structured as MessageData objects.
     if (input.history) {
       for (const item of input.history) {
@@ -86,10 +90,10 @@ const chatbotFlow = ai.defineFlow(
   async (input) => {
     const llmResponse = await prompt(input);
     // Ensure output is consistently accessed, prioritizing structured output then raw text.
-    const responseText = llmResponse.output?.botResponse ?? 
-                         (llmResponse.text ? llmResponse.text : null) ??
+    // Accessing llmResponse.text as a property (Genkit v1.x).
+    const responseText = llmResponse.output?.botResponse ??
+                         llmResponse.text ?? // Use .text directly
                          "I'm sorry, I couldn't generate a response at this moment.";
     return { botResponse: responseText };
   }
 );
-
