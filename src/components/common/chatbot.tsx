@@ -1,108 +1,78 @@
 
 'use client';
 
-import { useState, useRef, useEffect, type FormEvent } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter } from '@/components/ui/sheet';
-import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { MessageSquare, Send, Loader2, User, BotIcon as Bot } from 'lucide-react';
-import { askChatbot, type ChatbotInput } from '@/ai/flows/chatbot-flow';
-import { useToast } from "@/hooks/use-toast";
+import { MessageSquare, BotIcon as Bot, HelpCircle } from 'lucide-react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import Link from 'next/link';
 
-interface Message {
+interface QnaPair {
   id: string;
-  sender: 'user' | 'bot';
-  text: string;
-  timestamp: Date;
+  question: string;
+  answer: React.ReactNode; // Answer can be a string or JSX for links
 }
 
-const initialBotMessage: Message = {
-  id: 'initial-bot-message',
-  sender: 'bot',
-  text: "Hello! I'm the SaaSnext AI Assistant. How can I help you today? Feel free to ask about our services, company, or how we can help your business grow.",
-  timestamp: new Date(),
-};
+const qnaList: QnaPair[] = [
+  {
+    id: 'q1',
+    question: 'What services does SaaSnext offer?',
+    answer: 'SaaSnext specializes in Web Development (custom sites, e-commerce, CMS, PWAs), AI Automation (chatbots, machine learning, RPA, NLP, data analysis), Lead Generation (SEO, PPC, CRO, social media marketing), and Email Marketing (strategy, design, automation, analytics).',
+  },
+  {
+    id: 'q2',
+    question: "What is SaaSnext's mission?",
+    answer: 'Our mission is to ignite digital success for businesses by providing cutting-edge web development, intelligent AI automation, and effective lead generation strategies.',
+  },
+  {
+    id: 'q3',
+    question: 'How can I get a price quote for my project?',
+    answer: (
+      <>
+        Pricing is individualized for each project. Please visit our{' '}
+        <Link href="/contact" className="text-primary hover:underline">Contact page</Link>
+        {' '}to request a custom quote, and we&apos;ll be happy to discuss your specific needs.
+      </>
+    ),
+  },
+  {
+    id: 'q4',
+    question: 'Do you have a tool to help recommend services?',
+    answer: (
+      <>
+        Yes! You can try our AI Service Recommender on the{' '}
+        <Link href="/recommendation" className="text-primary hover:underline">AI Recommender page</Link>
+        . It helps suggest services based on your business needs.
+      </>
+    ),
+  },
+  {
+    id: 'q5',
+    question: 'What kind of web development solutions do you provide?',
+    answer: 'We offer a range of web development services, from CMS-based sites like WordPress for smaller budgets and simpler content management needs, to highly custom, scalable applications using modern frameworks like Next.js or Laravel for complex and performance-intensive projects.',
+  },
+  {
+    id: 'q6',
+    question: 'How does AI Automation help my business?',
+    answer: 'AI Automation can streamline repetitive tasks, provide data-driven insights, enhance customer service through chatbots, optimize processes for efficiency, and reduce operational costs, allowing your team to focus on more strategic activities.'
+  },
+  {
+    id: 'q7',
+    question: 'What lead generation strategies do you use?',
+    answer: 'Our lead generation strategies include Search Engine Optimization (SEO), Pay-Per-Click (PPC) advertising on platforms like Google Ads and Meta Ads, Conversion Rate Optimization (CRO), social media marketing, and content marketing designed to attract and convert your target audience.'
+  }
+];
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [inputValue, setInputValue] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (isOpen && messages.length === 0) {
-      setMessages([initialBotMessage]);
-    }
-  }, [isOpen, messages.length]); // Added messages.length to dependencies
-
-
-  useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTo({ top: scrollAreaRef.current.scrollHeight, behavior: 'smooth' });
-    }
-  }, [messages]);
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!inputValue.trim() || isLoading) return;
-
-    const userMessage: Message = {
-      id: crypto.randomUUID(),
-      sender: 'user',
-      text: inputValue,
-      timestamp: new Date(),
-    };
-
-    // `messages` state here is the conversation *before* adding the current `userMessage`.
-    // We slice(1) to remove the initialBotMessage from AI context,
-    // as system prompt handles the bot's persona.
-    const conversationHistory = messages
-      .slice(1) // Exclude initialBotMessage from history sent to AI
-      .map(msg => {
-        if (msg.sender === 'user') return { user: msg.text };
-        return { model: msg.text };
-      });
-
-    setMessages((prevMessages) => [...prevMessages, userMessage]);
-    setInputValue('');
-    setIsLoading(true);
-
-    try {
-      const chatbotInput: ChatbotInput = {
-        userInput: userMessage.text, // Current user input
-        history: conversationHistory.slice(-10) // Last 10 turns of actual conversation
-      };
-      const result = await askChatbot(chatbotInput);
-      const botMessage: Message = {
-        id: crypto.randomUUID(),
-        sender: 'bot',
-        text: result.botResponse,
-        timestamp: new Date(),
-      };
-      setMessages((prevMessages) => [...prevMessages, botMessage]);
-    } catch (error) {
-      console.error('Chatbot error:', error);
-      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred.';
-      toast({
-        variant: 'destructive',
-        title: 'Chatbot Error',
-        description: `Could not get a response: ${errorMessage}`,
-      });
-      const errorBotMessage: Message = {
-        id: crypto.randomUUID(),
-        sender: 'bot',
-        text: "I'm sorry, I encountered an error and can't respond right now. Please try again later.",
-        timestamp: new Date(),
-      };
-      setMessages((prevMessages) => [...prevMessages, errorBotMessage]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <>
@@ -110,9 +80,9 @@ export default function Chatbot() {
         className="fixed bottom-6 right-6 w-14 h-14 rounded-full shadow-xl z-50 bg-primary hover:bg-primary/90 text-primary-foreground"
         size="icon"
         onClick={() => setIsOpen(true)}
-        aria-label="Open chatbot"
+        aria-label="Open FAQ"
       >
-        <MessageSquare className="h-7 w-7" />
+        <HelpCircle className="h-7 w-7" />
       </Button>
 
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -120,80 +90,34 @@ export default function Chatbot() {
           <SheetHeader className="p-6 border-b border-border">
             <SheetTitle className="flex items-center">
               <Bot className="mr-2 h-6 w-6 text-primary" />
-              SaaSnext AI Assistant
+              Frequently Asked Questions
             </SheetTitle>
           </SheetHeader>
           <ScrollArea className="flex-grow p-6" ref={scrollAreaRef}>
-            <div className="space-y-4">
-              {messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex items-end space-x-2 ${
-                    message.sender === 'user' ? 'justify-end' : ''
-                  }`}
-                >
-                  {message.sender === 'bot' && (
-                    <Avatar className="h-8 w-8">
-                      <AvatarFallback className="bg-primary text-primary-foreground">
-                        <Bot className="h-5 w-5" />
-                      </AvatarFallback>
-                    </Avatar>
-                  )}
-                  <div
-                    className={`max-w-[75%] rounded-lg px-4 py-2 shadow ${
-                      message.sender === 'user'
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-muted text-muted-foreground'
-                    }`}
-                  >
-                    <p className="text-sm whitespace-pre-wrap">{message.text}</p>
-                     <p className={`text-xs mt-1 ${message.sender === 'user' ? 'text-primary-foreground/70 text-right' : 'text-muted-foreground/70 text-left'}`}>
-                        {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </p>
-                  </div>
-                  {message.sender === 'user' && (
-                    <Avatar className="h-8 w-8">
-                       <AvatarFallback className="bg-accent text-accent-foreground">
-                        <User className="h-5 w-5" />
-                      </AvatarFallback>
-                    </Avatar>
-                  )}
-                </div>
+            <Accordion type="single" collapsible className="w-full">
+              {qnaList.map((qna) => (
+                <AccordionItem value={qna.id} key={qna.id}>
+                  <AccordionTrigger className="text-left hover:no-underline text-base text-foreground">
+                    {qna.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground text-sm pt-1 pb-4">
+                    {qna.answer}
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-              {isLoading && (
-                <div className="flex items-center space-x-2">
-                  <Avatar className="h-8 w-8">
-                     <AvatarFallback className="bg-primary text-primary-foreground">
-                        <Bot className="h-5 w-5" />
-                      </AvatarFallback>
-                  </Avatar>
-                  <div className="bg-muted text-muted-foreground rounded-lg px-4 py-2 shadow">
-                    <Loader2 className="h-5 w-5 animate-spin text-primary" />
-                  </div>
-                </div>
-              )}
-            </div>
+            </Accordion>
           </ScrollArea>
-          <SheetFooter className="p-4 border-t border-border">
-            <form onSubmit={handleSubmit} className="flex w-full space-x-2">
-              <Input
-                type="text"
-                placeholder="Ask something..."
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                disabled={isLoading}
-                className="bg-background focus:ring-primary"
-                aria-label="Chat message input"
-              />
-              <Button type="submit" size="icon" disabled={isLoading} className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Send className="h-5 w-5" />}
-                <span className="sr-only">Send message</span>
-              </Button>
-            </form>
+          <SheetFooter className="p-4 border-t border-border text-center">
+            <p className="text-xs text-muted-foreground">
+              Can&apos;t find your answer?{' '}
+              <Link href="/contact" className="text-primary hover:underline" onClick={() => setIsOpen(false)}>
+                Contact us
+              </Link>
+              .
+            </p>
           </SheetFooter>
         </SheetContent>
       </Sheet>
     </>
   );
 }
-
