@@ -9,7 +9,7 @@ export default function Logo({ className, ...props }: LogoProps) {
   return (
     <div className={cn("relative", className)} {...props} style={{ width: 120, height: 30 }}>
       <Image
-        src="/logo.png" // Make sure you have logo.png in your /public folder
+        src="/saasnextnewlogo.jpg" // Make sure you have logo.png in your /public folder
         alt="SaaSnext Logo"
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Adjust sizes as needed for responsive optimization

@@ -84,7 +84,7 @@ export default function Footer() {
               Tech City, TX 75001
             </p>
             <p className="text-primary-foreground/80 text-sm mt-2">
-              <a href="mailto:info@saasnext.com" className="hover:text-primary-foreground">info@saasnext.com</a>
+              <a href="mailto:saasnextdb@gmail.com" className="hover:text-primary-foreground">saasnextdb@gmail.com</a>
             </p>
           </div>
         </div>
