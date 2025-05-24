@@ -18,10 +18,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'SaaSnext: Web Development, AI SaaS & Lead Generation in Junagadh',
+    default: 'SaaSnext: Website Development, AI SaaS & Lead Generation in Junagadh',
     template: '%s | SaaSnext Junagadh',
   },
-  description: 'SaaSnext Catalyst offers expert website development, AI SaaS solutions, and effective lead generation services in Junagadh. Igniting your digital success.',
+  description: 'SaaSnext is a leading website development, AI SaaS development, and lead generation company in Junagadh. Igniting your digital success with expert solutions.',
 };
 
 export default function RootLayout({

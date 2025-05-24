@@ -83,10 +83,10 @@ export default function ContactSection() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Get in Touch
+            Contact Your Junagadh Web & AI Experts
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have a project in mind or want to learn more about our services? We'd love to hear from you.
+            Have a project for website development, AI SaaS, or lead generation in Junagadh? We'd love to hear from you.
           </p>
         </div>
 
@@ -132,7 +132,7 @@ export default function ContactSection() {
                       <FormItem>
                         <FormLabel htmlFor="subject">Subject</FormLabel>
                         <FormControl>
-                          <Input id="subject" placeholder="Project Inquiry" {...field} disabled={isLoading} className="bg-background focus:ring-primary" />
+                          <Input id="subject" placeholder="Project Inquiry (e.g., Website Development in Junagadh)" {...field} disabled={isLoading} className="bg-background focus:ring-primary" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -172,7 +172,6 @@ export default function ContactSection() {
           <div className="space-y-8 pt-0 md:pt-10">
             <h3 className="text-2xl font-semibold text-foreground">Contact Information</h3>
             <div className="space-y-4 text-muted-foreground">
-              {/* Address removed */}
               <div className="flex items-center space-x-3">
                 <Mail className="h-6 w-6 text-primary" />
                 <a href="mailto:saasnextdb@gmail.com" className="hover:text-primary">saasnextdb@gmail.com</a>
@@ -184,7 +183,7 @@ export default function ContactSection() {
             </div>
             <div>
                <h4 className="text-lg font-medium text-foreground mb-2">Business Hours</h4>
-               <p className="text-muted-foreground">Monday - Friday: 9:00 AM - 6:00 PM (CST)</p>
+               <p className="text-muted-foreground">Monday - Friday: 9:00 AM - 6:00 PM (IST)</p> {/* Assuming IST for Junagadh */}
                <p className="text-muted-foreground">Saturday - Sunday: Closed</p>
             </div>
             <div>

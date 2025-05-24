@@ -4,21 +4,21 @@ import HeroSection from '@/components/sections/hero-section';
 import ServicesSection from '@/components/sections/services-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import { Settings, Zap, CheckCircle } from 'lucide-react';
-import saasnextWeb2Image from '@/public/saasnextweb2.png'; // Import image
-import saasnextAiImage from '@/public/saasnextai.png';   // Import image
+import saasnextWeb2Image from '@/public/saasnextweb2.png'; 
+import saasnextAiImage from '@/public/saasnextai.png';   
 
 export const metadata: Metadata = {
-  title: 'Services | Website Development, AI SaaS, Lead Generation in Junagadh',
-  description: 'Explore services by SaaSnext in Junagadh: expert website development, advanced AI SaaS development, strategic lead generation, and comprehensive email marketing for your Junagadh based business.',
+  title: 'Services | Website Development, AI SaaS, Lead Generation Company in Junagadh',
+  description: 'Explore services by SaaSnext: your expert website development company in Junagadh. We also offer advanced AI SaaS development, strategic lead generation, and email marketing for Junagadh businesses.',
 };
 
 export default function ServicesPage() {
   return (
     <>
       <HeroSection
-        pageTitle="Our Expert Services"
-        pageSubtitle="Tailored solutions to propel your business forward in the digital age. Explore how we can help you achieve your goals in Junagadh and beyond."
-        tagline="Digital Solutions"
+        pageTitle="Our Expert Services in Junagadh"
+        pageSubtitle="Tailored website development, AI SaaS solutions, and lead generation to propel your Junagadh business forward. Explore how we can help."
+        tagline="Digital Solutions for Junagadh"
         TaglineIcon={Settings}
         showCtaButtons={false}
         containerPadding="py-16 md:py-24"
@@ -26,14 +26,14 @@ export default function ServicesPage() {
       <ServicesSection />
       <ImageWithTextSection
         id="driving-transformation"
-        imageUrl={saasnextWeb2Image} // Use imported image
+        imageUrl={saasnextWeb2Image} 
         imageHint="digital transformation abstract"
-        altText="Abstract representation of digital transformation"
-        title="Driving Your Digital Transformation"
+        altText="Digital transformation with SaaSnext in Junagadh"
+        title="Driving Digital Transformation for Junagadh Businesses"
         titleIcon={Zap}
         paragraphs={[
-          "At SaaSnext, our comprehensive suite of services, from cutting-edge website development to intelligent AI automation and strategic lead generation, is designed to work in concert. We deliver holistic digital solutions that transform your business operations and market presence.",
-          "Partner with us to harness the power of technology. We focus on creating seamless user experiences, automating for efficiency, and connecting you with your target audience in Junagadh effectively."
+          "At SaaSnext, our comprehensive suite of services, from cutting-edge website development in Junagadh to intelligent AI SaaS development and strategic lead generation, is designed to work in concert. We deliver holistic digital solutions that transform your business operations and market presence.",
+          "Partner with us, a leading lead generation company in Junagadh, to harness the power of technology. We focus on creating seamless user experiences, automating for efficiency, and connecting you with your target audience effectively."
         ]}
         imagePosition="left"
         bgColor="bg-card/30"
@@ -42,9 +42,9 @@ export default function ServicesPage() {
       />
        <ImageWithTextSection
         id="tailored-for-junagadh"
-        imageUrl={saasnextAiImage} // Use imported image
+        imageUrl={saasnextAiImage} 
         imageHint="local business Junagadh"
-        altText="Illustrating services tailored for Junagadh businesses"
+        altText="AI SaaS development tailored for Junagadh"
         title="Solutions Tailored for Junagadh Businesses"
         titleIcon={CheckCircle}
         paragraphs={[

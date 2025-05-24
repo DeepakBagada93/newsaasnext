@@ -4,8 +4,8 @@ import { Globe, Cpu, Users, Search, ShoppingCart, Bot, LineChart, Palette, MailC
 const services = [
   {
     icon: Palette, // Changed from Globe
-    title: "Web Development",
-    description: "Crafting modern, responsive, and high-performance websites tailored to your unique business needs and brand identity, ensuring exceptional user experiences.",
+    title: "Website Development in Junagadh",
+    description: "Crafting modern, responsive, and high-performance websites tailored to your unique business needs and brand identity. As a leading website development company in Junagadh, we ensure exceptional user experiences.",
     details: [
       "Custom responsive website design & development",
       "Full-stack solutions (React, Next.js, Node.js)",
@@ -19,8 +19,8 @@ const services = [
   },
   {
     icon: Bot, // Changed from Cpu
-    title: "AI Automation",
-    description: "Leveraging artificial intelligence to automate complex business processes, unlock insights from data, and create intelligent applications that enhance efficiency.",
+    title: "AI SaaS Development in Junagadh",
+    description: "Leveraging artificial intelligence to automate complex business processes, unlock insights from data, and create intelligent applications. Our AI SaaS development in Junagadh enhances efficiency.",
     details: [
       "AI-powered chatbot development & integration",
       "Custom machine learning model development",
@@ -34,10 +34,10 @@ const services = [
   },
   {
     icon: LineChart, // Changed from Users
-    title: "Lead Generation",
-    description: "Identifying, attracting, and converting potential customers through targeted, data-driven marketing strategies and optimized sales funnels.",
+    title: "Lead Generation in Junagadh",
+    description: "Identifying, attracting, and converting potential customers through targeted, data-driven marketing strategies. Our lead generation company in Junagadh optimizes sales funnels.",
     details: [
-      "Comprehensive digital marketing strategy",
+      "Comprehensive digital marketing strategy for Junagadh",
       "Search Engine Optimization (SEO) & content strategy",
       "Pay-Per-Click (PPC) advertising (Google, Social Media)",
       "Conversion Rate Optimization (CRO)",
@@ -49,8 +49,8 @@ const services = [
   },
   {
     icon: MailCheck,
-    title: "Email Marketing",
-    description: "Engaging your audience, nurturing leads, and driving conversions through targeted and personalized email campaigns.",
+    title: "Email Marketing Solutions",
+    description: "Engaging your audience, nurturing leads, and driving conversions through targeted and personalized email campaigns, supporting your Junagadh business growth.",
     details: [
       "Email campaign strategy & planning",
       "Custom email template design & coding",
@@ -70,10 +70,10 @@ export default function ServicesSection() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Our Core Services
+            Our Core Services for Junagadh
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We provide a comprehensive suite of services designed to elevate your business in the digital landscape and drive sustainable growth.
+            We provide a comprehensive suite of services including website development, AI SaaS solutions, and lead generation, designed to elevate your business in Junagadh and drive sustainable growth.
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
