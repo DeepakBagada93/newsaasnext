@@ -19,7 +19,7 @@ export default function PortfolioCard({ imageUrl, imageHint, title, description,
       <CardHeader className="p-0">
         <div className="aspect-[4/3] relative w-full">
           <Image
-            src={imageUrl}
+            src={imageUrl} /* Expects paths like "/image.png" which maps to "public/image.png" */
             alt={title}
             layout="fill"
             objectFit="cover"
