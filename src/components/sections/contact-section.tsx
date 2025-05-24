@@ -10,9 +10,10 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Loader2, Send, Mail, Phone, MapPin } from 'lucide-react';
+import { Loader2, Send, Mail, Phone, Facebook, Instagram, Twitter, Linkedin } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { sendContactEmail, type SendContactEmailInput } from '@/actions/send-contact-email';
+import Link from 'next/link';
 
 const contactSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -171,10 +172,7 @@ export default function ContactSection() {
           <div className="space-y-8 pt-0 md:pt-10">
             <h3 className="text-2xl font-semibold text-foreground">Contact Information</h3>
             <div className="space-y-4 text-muted-foreground">
-              <div className="flex items-center space-x-3">
-                <MapPin className="h-6 w-6 text-primary" />
-                <span>123 Innovation Drive, Tech City, TX 75001</span>
-              </div>
+              {/* Address removed */}
               <div className="flex items-center space-x-3">
                 <Mail className="h-6 w-6 text-primary" />
                 <a href="mailto:info@saasnext.com" className="hover:text-primary">info@saasnext.com</a>
@@ -188,6 +186,23 @@ export default function ContactSection() {
                <h4 className="text-lg font-medium text-foreground mb-2">Business Hours</h4>
                <p className="text-muted-foreground">Monday - Friday: 9:00 AM - 6:00 PM (CST)</p>
                <p className="text-muted-foreground">Saturday - Sunday: Closed</p>
+            </div>
+            <div>
+              <h4 className="text-lg font-medium text-foreground mb-3">Follow Us</h4>
+              <div className="flex space-x-4">
+                <Link href="#" className="text-muted-foreground hover:text-primary" aria-label="SaaSnext on Facebook">
+                  <Facebook size={24} />
+                </Link>
+                <Link href="#" className="text-muted-foreground hover:text-primary" aria-label="SaaSnext on Instagram">
+                  <Instagram size={24} />
+                </Link>
+                <Link href="#" className="text-muted-foreground hover:text-primary" aria-label="SaaSnext on X (formerly Twitter)">
+                  <Twitter size={24} />
+                </Link>
+                <Link href="#" className="text-muted-foreground hover:text-primary" aria-label="SaaSnext on LinkedIn">
+                  <Linkedin size={24} />
+                </Link>
+              </div>
             </div>
           </div>
         </div>

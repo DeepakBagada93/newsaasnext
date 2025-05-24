@@ -47,7 +47,7 @@ export default function AboutSection() {
           <div className="grid md:grid-cols-2 gap-8 items-center container mx-auto px-4 md:px-6">
             <div className="relative aspect-video">
               <Image
-                src="https://placehold.co/600x400.png"
+                src="/saasnextweb2.png"
                 alt="SaaSnext collaborative team working on a project"
                 data-ai-hint="teamwork office"
                 fill
