@@ -1,31 +1,26 @@
+
 import Image from "next/image";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Tag } from "lucide-react";
 import Link from "next/link";
+import type { ReactElement } from 'react';
 
 interface PortfolioCardProps {
-  imageUrl: string;
-  imageHint?: string; // For AI image search
+  imageElement: ReactElement; // Changed from imageUrl and imageHint
   title: string;
   description: string;
   tags: string[];
   projectUrl?: string;
 }
 
-export default function PortfolioCard({ imageUrl, imageHint, title, description, tags, projectUrl }: PortfolioCardProps) {
+export default function PortfolioCard({ imageElement, title, description, tags, projectUrl }: PortfolioCardProps) {
   return (
     <Card className="overflow-hidden flex flex-col h-full bg-card/50 hover:shadow-primary/20 hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:-translate-y-1">
       <CardHeader className="p-0">
-        <div className="aspect-[4/3] relative w-full">
-          <Image
-            src={imageUrl} /* Expects paths like "/image.png" which maps to "public/image.png" */
-            alt={title}
-            layout="fill"
-            objectFit="cover"
-            className="transition-transform duration-500 group-hover:scale-105"
-            data-ai-hint={imageHint}
-          />
+        <div className="aspect-[4/3] relative w-full group">
+          {/* The Image component is now passed in as imageElement */}
+          {imageElement}
         </div>
       </CardHeader>
       <CardContent className="p-6 flex-grow">
