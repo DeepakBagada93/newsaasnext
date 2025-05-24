@@ -4,32 +4,32 @@ import { Briefcase } from "lucide-react";
 
 const portfolioItems = [
   {
-    imageUrl: "https://placehold.co/600x400.png",
-    imageHint: "modern office", // Updated hint
+    imageUrl: "/images/portfolio/enterprise-web-platform.png",
+    imageHint: "modern office",
     title: "Enterprise Web Platform",
     description: "A scalable web platform for a multinational corporation, enhancing their global online presence and operational efficiency.",
     tags: ["Web Development", "React", "Node.js", "Enterprise"],
     projectUrl: "#",
   },
   {
-    imageUrl: "https://placehold.co/600x400.png",
-    imageHint: "data analytics", // Updated hint
+    imageUrl: "/images/portfolio/ai-powered-analytics.png",
+    imageHint: "data analytics",
     title: "AI-Powered Analytics Dashboard",
     description: "Developed an intuitive dashboard that uses AI to provide actionable insights from complex datasets, driving data-informed decisions.",
     tags: ["AI Automation", "Python", "Data Visualization", "SaaS"],
     projectUrl: "#",
   },
   {
-    imageUrl: "https://placehold.co/600x400.png",
-    imageHint: "digital marketing", // Updated hint (was "marketing campaign")
+    imageUrl: "/images/portfolio/targeted-lead-generation.png",
+    imageHint: "digital marketing",
     title: "Targeted Lead Generation Campaign",
     description: "Executed a multi-channel lead generation campaign for a B2B client, resulting in a 150% increase in qualified leads.",
     tags: ["Lead Generation", "SEO", "PPC", "Content Marketing"],
     projectUrl: "#",
   },
    {
-    imageUrl: "https://placehold.co/600x400.png",
-    imageHint: "online shopping", // Updated hint
+    imageUrl: "/images/portfolio/ecommerce-store-overhaul.png",
+    imageHint: "online shopping",
     title: "E-commerce Store Overhaul",
     description: "Revamped an existing e-commerce platform, improving user experience, conversion rates, and integrating AI for personalized recommendations.",
     tags: ["Web Development", "E-commerce", "AI Automation", "UX/UI"],
