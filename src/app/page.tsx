@@ -6,8 +6,10 @@ import WhyChooseUsSection from '@/components/sections/why-choose-us-section';
 import WorkProcessSection from '@/components/sections/work-process-section';
 import ServicesOverviewSection from '@/components/sections/services-overview-section';
 import CallToActionSection from '@/components/sections/call-to-action-section';
-import ImageWithTextSection from '@/components/sections/image-with-text-section'; // Import the new section
-import { Zap, Lightbulb } from 'lucide-react'; // Added Lightbulb for the new section
+import ImageWithTextSection from '@/components/sections/image-with-text-section';
+import { Zap, Lightbulb } from 'lucide-react';
+import saasnextWeb2Image from '@/public/saasnextweb2.png'; // Import the image
+
 
 export const metadata: Metadata = {
   title: 'Premier Website & AI SaaS Development in Junagadh | SaaSnext',
@@ -33,9 +35,9 @@ export default function HomePage() {
       />
       <ImageWithTextSection
         id="catalyzing-vision"
-        imageUrl="https://placehold.co/600x400.png"
-        imageHint="innovation lightbulb"
-        altText="Abstract image representing innovation and vision"
+        imageUrl={saasnextWeb2Image} // Use the imported image
+        imageHint="innovation lightbulb" // This hint is for AI image generation, can be updated if the image changes significantly
+        altText="Abstract image representing innovation and vision for SaaSnext services"
         title="Catalyzing Your Vision into Digital Reality"
         titleIcon={Lightbulb}
         paragraphs={[
@@ -43,7 +45,7 @@ export default function HomePage() {
           "We leverage cutting-edge technology and strategic insights to build custom web platforms, implement intelligent AI automation, and drive effective lead generation, tailored for success in Junagadh and beyond."
         ]}
         imagePosition="left"
-        bgColor="bg-background" // Or bg-card/10 if preferred
+        bgColor="bg-background"
         ctaText="Discover Our Approach"
         ctaLink="/about"
       />

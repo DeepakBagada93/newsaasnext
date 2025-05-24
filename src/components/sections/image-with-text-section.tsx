@@ -1,5 +1,5 @@
 
-import Image from 'next/image';
+import Image, { type StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
@@ -7,7 +7,7 @@ import type { LucideIcon } from 'lucide-react';
 
 interface ImageWithTextSectionProps {
   id?: string;
-  imageUrl: string;
+  imageUrl: string | StaticImageData; // Updated to accept StaticImageData
   imageHint: string;
   altText: string;
   title: string;
@@ -15,7 +15,7 @@ interface ImageWithTextSectionProps {
   imagePosition?: 'left' | 'right';
   ctaText?: string;
   ctaLink?: string;
-  bgColor?: string; 
+  bgColor?: string;
   titleIcon?: LucideIcon;
 }
 
@@ -37,13 +37,14 @@ export default function ImageWithTextSection({
       <div className="container mx-auto px-4 md:px-6">
         <div className={`grid md:grid-cols-2 gap-8 md:gap-12 items-center`}>
           <div className={`relative aspect-[4/3] md:aspect-video rounded-lg overflow-hidden shadow-xl ${imagePosition === 'right' ? 'md:order-2' : ''}`}>
-            <Image 
-              src={imageUrl} 
-              alt={altText} 
-              data-ai-hint={imageHint} 
-              fill 
-              style={{objectFit: 'cover'}} 
+            <Image
+              src={imageUrl}
+              alt={altText}
+              data-ai-hint={imageHint}
+              fill
+              style={{objectFit: 'cover'}}
               className="transform transition-transform duration-500 hover:scale-105"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>
           <div className={`${imagePosition === 'right' ? 'md:order-1' : ''}`}>
