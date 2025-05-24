@@ -175,11 +175,11 @@ export default function ContactSection() {
               {/* Address removed */}
               <div className="flex items-center space-x-3">
                 <Mail className="h-6 w-6 text-primary" />
-                <a href="mailto:info@saasnext.com" className="hover:text-primary">info@saasnext.com</a>
+                <a href="mailto:saasnextdb@gmail.com" className="hover:text-primary">saasnextdb@gmail.com</a>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-6 w-6 text-primary" />
-                <a href="tel:+1234567890" className="hover:text-primary">+1 (234) 567-890</a>
+                <a href="tel:7016179234" className="hover:text-primary">7016179234</a>
               </div>
             </div>
             <div>
