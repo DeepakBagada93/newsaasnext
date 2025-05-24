@@ -4,7 +4,7 @@ import { Briefcase } from "lucide-react";
 
 const portfolioItems = [
   {
-    imageUrl: "/enterprise-web-platform.png", // Updated path
+    imageUrl: "/enterprise-web-platform.png", // Should match public/enterprise-web-platform.png
     imageHint: "modern office",
     title: "Enterprise Web Platform",
     description: "A scalable web platform for a multinational corporation, enhancing their global online presence and operational efficiency.",
@@ -12,7 +12,7 @@ const portfolioItems = [
     projectUrl: "#",
   },
   {
-    imageUrl: "/ai-powered-analytics.png", // Updated path
+    imageUrl: "/ai-powered-analytics.png", // Should match public/ai-powered-analytics.png
     imageHint: "data analytics",
     title: "AI-Powered Analytics Dashboard",
     description: "Developed an intuitive dashboard that uses AI to provide actionable insights from complex datasets, driving data-informed decisions.",
@@ -20,7 +20,7 @@ const portfolioItems = [
     projectUrl: "#",
   },
   {
-    imageUrl: "/targeted-lead-generation.png", // Updated path
+    imageUrl: "/targeted-lead-generation.png", // Should match public/targeted-lead-generation.png
     imageHint: "digital marketing",
     title: "Targeted Lead Generation Campaign",
     description: "Executed a multi-channel lead generation campaign for a B2B client, resulting in a 150% increase in qualified leads.",
@@ -28,7 +28,7 @@ const portfolioItems = [
     projectUrl: "#",
   },
    {
-    imageUrl: "/ecommerce-store-overhaul.png", // Updated path
+    imageUrl: "/ecommerce-store-overhaul.png", // Should match public/ecommerce-store-overhaul.png
     imageHint: "online shopping",
     title: "E-commerce Store Overhaul",
     description: "Revamped an existing e-commerce platform, improving user experience, conversion rates, and integrating AI for personalized recommendations.",
