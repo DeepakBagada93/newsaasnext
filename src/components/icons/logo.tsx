@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import type { HTMLAttributes } from 'react';
+import logoImageFile from '@/public/saasnextnewlogo.jpg'; // Import the image
 
 interface LogoProps extends HTMLAttributes<HTMLDivElement> {
   // You can add specific props here if needed in the future
@@ -9,7 +10,7 @@ export default function Logo({ className, ...props }: LogoProps) {
   return (
     <div className={cn("relative", className)} {...props} style={{ width: 120, height: 30 }}>
       <Image
-        src="/saasnextnewlogo.jpg" // Make sure you have logo.png in your /public folder
+        src={logoImageFile} // Use the imported image object
         alt="SaaSnext Logo"
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Adjust sizes as needed for responsive optimization
