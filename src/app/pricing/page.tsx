@@ -4,6 +4,8 @@ import HeroSection from '@/components/sections/hero-section';
 import PricingSection from '@/components/sections/pricing-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import { DollarSign, Handshake, TrendingUp } from 'lucide-react';
+import saasnextWeb2Image from '@/public/saasnextweb2.png'; // Import image
+import saasnextWebImage from '@/public/saasnextweb.png';   // Import image
 
 export const metadata: Metadata = {
   title: 'Pricing | Custom Quotes for Web & AI SaaS Development in Junagadh',
@@ -24,7 +26,7 @@ export default function PricingPage() {
       <PricingSection />
       <ImageWithTextSection
         id="value-partnership"
-        imageUrl="https://placehold.co/600x400.png"
+        imageUrl={saasnextWeb2Image} // Use imported image
         imageHint="business handshake deal"
         altText="Business partners shaking hands"
         title="Value Beyond Price, Partnerships That Last"
@@ -40,7 +42,7 @@ export default function PricingPage() {
       />
       <ImageWithTextSection
         id="roi-focus"
-        imageUrl="https://placehold.co/600x400.png"
+        imageUrl={saasnextWebImage} // Use imported image
         imageHint="financial growth chart"
         altText="Chart showing return on investment"
         title="Maximizing Your Return on Investment in Junagadh"
