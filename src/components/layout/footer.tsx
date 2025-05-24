@@ -1,7 +1,8 @@
+
 import React from 'react';
 import Logo from '@/components/icons/logo';
 import Link from 'next/link';
-import { Github, Twitter, Linkedin } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Linkedin, MessageCircle } from 'lucide-react'; // Added Facebook, Instagram, MessageCircle, removed Github
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -69,14 +70,20 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-primary-foreground tracking-wider uppercase mb-4">Connect With Us</h3>
             <div className="flex space-x-4">
-              <Link href="#" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on Twitter">
-                <Twitter size={20} />
+              <Link href="#" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on Facebook">
+                <Facebook size={20} />
               </Link>
-              <Link href="#" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on Github">
-                <Github size={20} />
+              <Link href="#" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on Instagram">
+                <Instagram size={20} />
+              </Link>
+              <Link href="#" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on X (formerly Twitter)">
+                <Twitter size={20} />
               </Link>
               <Link href="#" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on LinkedIn">
                 <Linkedin size={20} />
+              </Link>
+              <Link href="#" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on WhatsApp">
+                <MessageCircle size={20} />
               </Link>
             </div>
             <p className="text-primary-foreground/80 text-sm mt-4">
