@@ -76,13 +76,13 @@ export default function HeroSection({
           </div>
         )}
         {typeof pageTitle === 'string' ? (
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-8">
             {pageTitle}
           </h1>
         ) : (
           pageTitle
         )}
-        <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-10">
+        <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-12">
           {pageSubtitle}
         </p>
         {showCtaButtons && (
