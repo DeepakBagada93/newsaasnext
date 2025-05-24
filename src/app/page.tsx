@@ -2,7 +2,7 @@
 import HeroSection from '@/components/sections/hero-section';
 import PortfolioSection from '@/components/sections/portfolio-section';
 import WhyChooseUsSection from '@/components/sections/why-choose-us-section';
-import StrategicApproachSection from '@/components/sections/strategic-approach-section'; // Added import
+import WorkProcessSection from '@/components/sections/work-process-section'; // Updated import
 import ServicesOverviewSection from '@/components/sections/services-overview-section';
 import CallToActionSection from '@/components/sections/call-to-action-section';
 import { Zap } from 'lucide-react';
@@ -25,7 +25,7 @@ export default function HomePage() {
         containerPadding="py-20 md:py-32"
       />
       <WhyChooseUsSection />
-      <StrategicApproachSection /> {/* New section added here */}
+      <WorkProcessSection /> {/* Updated component usage */}
       <ServicesOverviewSection />
       <PortfolioSection />
       <CallToActionSection />
