@@ -23,6 +23,7 @@ export default function HomePage() {
         showCtaButtons={true}
         containerPadding="py-20 md:py-32"
       />
+      {/* Four Relevant Sections */}
       <WhyChooseUsSection />
       <ServicesOverviewSection />
       <PortfolioSection />
