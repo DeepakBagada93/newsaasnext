@@ -1,10 +1,11 @@
+
 import PortfolioCard from "@/components/common/portfolio-card";
 import { Briefcase } from "lucide-react";
 
 const portfolioItems = [
   {
     imageUrl: "https://placehold.co/600x400.png",
-    imageHint: "corporate website",
+    imageHint: "modern office", // Updated hint
     title: "Enterprise Web Platform",
     description: "A scalable web platform for a multinational corporation, enhancing their global online presence and operational efficiency.",
     tags: ["Web Development", "React", "Node.js", "Enterprise"],
@@ -12,7 +13,7 @@ const portfolioItems = [
   },
   {
     imageUrl: "https://placehold.co/600x400.png",
-    imageHint: "AI dashboard",
+    imageHint: "data analytics", // Updated hint
     title: "AI-Powered Analytics Dashboard",
     description: "Developed an intuitive dashboard that uses AI to provide actionable insights from complex datasets, driving data-informed decisions.",
     tags: ["AI Automation", "Python", "Data Visualization", "SaaS"],
@@ -20,7 +21,7 @@ const portfolioItems = [
   },
   {
     imageUrl: "https://placehold.co/600x400.png",
-    imageHint: "marketing campaign",
+    imageHint: "digital marketing", // Updated hint (was "marketing campaign")
     title: "Targeted Lead Generation Campaign",
     description: "Executed a multi-channel lead generation campaign for a B2B client, resulting in a 150% increase in qualified leads.",
     tags: ["Lead Generation", "SEO", "PPC", "Content Marketing"],
@@ -28,7 +29,7 @@ const portfolioItems = [
   },
    {
     imageUrl: "https://placehold.co/600x400.png",
-    imageHint: "ecommerce solution",
+    imageHint: "online shopping", // Updated hint
     title: "E-commerce Store Overhaul",
     description: "Revamped an existing e-commerce platform, improving user experience, conversion rates, and integrating AI for personalized recommendations.",
     tags: ["Web Development", "E-commerce", "AI Automation", "UX/UI"],
