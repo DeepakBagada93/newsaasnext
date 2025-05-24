@@ -1,7 +1,12 @@
-
+import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/hero-section';
 import PricingSection from '@/components/sections/pricing-section';
 import { DollarSign } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Pricing | Custom Quotes for Web & AI SaaS Development in Junagadh',
+  description: 'Get transparent pricing for website development, AI SaaS projects, and lead generation services in Junagadh from SaaSnext Catalyst. Request your custom quote.',
+};
 
 export default function PricingPage() {
   return (

@@ -1,11 +1,16 @@
-
+import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/hero-section';
 import PortfolioSection from '@/components/sections/portfolio-section';
 import WhyChooseUsSection from '@/components/sections/why-choose-us-section';
-import WorkProcessSection from '@/components/sections/work-process-section'; // Updated import
+import WorkProcessSection from '@/components/sections/work-process-section';
 import ServicesOverviewSection from '@/components/sections/services-overview-section';
 import CallToActionSection from '@/components/sections/call-to-action-section';
 import { Zap } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Premier Website & AI SaaS Development in Junagadh | SaaSnext',
+  description: 'Choose SaaSnext for leading website development, innovative AI SaaS solutions, and strategic lead generation in Junagadh. Let\'s build your success.',
+};
 
 export default function HomePage() {
   const homePageTitle = (
@@ -25,7 +30,7 @@ export default function HomePage() {
         containerPadding="py-20 md:py-32"
       />
       <WhyChooseUsSection />
-      <WorkProcessSection /> {/* Updated component usage */}
+      <WorkProcessSection />
       <ServicesOverviewSection />
       <PortfolioSection />
       <CallToActionSection />
