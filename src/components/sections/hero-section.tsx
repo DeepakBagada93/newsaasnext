@@ -1,10 +1,37 @@
+
+import type { LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight, Zap } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react"; // Default icon
+import { cn } from "@/lib/utils";
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  pageTitle: React.ReactNode;
+  pageSubtitle: string;
+  tagline?: string;
+  TaglineIcon?: LucideIcon;
+  showCtaButtons?: boolean;
+  ctaButton1Text?: string;
+  ctaButton1Link?: string;
+  ctaButton2Text?: string;
+  ctaButton2Link?: string;
+  containerPadding?: string;
+}
+
+export default function HeroSection({
+  pageTitle,
+  pageSubtitle,
+  tagline,
+  TaglineIcon = Zap, // Default icon
+  showCtaButtons = true,
+  ctaButton1Text = "Get Started",
+  ctaButton1Link = "/contact",
+  ctaButton2Text = "Explore Services",
+  ctaButton2Link = "/services",
+  containerPadding = "py-20 md:py-32",
+}: HeroSectionProps) {
   return (
-    <section id="home" className="relative w-full py-20 md:py-32 bg-gradient-to-br from-background to-card overflow-hidden">
+    <section id="home-hero" className={cn("relative w-full bg-gradient-to-br from-background to-card overflow-hidden", containerPadding)}>
       {/* Animated Neural Network Background */}
       <div className="absolute inset-0 z-0 opacity-30">
         <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
@@ -38,33 +65,40 @@ export default function HeroSection() {
           <line x1="5%" y1="50%" x2="35%" y2="50%" stroke="hsl(var(--accent) / 0.15)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '0.8s' }} />
           <line x1="95%" y1="40%" x2="65%" y2="60%" stroke="hsl(var(--primary) / 0.15)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '1.2s' }} />
           <line x1="80%" y1="15%" x2="35%" y2="50%" stroke="hsl(var(--accent) / 0.15)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '0.3s' }} />
-
         </svg>
       </div>
 
       <div className="container relative z-10 mx-auto px-4 md:px-6 text-center">
-        <div className="inline-flex items-center rounded-lg bg-muted/80 backdrop-blur-sm px-3 py-1 text-sm font-medium text-primary mb-6 shadow-md border border-border/30">
-          <Zap className="h-4 w-4 mr-2" />
-          SaaSnext Catalyst
-        </div>
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary mb-6">
-          Igniting Your Digital Success
-        </h1>
+        {tagline && TaglineIcon && (
+          <div className="inline-flex items-center rounded-lg bg-muted/80 backdrop-blur-sm px-3 py-1 text-sm font-medium text-primary mb-6 shadow-md border border-border/30">
+            <TaglineIcon className="h-4 w-4 mr-2" />
+            {tagline}
+          </div>
+        )}
+        {typeof pageTitle === 'string' ? (
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6">
+            {pageTitle}
+          </h1>
+        ) : (
+          pageTitle
+        )}
         <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-10">
-          We empower businesses with cutting-edge Web Development, AI-driven Automation, and strategic Lead Generation. Let's build your future, together.
+          {pageSubtitle}
         </p>
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-          <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg transition-transform duration-300 hover:scale-105">
-            <Link href="/contact">
-              Get Started <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-          <Button asChild variant="outline" size="lg" className="text-foreground border-primary hover:bg-primary/10 hover:text-primary shadow-lg transition-transform duration-300 hover:scale-105 bg-background/50 backdrop-blur-sm">
-            <Link href="/services">
-              Explore Services
-            </Link>
-          </Button>
-        </div>
+        {showCtaButtons && (
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg transition-transform duration-300 hover:scale-105">
+              <Link href={ctaButton1Link}>
+                {ctaButton1Text} <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="text-foreground border-primary hover:bg-primary/10 hover:text-primary shadow-lg transition-transform duration-300 hover:scale-105 bg-background/50 backdrop-blur-sm">
+              <Link href={ctaButton2Link}>
+                {ctaButton2Text}
+              </Link>
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
