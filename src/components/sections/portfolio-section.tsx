@@ -16,7 +16,7 @@ const portfolioItems = [
         src={webfile} 
         alt="Enterprise Web Platform"
         fill
-        sizes="(min-width: 640px) 50vw, 100vw"
+        sizes="(max-width: 639px) 100vw, 50vw"
         className="object-cover transition-transform duration-500 group-hover:scale-105"
         data-ai-hint="modern office"
       />
@@ -32,7 +32,7 @@ const portfolioItems = [
         src={webfile2} 
         alt="AI-Powered Analytics Dashboard"
         fill
-        sizes="(min-width: 640px) 50vw, 100vw"
+        sizes="(max-width: 639px) 100vw, 50vw"
         className="object-cover transition-transform duration-500 group-hover:scale-105"
         data-ai-hint="data analytics"
       />
@@ -48,7 +48,7 @@ const portfolioItems = [
         src={webfile} 
         alt="Targeted Lead Generation Campaign"
         fill
-        sizes="(min-width: 640px) 50vw, 100vw"
+        sizes="(max-width: 639px) 100vw, 50vw"
         className="object-cover transition-transform duration-500 group-hover:scale-105"
         data-ai-hint="digital marketing"
       />
@@ -64,7 +64,7 @@ const portfolioItems = [
         src={webfile2} 
         alt="E-commerce Store Overhaul"
         fill
-        sizes="(min-width: 640px) 50vw, 100vw"
+        sizes="(max-width: 639px) 100vw, 50vw"
         className="object-cover transition-transform duration-500 group-hover:scale-105"
         data-ai-hint="online shopping"
       />
@@ -85,7 +85,7 @@ export default function PortfolioSection() {
             Discover how we've helped businesses like yours achieve their goals through innovative solutions.
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8"> {/* Simplified grid classes */}
           {portfolioItems.map((item) => (
             <PortfolioCard
               key={item.title}
