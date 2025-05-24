@@ -4,6 +4,8 @@ import HeroSection from '@/components/sections/hero-section';
 import ServicesSection from '@/components/sections/services-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import { Settings, Zap, CheckCircle } from 'lucide-react';
+import saasnextWeb2Image from '@/public/saasnextweb2.png'; // Import image
+import saasnextAiImage from '@/public/saasnextai.png';   // Import image
 
 export const metadata: Metadata = {
   title: 'Services | Website Development, AI SaaS, Lead Generation in Junagadh',
@@ -24,7 +26,7 @@ export default function ServicesPage() {
       <ServicesSection />
       <ImageWithTextSection
         id="driving-transformation"
-        imageUrl="https://placehold.co/600x400.png"
+        imageUrl={saasnextWeb2Image} // Use imported image
         imageHint="digital transformation abstract"
         altText="Abstract representation of digital transformation"
         title="Driving Your Digital Transformation"
@@ -40,7 +42,7 @@ export default function ServicesPage() {
       />
        <ImageWithTextSection
         id="tailored-for-junagadh"
-        imageUrl="https://placehold.co/600x400.png"
+        imageUrl={saasnextAiImage} // Use imported image
         imageHint="local business Junagadh"
         altText="Illustrating services tailored for Junagadh businesses"
         title="Solutions Tailored for Junagadh Businesses"

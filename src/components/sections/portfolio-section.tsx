@@ -45,7 +45,7 @@ const portfolioItems = [
     projectUrl: "#",
     imageElement: (
       <Image
-        src={webfile} // Using saasnextweb.png here as well based on previous context
+        src={webfile} 
         alt="Targeted Lead Generation Campaign"
         fill
         sizes="(min-width: 640px) 50vw, 100vw"
@@ -61,7 +61,7 @@ const portfolioItems = [
     projectUrl: "#",
     imageElement: (
       <Image
-        src={webfile2} // Using saasnextai.png here
+        src={webfile2} 
         alt="E-commerce Store Overhaul"
         fill
         sizes="(min-width: 640px) 50vw, 100vw"
