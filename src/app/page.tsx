@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/hero-section';
 import PortfolioSection from '@/components/sections/portfolio-section';
@@ -5,7 +6,8 @@ import WhyChooseUsSection from '@/components/sections/why-choose-us-section';
 import WorkProcessSection from '@/components/sections/work-process-section';
 import ServicesOverviewSection from '@/components/sections/services-overview-section';
 import CallToActionSection from '@/components/sections/call-to-action-section';
-import { Zap } from 'lucide-react';
+import ImageWithTextSection from '@/components/sections/image-with-text-section'; // Import the new section
+import { Zap, Lightbulb } from 'lucide-react'; // Added Lightbulb for the new section
 
 export const metadata: Metadata = {
   title: 'Premier Website & AI SaaS Development in Junagadh | SaaSnext',
@@ -28,6 +30,22 @@ export default function HomePage() {
         TaglineIcon={Zap}
         showCtaButtons={true}
         containerPadding="py-20 md:py-32"
+      />
+      <ImageWithTextSection
+        id="catalyzing-vision"
+        imageUrl="https://placehold.co/600x400.png"
+        imageHint="innovation lightbulb"
+        altText="Abstract image representing innovation and vision"
+        title="Catalyzing Your Vision into Digital Reality"
+        titleIcon={Lightbulb}
+        paragraphs={[
+          "At SaaSnext Catalyst, we understand that every great business starts with a vision. Our mission is to be the spark that transforms your innovative ideas into tangible, impactful digital solutions.",
+          "We leverage cutting-edge technology and strategic insights to build custom web platforms, implement intelligent AI automation, and drive effective lead generation, tailored for success in Junagadh and beyond."
+        ]}
+        imagePosition="left"
+        bgColor="bg-background" // Or bg-card/10 if preferred
+        ctaText="Discover Our Approach"
+        ctaLink="/about"
       />
       <WhyChooseUsSection />
       <WorkProcessSection />
