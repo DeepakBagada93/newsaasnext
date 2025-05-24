@@ -4,6 +4,7 @@ import HeroSection from '@/components/sections/hero-section';
 import AboutSection from '@/components/sections/about-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import { Building, Users, Briefcase } from 'lucide-react';
+import saasnextWebImage from '@/public/saasnextweb.png'; // Import the image
 
 export const metadata: Metadata = {
   title: 'About SaaSnext | Junagadh Website Development & AI Experts',
@@ -24,7 +25,7 @@ export default function AboutPage() {
       <AboutSection />
       <ImageWithTextSection
         id="our-team-culture"
-        imageUrl="https://placehold.co/600x400.png"
+        imageUrl={saasnextWebImage} // Use imported image
         imageHint="diverse team collaborating"
         altText="SaaSnext team working together"
         title="Our Collaborative Culture"
@@ -40,7 +41,7 @@ export default function AboutPage() {
       />
       <ImageWithTextSection
         id="junagadh-focus"
-        imageUrl="https://placehold.co/600x400.png"
+        imageUrl={saasnextWebImage} // Use imported image
         imageHint="junagadh cityscape"
         altText="SaaSnext's commitment to Junagadh"
         title="Committed to Junagadh's Growth"

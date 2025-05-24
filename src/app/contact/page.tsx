@@ -4,6 +4,7 @@ import HeroSection from '@/components/sections/hero-section';
 import ContactSection from '@/components/sections/contact-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import { Mail, MessageCircle, Users } from 'lucide-react';
+import saasnextWebImage from '@/public/saasnextweb.png'; // Import the image
 
 export const metadata: Metadata = {
   title: 'Contact Us | SaaSnext - Junagadh Web & AI Development',
@@ -23,7 +24,7 @@ export default function ContactPage() {
       />
       <ImageWithTextSection
         id="ready-to-innovate"
-        imageUrl="https://placehold.co/600x400.png"
+        imageUrl={saasnextWebImage} // Use imported image
         imageHint="innovation lightbulb"
         altText="Lightbulb symbolizing innovation"
         title="Ready to Innovate Together?"
@@ -38,7 +39,7 @@ export default function ContactPage() {
       <ContactSection />
       <ImageWithTextSection
         id="junagadh-support"
-        imageUrl="https://placehold.co/600x400.png"
+        imageUrl={saasnextWebImage} // Use imported image
         imageHint="support team Junagadh"
         altText="SaaSnext support for Junagadh clients"
         title="Dedicated Support for Junagadh Clients"
