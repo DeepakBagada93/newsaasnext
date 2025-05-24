@@ -93,7 +93,15 @@ export default function Footer() {
         </div>
         <div className="mt-8 border-t border-primary-foreground/30 pt-8 text-center">
           <p className="text-sm text-primary-foreground/80">
-            &copy; {currentYear} SaaSnext Catalyst. All rights reserved.
+            &copy; {currentYear} SaaSnext. Made by{' '}
+            <a 
+              href="https://deepakbagada.in/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-primary-foreground underline"
+            >
+              Deepak Bagada
+            </a>.
           </p>
         </div>
       </div>
