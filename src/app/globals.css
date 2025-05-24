@@ -87,3 +87,32 @@
 html {
   scroll-behavior: smooth;
 }
+
+@layer utilities {
+  @keyframes pulseNode {
+    0% { opacity: 0.2; transform: scale(0.95); }
+    50% { opacity: 0.6; transform: scale(1.05); }
+    100% { opacity: 0.2; transform: scale(0.95); }
+  }
+
+  .neural-node {
+    animation: pulseNode 5s infinite ease-in-out;
+    /* SVG's 'r' attribute is not animatable with CSS transform, direct manipulation of 'r' is better if needed but complex in pure CSS for SVG children.
+       Pulse effect here is opacity and scale for the whole node container if it were a div. For SVG <circle>, 'r' animation needs to be via SMIL or JS, or we rely on opacity.
+       For simplicity, we're animating opacity and can use transform on the circle if desired for scale. Let's stick to opacity via keyframes and allow animationDelay.
+    */
+    transform-origin: center; /* Ensures scaling happens from the center of the circle */
+  }
+
+  @keyframes drawLine {
+    0% { stroke-dashoffset: 1000; opacity: 0; }
+    30% { stroke-dashoffset: 500; opacity: 0.4; } /* Line partially drawn and visible */
+    70% { stroke-dashoffset: 0; opacity: 0.4; }   /* Line fully drawn */
+    100% { stroke-dashoffset: -1000; opacity: 0; } /* Line "erases" itself by continuing to move the dash offset */
+  }
+
+  .neural-line {
+    stroke-dasharray: 1000;
+    animation: drawLine 8s infinite linear;
+  }
+}
