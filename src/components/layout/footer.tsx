@@ -80,10 +80,6 @@ export default function Footer() {
               </Link>
             </div>
             <p className="text-primary-foreground/80 text-sm mt-4">
-              123 Innovation Drive<br />
-              Tech City, TX 75001
-            </p>
-            <p className="text-primary-foreground/80 text-sm mt-2">
               <a href="mailto:saasnextdb@gmail.com" className="hover:text-primary-foreground">saasnextdb@gmail.com</a>
             </p>
           </div>
