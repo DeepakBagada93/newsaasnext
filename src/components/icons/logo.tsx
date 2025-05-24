@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import type { HTMLAttributes } from 'react';
-import logoImageFile from '@/public/saasnextnewlogo.jpg'; // Import the image
+import logoImageFile from '@/public/saasnextnewlogo.png'; // Import the image
 
 interface LogoProps extends HTMLAttributes<HTMLDivElement> {
   // You can add specific props here if needed in the future
