@@ -2,6 +2,8 @@
 import PortfolioCard from "@/components/common/portfolio-card";
 import { Briefcase } from "lucide-react";
 import Image from "next/image"; // Import next/image here
+import webfile from '@/public/saasnextweb.png'; 
+import webfile2 from '@/public/saasnextai.png';
 
 const portfolioItems = [
   {
@@ -13,7 +15,7 @@ const portfolioItems = [
     projectUrl: "#",
     imageElement: (
       <Image
-        src="/saasnextweb.png" // Path relative to the public folder
+        src={webfile} // Path relative to the public folder
         alt="Enterprise Web Platform"
         fill
         sizes="(min-width: 640px) 50vw, 100vw"
@@ -31,7 +33,7 @@ const portfolioItems = [
     projectUrl: "#",
     imageElement: (
       <Image
-        src="/ai-powered-analytics.png" // Path relative to the public folder
+        src={webfile2} // Path relative to the public folder
         alt="AI-Powered Analytics Dashboard"
         fill
         sizes="(min-width: 640px) 50vw, 100vw"
@@ -49,7 +51,7 @@ const portfolioItems = [
     projectUrl: "#",
     imageElement: (
       <Image
-        src="/targeted-lead-generation.png" // Path relative to the public folder
+        src={webfile} // Path relative to the public folder
         alt="Targeted Lead Generation Campaign"
         fill
         sizes="(min-width: 640px) 50vw, 100vw"
@@ -67,7 +69,7 @@ const portfolioItems = [
     projectUrl: "#",
     imageElement: (
       <Image
-        src="/ecommerce-store-overhaul.png" // Path relative to the public folder
+        src={webfile2} // Path relative to the public folder
         alt="E-commerce Store Overhaul"
         fill
         sizes="(min-width: 640px) 50vw, 100vw"
