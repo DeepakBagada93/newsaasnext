@@ -1,31 +1,27 @@
-import type { SVGProps } from 'react';
+import Image from 'next/image';
+import type { HTMLAttributes } from 'react';
 
-export default function Logo(props: SVGProps<SVGSVGElement>) {
+interface LogoProps extends HTMLAttributes<HTMLDivElement> {
+  // You can add specific props here if needed in the future
+}
+
+export default function Logo({ className, ...props }: LogoProps) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 200 50"
-      width="120"
-      height="30"
-      aria-label="SaaSnext Logo"
-      {...props}
-    >
-      <defs>
-        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 1 }} />
-          <stop offset="100%" style={{ stopColor: 'hsl(var(--accent))', stopOpacity: 1 }} />
-        </linearGradient>
-      </defs>
-      <text
-        x="10"
-        y="35"
-        fontFamily="var(--font-geist-sans), sans-serif"
-        fontSize="30"
-        fontWeight="bold"
-        fill="url(#logoGradient)"
-      >
-        SaaSnext
-      </text>
-    </svg>
+    <div className={cn("relative", className)} {...props} style={{ width: 120, height: 30 }}>
+      <Image
+        src="/logo.png" // Make sure you have logo.png in your /public folder
+        alt="SaaSnext Logo"
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Adjust sizes as needed for responsive optimization
+        style={{ objectFit: 'contain' }}
+        priority // Consider adding priority if the logo is LCP (Largest Contentful Paint)
+      />
+    </div>
   );
+}
+
+// Helper function, assuming you might want to use cn for consistency
+// If not using elsewhere, you can inline it or simplify.
+function cn(...inputs: (string | undefined | null | false)[]) {
+  return inputs.filter(Boolean).join(' ');
 }
