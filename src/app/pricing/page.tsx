@@ -4,8 +4,8 @@ import HeroSection from '@/components/sections/hero-section';
 import PricingSection from '@/components/sections/pricing-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import { DollarSign, Handshake, TrendingUp } from 'lucide-react';
-import saasnextWeb2Image from '@/src/public/saasnextweb2.png'; 
-import saasnextWebImage from '@/src/public/saasnextweb.png';   
+import saasnextWeb2Image from '@/public/saasnextweb2.png'; 
+import saasnextWebImage from '@/public/saasnextweb.png';   
 
 export const metadata: Metadata = {
   title: 'Pricing | Custom Quotes for Web & AI SaaS Development in Junagadh',

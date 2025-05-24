@@ -4,7 +4,7 @@ import HeroSection from '@/components/sections/hero-section';
 import ContactSection from '@/components/sections/contact-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import { Mail, MessageCircle, Users } from 'lucide-react';
-import saasnextWebImage from '@/src/public/saasnextweb.png'; 
+import saasnextWebImage from '@/public/saasnextweb.png'; 
 
 export const metadata: Metadata = {
   title: 'Contact Us | SaaSnext - Junagadh Website & AI Development Company',
