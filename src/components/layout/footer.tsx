@@ -70,19 +70,19 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-primary-foreground tracking-wider uppercase mb-4">Connect With Us</h3>
             <div className="flex space-x-4">
-              <Link href="#" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on Facebook">
+              <Link href="https://www.facebook.com/profile.php?id=100095196226560" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on Facebook">
                 <Facebook size={20} />
               </Link>
-              <Link href="#" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on Instagram">
+              <Link href="https://www.instagram.com/saasnext" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on Instagram">
                 <Instagram size={20} />
               </Link>
-              <Link href="#" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on X (formerly Twitter)">
+              <Link href="https://x.com/Saasnext_db?t=fVDtCuBlY0FtNBWUofEl6A&s=09" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on X (formerly Twitter)">
                 <Twitter size={20} />
               </Link>
-              <Link href="#" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on LinkedIn">
+              <Link href="https://www.linkedin.com/company/saasnext-deepak-bagada/" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on LinkedIn">
                 <Linkedin size={20} />
               </Link>
-              <Link href="#" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on WhatsApp">
+              <Link href="https://x.com/Saasnext_db" className="text-primary-foreground/80 hover:text-primary-foreground" aria-label="SaaSnext on WhatsApp">
                 <MessageCircle size={20} />
               </Link>
             </div>
