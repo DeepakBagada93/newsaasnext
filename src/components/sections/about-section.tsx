@@ -15,18 +15,7 @@ export default function AboutSection() {
   return (
     <section id="about" className="w-full py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center rounded-lg bg-muted px-3 py-1 text-sm font-medium text-primary mb-4 shadow-md">
-            <Building className="h-4 w-4 mr-2" />
-            Our Story
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary mb-6">
-            About SaaSnext Catalyst
-          </h1>
-          <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground">
-            We are a passionate team dedicated to empowering businesses through innovative digital solutions. Discover our journey, mission, and the core values that drive us forward.
-          </p>
-        </div>
+        {/* Removed introductory "Our Story" block */}
 
         <div className="grid md:grid-cols-2 gap-12 mb-16 items-stretch">
           <Card className="bg-card/50 shadow-xl flex flex-col">
