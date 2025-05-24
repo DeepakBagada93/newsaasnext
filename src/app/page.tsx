@@ -2,13 +2,14 @@
 import HeroSection from '@/components/sections/hero-section';
 import PortfolioSection from '@/components/sections/portfolio-section';
 import WhyChooseUsSection from '@/components/sections/why-choose-us-section';
+import StrategicApproachSection from '@/components/sections/strategic-approach-section'; // Added import
 import ServicesOverviewSection from '@/components/sections/services-overview-section';
 import CallToActionSection from '@/components/sections/call-to-action-section';
 import { Zap } from 'lucide-react';
 
 export default function HomePage() {
   const homePageTitle = (
-    <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary mb-6">
+    <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary mb-8">
       Igniting Your Digital Success
     </h1>
   );
@@ -23,8 +24,8 @@ export default function HomePage() {
         showCtaButtons={true}
         containerPadding="py-20 md:py-32"
       />
-      {/* Four Relevant Sections */}
       <WhyChooseUsSection />
+      <StrategicApproachSection /> {/* New section added here */}
       <ServicesOverviewSection />
       <PortfolioSection />
       <CallToActionSection />
