@@ -30,8 +30,8 @@ export default function ContactPage() {
         title="Ready for Innovative Website Development in Junagadh?"
         titleIcon={MessageCircle}
         paragraphs={[
-          "Your next big idea deserves a team that's as passionate about it as you are. Whether you're looking for a website development company in Junagadh, advanced AI SaaS solutions, or a powerful lead generation company in Junagadh, we're ready to listen.",
-          "Contact us to schedule a consultation. Let's discuss your vision and how SaaSnext can be the catalyst for your digital success in Junagadh."
+          "Your next big idea deserves a team as passionate as you are. As a leading website development company in Junagadh, complemented by our expertise in AI SaaS solutions and lead generation, SaaSnext is poised to turn your vision into reality.",
+          "Reach out to schedule a consultation. Let's explore how our tailored digital strategies can catalyze your success and elevate your business in Junagadh."
         ]}
         imagePosition="left"
         bgColor="bg-card/30"
@@ -45,8 +45,8 @@ export default function ContactPage() {
         title="Dedicated Support for Junagadh Clients"
         titleIcon={Users}
         paragraphs={[
-          "We are committed to providing exceptional service and support to our clients in Junagadh. When you partner with SaaSnext, you gain a dedicated team focused on your success.",
-          "From initial consultation for your website development or AI SaaS project to ongoing support for lead generation campaigns, our Junagadh-based company is here for you every step of the way."
+          "Our commitment to Junagadh extends beyond project delivery. We provide exceptional, ongoing service and support for all our clients. When you partner with SaaSnext, you gain a dedicated local team invested in your long-term success.",
+          "From initial consultations for website development and AI SaaS projects to continuous optimization of lead generation campaigns, our Junagadh company is your reliable partner every step of the way."
         ]}
         imagePosition="right"
         bgColor="bg-background"

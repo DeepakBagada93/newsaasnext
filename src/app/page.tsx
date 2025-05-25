@@ -37,12 +37,12 @@ export default function HomePage() {
         id="catalyzing-vision"
         imageUrl={saasnextWeb2Image} 
         imageHint="innovation lightbulb"
-        altText="SaaSnext: AI SaaS Development Company in Junagadh"
-        title="Catalyzing Your Vision into Digital Reality"
+        altText="SaaSnext: Catalyzing business vision in Junagadh with website development"
+        title="Catalyzing Your Junagadh Business Vision"
         titleIcon={Lightbulb}
         paragraphs={[
-          "At SaaSnext Catalyst, we understand that every great business starts with a vision. Our mission is to be the spark that transforms your innovative ideas into tangible, impactful digital solutions.",
-          "We leverage cutting-edge technology and strategic insights to build custom web platforms, implement intelligent AI automation via our AI SaaS development expertise, and drive effective lead generation for businesses in Junagadh and beyond."
+          "At SaaSnext, we understand that every great business in Junagadh starts with a vision. Our mission is to be the catalyst that transforms your innovative ideas into tangible, impactful digital solutions, specifically tailored for the local market.",
+          "We leverage cutting-edge technology and strategic insights to build custom web platforms, implement intelligent AI automation through our AI SaaS development expertise, and drive effective lead generation for businesses aiming to thrive in Junagadh and beyond."
         ]}
         imagePosition="left"
         bgColor="bg-background"

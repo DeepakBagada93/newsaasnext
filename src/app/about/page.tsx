@@ -31,8 +31,8 @@ export default function AboutPage() {
         title="Our Collaborative Culture for Junagadh Projects"
         titleIcon={Users}
         paragraphs={[
-          "At SaaSnext, we foster a culture of collaboration, innovation, and continuous learning. Our diverse team of experts in website development, AI SaaS solutions, and marketing works in synergy, bringing together unique perspectives to solve complex challenges for our Junagadh clients.",
-          "We believe that the best solutions emerge from open communication and a shared passion for excellence. This approach allows us to deliver cutting-edge solutions and build lasting partnerships, solidifying our role as a leading AI SaaS development company in Junagadh."
+          "At SaaSnext, our collaborative culture is the cornerstone of delivering exceptional website development, AI SaaS, and lead generation solutions for our Junagadh clients. Our diverse team of experts works in synergy, bringing unique perspectives to solve your specific challenges.",
+          "We believe that open communication and a shared passion for excellence lead to the best outcomes. This approach enables us to build cutting-edge digital products and foster lasting partnerships, solidifying our role as a leading AI SaaS development and website company in Junagadh."
         ]}
         imagePosition="right"
         bgColor="bg-card/30"
@@ -47,8 +47,8 @@ export default function AboutPage() {
         title="Committed to Junagadh's Growth"
         titleIcon={Briefcase}
         paragraphs={[
-          "SaaSnext is proud to be a part of Junagadh's burgeoning tech scene. We are dedicated to empowering local businesses with world-class website development, innovative AI SaaS solutions, and effective lead generation services.",
-          "Our goal is to contribute to the digital transformation of Junagadh, helping local enterprises thrive in the competitive online landscape and reach new heights of success with a trusted local partner."
+          "SaaSnext is deeply committed to Junagadh's dynamic tech scene. We empower local businesses with premier website development, innovative AI SaaS solutions, and strategic lead generation services, fueling their growth.",
+          "Our mission is to drive the digital transformation of Junagadh. By partnering with us, local enterprises gain a competitive edge, thrive in the online landscape, and achieve new levels of success with a trusted local technology expert."
         ]}
         imagePosition="left"
         bgColor="bg-background"

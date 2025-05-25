@@ -32,8 +32,8 @@ export default function PricingPage() {
         title="Value Beyond Price, Partnerships That Last"
         titleIcon={Handshake}
         paragraphs={[
-          "Our pricing philosophy centers on delivering exceptional value. We believe in transparent quotes tailored to your specific requirements for website development, AI SaaS solutions, or lead generation in Junagadh. There are no hidden fees, just clear, upfront investment details.",
-          "As a dedicated website development company in Junagadh, we aim to build long-term partnerships by ensuring our solutions provide a significant return on your investment, helping your business achieve sustainable growth and success."
+          "At SaaSnext, our pricing philosophy centers on delivering exceptional value for your investment in website development, AI SaaS solutions, or lead generation in Junagadh. We provide transparent, tailored quotes with no hidden fees—just clear, upfront details.",
+          "As a leading website development company in Junagadh, our goal is to build lasting partnerships. We ensure our solutions provide a significant return, empowering your business with sustainable growth and measurable success in the local market."
         ]}
         imagePosition="right"
         bgColor="bg-card/30"
@@ -48,8 +48,8 @@ export default function PricingPage() {
         title="Maximizing Your ROI with a Junagadh-Focused Company"
         titleIcon={TrendingUp}
         paragraphs={[
-          "Investing in digital services is an investment in your future. We meticulously plan every website development project, AI SaaS implementation, and lead generation campaign to maximize your ROI.",
-          "Our strategies are data-driven and results-oriented, ensuring that businesses in Junagadh see tangible benefits and measurable growth from their partnership with SaaSnext, your local AI SaaS development company."
+          "Investing in digital services with SaaSnext is an investment in your Junagadh business's future. We meticulously plan every website development project, AI SaaS implementation, and lead generation campaign to maximize your return.",
+          "Our strategies are data-driven and results-oriented. As your local AI SaaS development and lead generation company in Junagadh, we ensure you see tangible benefits and measurable growth through our partnership."
         ]}
         imagePosition="left"
         bgColor="bg-background"

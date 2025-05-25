@@ -46,14 +46,7 @@ export default function AboutSection() {
           <h2 className="text-3xl font-bold text-foreground mb-10 text-center">Our Journey So Far</h2>
           <div className="grid md:grid-cols-2 gap-8 items-center container mx-auto px-4 md:px-6">
             <div className="relative aspect-video">
-              <Image
-                src="/saasnextweb2.png"
-                alt="SaaSnext collaborative team working on a project"
-                data-ai-hint="teamwork office"
-                fill
-                style={{objectFit: "cover"}}
-                className="rounded-lg shadow-xl"
-              />
+            
             </div>
             <div className="text-muted-foreground space-y-4">
               <h3 className="text-xl font-semibold text-foreground">From Vision to Catalyst</h3>
