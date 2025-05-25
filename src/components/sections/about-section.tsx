@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -45,8 +46,16 @@ export default function AboutSection() {
         <div className="mb-16 py-12 bg-card/30 rounded-lg shadow-lg">
           <h2 className="text-3xl font-bold text-foreground mb-10 text-center">Our Journey So Far</h2>
           <div className="grid md:grid-cols-2 gap-8 items-center container mx-auto px-4 md:px-6">
-            <div className="relative aspect-video">
-            
+            <div className="relative aspect-video rounded-lg overflow-hidden shadow-md">
+              <Image
+                src="https://placehold.co/600x400.png"
+                alt="SaaSnext Journey - Growth and Development"
+                data-ai-hint="company timeline"
+                fill
+                style={{objectFit: 'cover'}}
+                className="transform transition-transform duration-500 hover:scale-105"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
             </div>
             <div className="text-muted-foreground space-y-4">
               <h3 className="text-xl font-semibold text-foreground">From Vision to Catalyst</h3>
