@@ -16,7 +16,7 @@ export default function AboutSection() {
   return (
     <section id="about" className="w-full py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4 md:px-6">
-        {/* Removed introductory "Our Story" block */}
+        {/* "Our Journey So Far" section removed */}
 
         <div className="grid md:grid-cols-2 gap-12 mb-16 items-stretch">
           <Card className="bg-card/50 shadow-xl flex flex-col">
@@ -41,32 +41,6 @@ export default function AboutSection() {
               </p>
             </CardContent>
           </Card>
-        </div>
-
-        <div className="mb-16 py-12 bg-card/30 rounded-lg shadow-lg">
-          <h2 className="text-3xl font-bold text-foreground mb-10 text-center">Our Journey So Far</h2>
-          <div className="grid md:grid-cols-2 gap-8 items-center container mx-auto px-4 md:px-6">
-            <div className="relative aspect-video rounded-lg overflow-hidden shadow-md">
-              <Image
-                src="https://placehold.co/600x400.png"
-                alt="SaaSnext Journey - Growth and Development"
-                data-ai-hint="company timeline"
-                fill
-                style={{objectFit: 'cover'}}
-                className="transform transition-transform duration-500 hover:scale-105"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
-            </div>
-            <div className="text-muted-foreground space-y-4">
-              <h3 className="text-xl font-semibold text-foreground">From Vision to Catalyst</h3>
-              <p>
-                Founded with a bold vision to bridge the gap between emerging technology and tangible business growth, SaaSnext Catalyst began as a small, dedicated team of digital enthusiasts. We recognized the immense potential of expertly crafted websites, the transformative power of AI, and the critical need for strategic lead generation in a competitive market.
-              </p>
-              <p>
-                Over the years, we've evolved into a dynamic and agile company, empowering a diverse range of clients to achieve their digital ambitions. Our journey is one of continuous learning, strategic adaptation, and an unwavering commitment to excellence. We believe in forging long-term partnerships built on trust, transparency, and mutual success.
-              </p>
-            </div>
-          </div>
         </div>
 
         <div className="mb-16">
