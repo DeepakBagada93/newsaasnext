@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Logo from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
+import { Menu, Sparkles } from 'lucide-react'; // Added Sparkles
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -14,7 +14,7 @@ const navItems = [
   { label: 'Home', href: '/' },
   { label: 'Services', href: '/services' },
   { label: 'Pricing', href: '/pricing' },
-  { label: 'AI Recommender', href: '/recommendation' },
+  { label: 'AI Recommender', href: '/recommendation', icon: Sparkles }, // Added icon prop
   { label: 'About Us', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ];
@@ -33,17 +33,23 @@ export default function Header() {
         <nav className="hidden md:flex items-center gap-1 text-base font-medium bg-card/50 backdrop-blur-sm p-1 rounded-full border border-border/30 shadow-sm">
           {navItems.map((item) => {
             const isActive = (item.href === '/' && currentPathname === '/') || (item.href !== '/' && currentPathname.startsWith(item.href));
+            const isAiRecommender = item.label === 'AI Recommender';
+            const Icon = item.icon;
+
             return (
               <Link
                 key={item.label}
                 href={item.href}
                 className={cn(
-                  "px-5 py-3 rounded-full transition-colors duration-200 ease-in-out", 
+                  "px-5 py-3 rounded-full transition-colors duration-200 ease-in-out flex items-center gap-2", 
                   isActive
                     ? "bg-primary text-primary-foreground font-medium shadow-sm"
+                    : isAiRecommender
+                    ? "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                     : "text-foreground/70 hover:text-primary hover:bg-primary/10"
                 )}
               >
+                {Icon && <Icon className="h-4 w-4" />}
                 {item.label}
               </Link>
             );
@@ -65,16 +71,23 @@ export default function Header() {
                 <nav className="flex flex-col space-y-4">
                   {navItems.map((item) => {
                     const isActive = (item.href === '/' && currentPathname === '/') || (item.href !== '/' && currentPathname.startsWith(item.href));
+                    const isAiRecommender = item.label === 'AI Recommender';
+                    const Icon = item.icon;
                     return (
                       <Link
                         key={item.label}
                         href={item.href}
                         className={cn(
-                          "text-xl transition-colors hover:text-primary", 
-                          isActive ? "text-primary font-semibold" : "text-foreground/80"
+                          "text-xl transition-colors flex items-center gap-2", 
+                          isActive 
+                            ? "text-primary font-semibold" 
+                            : isAiRecommender 
+                            ? "text-secondary font-semibold hover:text-secondary/90"
+                            : "text-foreground/80 hover:text-primary"
                         )}
                         onClick={() => setMobileMenuOpen(false)}
                       >
+                        {Icon && <Icon className="h-5 w-5" />}
                         {item.label}
                       </Link>
                     );
