@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/hero-section';
 import ServicesSection from '@/components/sections/services-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
+import ProblemSolutionSection from '@/components/sections/problem-solution-section'; // Import the new section
 import { Settings, Zap, CheckCircle } from 'lucide-react';
 import saasnextWeb2Image from '@/public/saasnextweb2.png'; 
 import saasnextAiImage from '@/public/saasnextai.png';   
@@ -24,6 +25,7 @@ export default function ServicesPage() {
         containerPadding="py-16 md:py-24"
       />
       <ServicesSection />
+      <ProblemSolutionSection /> {/* Add the new section here */}
       <ImageWithTextSection
         id="driving-transformation"
         imageUrl={saasnextWeb2Image} 
