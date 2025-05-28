@@ -8,7 +8,8 @@ import ServicesOverviewSection from '@/components/sections/services-overview-sec
 import CallToActionSection from '@/components/sections/call-to-action-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import { Zap, Lightbulb } from 'lucide-react';
-import saasnextWeb2Image from '@/public/saasnextweb2.png'; // Import the image
+import saasnextWeb2Image from '@/public/saasnextweb2.png'; 
+import ComprehensiveSolutionsSection from '@/components/sections/comprehensive-solutions-section';
 
 
 export const metadata: Metadata = {
@@ -51,6 +52,7 @@ export default function HomePage() {
       />
       <WhyChooseUsSection />
       <WorkProcessSection />
+      <ComprehensiveSolutionsSection /> 
       <ServicesOverviewSection />
       <PortfolioSection />
       <CallToActionSection />
