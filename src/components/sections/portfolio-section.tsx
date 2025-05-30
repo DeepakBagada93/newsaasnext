@@ -12,7 +12,7 @@ const portfolioItems = [
     title: "AI WordPress Blog Management Software",
     description: "A smart software solution leveraging AI to automate WordPress blog creation, content scheduling, SEO optimization, and performance tracking for efficient content marketing.",
     tags: ["AI Automation", "WordPress", "Content Management", "SaaS"],
-    projectUrl: "#",
+    projectUrl: "https://dbwp.vercel.app/",
     imageElement: (
       <Image
         src={webfile} 
@@ -28,7 +28,7 @@ const portfolioItems = [
     title: "AI Powered Grammar & Content Suggestion Webapp",
     description: "A sophisticated web application that leverages AI to provide real-time grammar checking and intelligent content suggestions, helping users create polished and effective written material.",
     tags: ["AI Automation", "NLP", "Web Application", "SaaS", "Content Creation"],
-    projectUrl: "#",
+    projectUrl: "https://deepakgramai.vercel.app/",
     imageElement: (
       <Image
         src={webfile5} 
@@ -44,7 +44,7 @@ const portfolioItems = [
     title: "AI Powered Social Media Post Creation Webapp",
     description: "An innovative web application that utilizes AI to help users generate engaging social media posts, suggest relevant hashtags, and schedule content across multiple platforms.",
     tags: ["AI Automation", "Social Media", "Content Creation", "SaaS", "Web Application"],
-    projectUrl: "#",
+    projectUrl: "https://dbsaasnext.vercel.app/",
     imageElement: (
       <Image
         src={webfile6} 
@@ -60,7 +60,7 @@ const portfolioItems = [
     title: "E-commerce Store Overhaul",
     description: "Revamped an existing e-commerce platform, improving user experience, conversion rates, and integrating AI for personalized recommendations.",
     tags: ["Web Development", "E-commerce", "AI Automation", "UX/UI"],
-    projectUrl: "#",
+    projectUrl: "https://dbwp.vercel.app/",
     imageElement: (
       <Image
         src={webfile2} 
