@@ -4,21 +4,23 @@ import { Briefcase } from "lucide-react";
 import Image from "next/image"; // Import next/image here
 import webfile from '@/public/saasnextweb.png'; 
 import webfile2 from '@/public/saasnextai.png';
+import webfile5 from '@/public/saasnextp1.png';
+import webfile6 from '@/public/saasnextp2.png';
 
 const portfolioItems = [
   {
-    title: "Enterprise Web Platform",
-    description: "A scalable web platform for a multinational corporation, enhancing their global online presence and operational efficiency.",
-    tags: ["Web Development", "React", "Node.js", "Enterprise"],
+    title: "AI WordPress Blog Management Software",
+    description: "A smart software solution leveraging AI to automate WordPress blog creation, content scheduling, SEO optimization, and performance tracking for efficient content marketing.",
+    tags: ["AI Automation", "WordPress", "Content Management", "SaaS"],
     projectUrl: "#",
     imageElement: (
       <Image
         src={webfile} 
-        alt="Enterprise Web Platform"
+        alt="AI WordPress Blog Management Software"
         fill
         sizes="(max-width: 639px) 100vw, 50vw"
         className="object-cover transition-transform duration-500 group-hover:scale-105"
-        data-ai-hint="modern office"
+        data-ai-hint="AI software interface"
       />
     ),
   },
@@ -29,7 +31,7 @@ const portfolioItems = [
     projectUrl: "#",
     imageElement: (
       <Image
-        src={webfile2} 
+        src={webfile5} 
         alt="AI-Powered Analytics Dashboard"
         fill
         sizes="(max-width: 639px) 100vw, 50vw"
@@ -45,7 +47,7 @@ const portfolioItems = [
     projectUrl: "#",
     imageElement: (
       <Image
-        src={webfile} 
+        src={webfile6} 
         alt="Targeted Lead Generation Campaign"
         fill
         sizes="(max-width: 639px) 100vw, 50vw"

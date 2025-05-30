@@ -9,7 +9,7 @@ import CallToActionSection from '@/components/sections/call-to-action-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import { Zap, Lightbulb } from 'lucide-react';
 import saasnextWeb2Image from '@/public/saasnextweb2.png';
-import saasnextAiImage from '@/public/saasnextai.png'; // Import the AI image
+import saasnextAiImage from '@/public/saasnextairecom.png'; // Import the AI image
 import ComprehensiveSolutionsSection from '@/components/sections/comprehensive-solutions-section';
 
 
