@@ -41,18 +41,18 @@ const portfolioItems = [
     ),
   },
   {
-    title: "Targeted Lead Generation Campaign",
-    description: "Executed a multi-channel lead generation campaign for a B2B client, resulting in a 150% increase in qualified leads.",
-    tags: ["Lead Generation", "SEO", "PPC", "Content Marketing"],
+    title: "AI Powered Social Media Post Creation Webapp",
+    description: "An innovative web application that utilizes AI to help users generate engaging social media posts, suggest relevant hashtags, and schedule content across multiple platforms.",
+    tags: ["AI Automation", "Social Media", "Content Creation", "SaaS", "Web Application"],
     projectUrl: "#",
     imageElement: (
       <Image
         src={webfile6} 
-        alt="Targeted Lead Generation Campaign"
+        alt="AI Powered Social Media Post Creation Webapp"
         fill
         sizes="(max-width: 639px) 100vw, 50vw"
         className="object-cover transition-transform duration-500 group-hover:scale-105"
-        data-ai-hint="digital marketing"
+        data-ai-hint="AI social media"
       />
     ),
   },
