@@ -25,18 +25,18 @@ const portfolioItems = [
     ),
   },
   {
-    title: "AI-Powered Analytics Dashboard",
-    description: "Developed an intuitive dashboard that uses AI to provide actionable insights from complex datasets, driving data-informed decisions.",
-    tags: ["AI Automation", "Python", "Data Visualization", "SaaS"],
+    title: "AI Powered Grammar & Content Suggestion Webapp",
+    description: "A sophisticated web application that leverages AI to provide real-time grammar checking and intelligent content suggestions, helping users create polished and effective written material.",
+    tags: ["AI Automation", "NLP", "Web Application", "SaaS", "Content Creation"],
     projectUrl: "#",
     imageElement: (
       <Image
         src={webfile5} 
-        alt="AI-Powered Analytics Dashboard"
+        alt="AI Powered Grammar & Content Suggestion Webapp"
         fill
         sizes="(max-width: 639px) 100vw, 50vw"
         className="object-cover transition-transform duration-500 group-hover:scale-105"
-        data-ai-hint="data analytics"
+        data-ai-hint="writing assistant AI"
       />
     ),
   },
