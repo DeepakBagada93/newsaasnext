@@ -8,7 +8,8 @@ import ServicesOverviewSection from '@/components/sections/services-overview-sec
 import CallToActionSection from '@/components/sections/call-to-action-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import { Zap, Lightbulb } from 'lucide-react';
-import saasnextWeb2Image from '@/public/saasnextweb2.png'; 
+import saasnextWeb2Image from '@/public/saasnextweb2.png';
+import saasnextAiImage from '@/public/saasnextai.png'; // Import the AI image
 import ComprehensiveSolutionsSection from '@/components/sections/comprehensive-solutions-section';
 
 
@@ -35,12 +36,28 @@ export default function HomePage() {
         containerPadding="py-20 md:py-32"
       />
       <ImageWithTextSection
+        id="ai-recommender-promo"
+        imageUrl={saasnextAiImage} // Use the imported AI image
+        imageHint="AI helping business"
+        altText="SaaSnext AI Service Recommender for Junagadh businesses"
+        title="Need Guidance? Try Our AI Service Recommender!"
+        titleIcon={Lightbulb}
+        paragraphs={[
+          "Unsure which of our services best fits your unique business needs in Junagadh? Let our intelligent AI Recommender analyze your requirements and provide personalized suggestions.",
+          "Whether you're looking for cutting-edge website development, efficient AI SaaS solutions, or impactful lead generation strategies, get tailored advice in minutes to kickstart your project in Junagadh."
+        ]}
+        imagePosition="right"
+        bgColor="bg-card/10"
+        ctaText="Try AI Recommender"
+        ctaLink="/recommendation"
+      />
+      <ImageWithTextSection
         id="catalyzing-vision"
         imageUrl={saasnextWeb2Image} 
         imageHint="innovation lightbulb"
         altText="SaaSnext: Catalyzing business vision in Junagadh with website development"
         title="Catalyzing Your Junagadh Business Vision"
-        titleIcon={Lightbulb}
+        titleIcon={Zap} // Changed from Lightbulb to Zap for variety
         paragraphs={[
           "At SaaSnext, we understand that every great business in Junagadh starts with a vision. Our mission is to be the catalyst that transforms your innovative ideas into tangible, impactful digital solutions, specifically tailored for the local market.",
           "We leverage cutting-edge technology and strategic insights to build custom web platforms, implement intelligent AI automation through our AI SaaS development expertise, and drive effective lead generation for businesses aiming to thrive in Junagadh and beyond."
