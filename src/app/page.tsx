@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   const homePageTitle = (
     <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary mb-8">
-      Elevate Your Junagadh Business: Digital Solutions, Powerful Results.
+      Ignite Junagadh's Growth: SaaSnext - Your Digital Catalyst.
     </h1>
   );
 
@@ -29,7 +29,7 @@ export default function HomePage() {
     <>
       <HeroSection
         pageTitle={homePageTitle}
-        pageSubtitle="Partner with SaaSnext, Junagadh's leading Web Development, AI SaaS, and Lead Generation experts. We turn your vision into reality. Experience transformative growth."
+        pageSubtitle="Partner with SaaSnext, Junagadh's leading Web Development, AI SaaS, and Lead Generation experts. We turn your vision into reality. Experience impactful digital momentum."
         tagline="Your Catalyst for Digital Excellence."
         TaglineIcon={Zap}
         showCtaButtons={true}
@@ -56,10 +56,10 @@ export default function HomePage() {
         imageUrl={saasnextWeb2Image} 
         imageHint="innovation lightbulb"
         altText="SaaSnext: Catalyzing business vision in Junagadh with website development"
-        title="Catalyzing Your Junagadh Business Vision"
+        title="Fueling Your Junagadh Business Vision"
         titleIcon={Zap} 
         paragraphs={[
-          "At SaaSnext, we understand that every great business in Junagadh starts with a vision. As your dedicated webapp development company in Junagadh, our mission is to be the catalyst that transforms your innovative ideas into tangible, impactful digital solutions, specifically tailored for the local market.",
+          "At SaaSnext, we understand that every great business in Junagadh starts with a vision. As your dedicated webapp development company in Junagadh, our mission is to be the catalyst that turns your innovative ideas into tangible, impactful digital solutions, specifically tailored for the local market.",
           "We leverage cutting-edge technology and strategic insights to build custom web platforms. Our AI SaaS development expertise helps implement intelligent AI automation, and our lead generation company in Junagadh drives effective growth for businesses aiming to thrive in Junagadh and beyond."
         ]}
         imagePosition="left"
