@@ -115,4 +115,8 @@ html {
     stroke-dasharray: 1000;
     animation: drawLine 8s infinite linear;
   }
+
+  .icon-glow-primary {
+    filter: drop-shadow(0 0 0.3rem hsl(var(--primary)));
+  }
 }

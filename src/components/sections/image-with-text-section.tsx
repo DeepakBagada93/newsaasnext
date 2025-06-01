@@ -49,7 +49,7 @@ export default function ImageWithTextSection({
           </div>
           <div className={`${imagePosition === 'right' ? 'md:order-1' : ''}`}>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 flex items-center">
-              {TitleIcon && <TitleIcon className="w-8 h-8 mr-3 text-primary" />}
+              {TitleIcon && <TitleIcon className="w-9 h-9 mr-3 text-primary icon-glow-primary" />}
               {title}
             </h2>
             <div className="space-y-4 text-muted-foreground mb-8">
