@@ -83,10 +83,10 @@ export default function ContactSection() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Contact Your Junagadh Web & AI Experts
+            Contact Our Web & AI Experts
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have a project for website development, AI SaaS, or lead generation in Junagadh? We'd love to hear from you.
+            Have a project for website development, AI SaaS, or lead generation? We'd love to hear from you.
           </p>
         </div>
 
@@ -132,7 +132,7 @@ export default function ContactSection() {
                       <FormItem>
                         <FormLabel htmlFor="subject">Subject</FormLabel>
                         <FormControl>
-                          <Input id="subject" placeholder="Project Inquiry (e.g., Website Development in Junagadh)" {...field} disabled={isLoading} className="bg-background focus:ring-primary" />
+                          <Input id="subject" placeholder="Project Inquiry (e.g., Website Development for My Business)" {...field} disabled={isLoading} className="bg-background focus:ring-primary" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -183,7 +183,7 @@ export default function ContactSection() {
             </div>
             <div>
                <h4 className="text-lg font-medium text-foreground mb-2">Business Hours</h4>
-               <p className="text-muted-foreground">Monday - Friday: 9:00 AM - 6:00 PM (IST)</p> {/* Assuming IST for Junagadh */}
+               <p className="text-muted-foreground">Monday - Friday: 9:00 AM - 6:00 PM (IST)</p> 
                <p className="text-muted-foreground">Saturday - Sunday: Closed</p>
             </div>
             <div>

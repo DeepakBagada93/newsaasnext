@@ -18,11 +18,11 @@ const challenges: ChallengeSolution[] = [
     icon: Zap,
     title: "Webapp Development: Build a Strong Digital Foundation",
     problem: "Your website is slow, outdated, or fails to engage customers, leading to lost opportunities.",
-    solution: "As the top webapp development company in Junagadh, Saasnext creates modern, responsive, and high-performing web applications.",
+    solution: "As a top local webapp development company, Saasnext creates modern, responsive, and high-performing web applications.",
     features: [
       "Custom Designs: Apps tailored to your brand and goals.",
       "Seamless Performance: Fast, secure, and scalable solutions.",
-      "Local Expertise: We understand Junagadh’s market to deliver apps that connect with your audience."
+      "Market Expertise: We understand local markets to deliver apps that connect with your audience."
     ],
     hook: "Imagine a webapp that works flawlessly and keeps your customers coming back for more!"
   },
@@ -31,7 +31,7 @@ const challenges: ChallengeSolution[] = [
     icon: Target,
     title: "Lead Generation: Turn Prospects into Loyal Customers",
     problem: "You’re spending on marketing but getting low-quality leads or no results at all.",
-    solution: "Saasnext, a trusted lead generation company in Junagadh, uses data-driven strategies to attract high-value leads.",
+    solution: "Saasnext, a trusted local lead generation company, uses data-driven strategies to attract high-value leads.",
     features: [
       "Targeted Campaigns: Reach the right audience with precision.",
       "CRM Integration: Streamline lead tracking and follow-ups.",
@@ -44,26 +44,26 @@ const challenges: ChallengeSolution[] = [
     icon: MessageSquare,
     title: "Social Media Marketing: Amplify Your Brand",
     problem: "Your social media posts get ignored, and your brand struggles to gain traction online.",
-    solution: "As a leading social media marketing company in Junagadh, Saasnext crafts engaging campaigns to grow your presence.",
+    solution: "As a leading local social media marketing company, Saasnext crafts engaging campaigns to grow your presence.",
     features: [
       "Creative Content: Posts that resonate with your audience.",
       "Strategic Ads: Maximize ROI with targeted advertising.",
       "Community Building: Foster loyalty and engagement."
     ],
-    hook: "Ready to turn likes into sales? Let’s make your brand the talk of Junagadh!"
+    hook: "Ready to turn likes into sales? Let’s make your brand the talk of the town!"
   },
   {
     id: "ai",
     icon: BrainCircuit,
     title: "AI Solutions: Stay Ahead with Smart Technology",
     problem: "Manual processes waste time, and you’re missing out on data-driven insights.",
-    solution: "Saasnext, an innovative AI solutions company in Junagadh, integrates artificial intelligence to supercharge your business.",
+    solution: "Saasnext, an innovative local AI solutions company, integrates artificial intelligence to supercharge your business.",
     features: [
       "Smart Chatbots: Provide 24/7 customer support.",
       "Predictive Analytics: Make informed decisions with ease.",
       "Automation: Save time and reduce costs."
     ],
-    hook: "Unlock efficiency and innovation with AI tailored for your Junagadh business!" // Slightly modified hook for consistency
+    hook: "Unlock efficiency and innovation with AI tailored for your business!"
   }
 ];
 
@@ -77,7 +77,7 @@ export default function ProblemSolutionSection() {
             Solving Your Business Challenges with Saasnext
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            We understand the hurdles businesses face in Junagadh’s evolving market. Here’s how Saasnext addresses your pain points with expert solutions:
+            We understand the hurdles businesses face in today's evolving market. Here’s how Saasnext addresses your pain points with expert solutions:
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
