@@ -40,15 +40,15 @@ export default function HomePage() {
         imageUrl={saasnextAiImage} 
         imageHint="AI helping business"
         altText="SaaSnext AI Service Recommender for Junagadh businesses"
-        title="Need Guidance? Try Our AI Service Recommender!"
+        title="Unlock Your Junagadh Success: Ask Our AI Recommender Now!"
         titleIcon={Lightbulb}
         paragraphs={[
-          "Unsure which of our services best fits your unique business needs in Junagadh? Let our intelligent AI Recommender analyze your requirements and provide personalized suggestions.",
-          "Whether you're looking for cutting-edge website development, efficient AI SaaS solutions, or impactful lead generation strategies, get tailored advice in minutes to kickstart your project in Junagadh."
+          "Overwhelmed by choices for your Junagadh business? Stop the guesswork! Our intelligent AI Recommender instantly analyzes your unique requirements, saving you time and confusion.",
+          "Whether you need a stunning new website, powerful AI automation, or a flood of new leads, get a personalized, actionable service recommendation in minutes. This is your fast track to a winning strategy in Junagadh!"
         ]}
         imagePosition="right"
         bgColor="bg-card/10"
-        ctaText="Try AI Recommender"
+        ctaText="Get My Free AI Recommendation"
         ctaLink="/recommendation"
       />
       <ImageWithTextSection
