@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // Added useEffect import
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label'; // Keep Label for consistency if needed, but FormLabel is primary
@@ -92,7 +92,7 @@ export default function AdsRoiEstimatorSection() {
   
   // Clear results when inputs change
   const anInputValueIsChanging = form.watch(['adSpend', 'cpc', 'conversionRate', 'conversionValue', 'currency']);
-  React.useEffect(() => {
+  useEffect(() => { // Changed from React.useEffect
     setResults(null);
   }, [anInputValueIsChanging]);
 
