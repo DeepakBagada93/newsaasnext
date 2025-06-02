@@ -42,29 +42,48 @@ export default function HeroSection({
             </linearGradient>
           </defs>
           
-          {/* Nodes */}
-          <circle cx="10%" cy="20%" r="5" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '0s' }} />
-          <circle cx="25%" cy="80%" r="6" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '1s' }} />
-          <circle cx="50%" cy="30%" r="4" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '2s' }} />
-          <circle cx="80%" cy="15%" r="5" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '0.5s' }} />
-          <circle cx="90%" cy="70%" r="6" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '1.5s' }} />
-          <circle cx="35%" cy="50%" r="3" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '2.5s' }} />
-          <circle cx="65%" cy="60%" r="5" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '0.2s' }} />
-           <circle cx="5%" cy="50%" r="4" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '0.8s' }} />
-          <circle cx="95%" cy="40%" r="3" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '1.2s' }} />
+          {/* Nodes - Increased quantity and varied delays/sizes */}
+          <circle cx="10%" cy="15%" r="4" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '0s' }} />
+          <circle cx="20%" cy="70%" r="5" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '0.8s' }} />
+          <circle cx="40%" cy="25%" r="3" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '1.5s' }} />
+          <circle cx="75%" cy="10%" r="5" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '0.3s' }} />
+          <circle cx="90%" cy="60%" r="4" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '1.2s' }} />
+          <circle cx="30%" cy="45%" r="6" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '0.6s' }} /> {/* Prominent node */}
+          <circle cx="60%" cy="75%" r="3" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '2.0s' }} />
+          <circle cx="5%"  cy="40%" r="4" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '1.0s' }} />
+          <circle cx="95%" cy="30%" r="5" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '0.2s' }} />
+          <circle cx="50%" cy="50%" r="4" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '2.2s' }} /> {/* Central node */}
+          <circle cx="15%" cy="90%" r="3" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '1.7s' }} /> {/* Bottom-left */}
+          <circle cx="85%" cy="90%" r="4" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '0.4s' }} /> {/* Bottom-right */}
+          <circle cx="65%" cy="5%"  r="3" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '2.5s' }} /> {/* Top mid-right */}
+          <circle cx="35%" cy="5%"  r="2" fill="url(#nodeGradientHero)" className="neural-node" style={{ animationDelay: '1.3s' }} /> {/* Top mid-left, small */}
 
 
-          {/* Lines */}
-          <line x1="10%" y1="20%" x2="25%" y2="80%" stroke="hsl(var(--primary) / 0.2)" strokeWidth="1" className="neural-line" style={{ animationDelay: '0s' }} />
-          <line x1="25%" y1="80%" x2="50%" y2="30%" stroke="hsl(var(--accent) / 0.2)" strokeWidth="1" className="neural-line" style={{ animationDelay: '0.5s' }} />
-          <line x1="50%" y1="30%" x2="80%" y2="15%" stroke="hsl(var(--primary) / 0.2)" strokeWidth="1" className="neural-line" style={{ animationDelay: '1s' }} />
-          <line x1="80%" y1="15%" x2="90%" y2="70%" stroke="hsl(var(--accent) / 0.2)" strokeWidth="1" className="neural-line" style={{ animationDelay: '1.5s' }} />
-          <line x1="10%" y1="20%" x2="50%" y2="30%" stroke="hsl(var(--primary) / 0.15)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '2s' }} />
-          <line x1="25%" y1="80%" x2="90%" y2="70%" stroke="hsl(var(--accent) / 0.15)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '2.5s' }} />
-          <line x1="35%" y1="50%" x2="65%" y2="60%" stroke="hsl(var(--primary) / 0.2)" strokeWidth="1" className="neural-line" style={{ animationDelay: '0.2s' }}/>
-          <line x1="5%" y1="50%" x2="35%" y2="50%" stroke="hsl(var(--accent) / 0.15)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '0.8s' }} />
-          <line x1="95%" y1="40%" x2="65%" y2="60%" stroke="hsl(var(--primary) / 0.15)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '1.2s' }} />
-          <line x1="80%" y1="15%" x2="35%" y2="50%" stroke="hsl(var(--accent) / 0.15)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '0.3s' }} />
+          {/* Lines - Increased quantity, varied connections, opacities, and delays */}
+          <line x1="10%" y1="15%" x2="30%" y2="45%" stroke="hsl(var(--primary) / 0.2)" strokeWidth="1" className="neural-line" style={{ animationDelay: '0s' }} />
+          <line x1="30%" y1="45%" x2="20%" y2="70%" stroke="hsl(var(--accent) / 0.2)" strokeWidth="1" className="neural-line" style={{ animationDelay: '0.5s' }} />
+          <line x1="30%" y1="45%" x2="40%" y2="25%" stroke="hsl(var(--primary) / 0.15)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '1s' }} />
+          <line x1="40%" y1="25%" x2="75%" y2="10%" stroke="hsl(var(--accent) / 0.2)" strokeWidth="1" className="neural-line" style={{ animationDelay: '1.5s' }} />
+          <line x1="75%" y1="10%" x2="90%" y2="60%" stroke="hsl(var(--primary) / 0.2)" strokeWidth="1" className="neural-line" style={{ animationDelay: '2s' }} />
+          <line x1="90%" y1="60%" x2="60%" y2="75%" stroke="hsl(var(--accent) / 0.15)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '2.5s' }} />
+          <line x1="20%" y1="70%" x2="60%" y2="75%" stroke="hsl(var(--primary) / 0.2)" strokeWidth="1" className="neural-line" style={{ animationDelay: '0.2s' }}/>
+          <line x1="5%" y1="40%" x2="30%" y2="45%" stroke="hsl(var(--accent) / 0.2)" strokeWidth="1" className="neural-line" style={{ animationDelay: '0.8s' }} />
+          <line x1="95%" y1="30%" x2="75%" y2="10%" stroke="hsl(var(--primary) / 0.15)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '1.2s' }} />
+          <line x1="50%" y1="50%" x2="30%" y2="45%" stroke="hsl(var(--accent) / 0.2)" strokeWidth="1" className="neural-line" style={{ animationDelay: '0.3s' }} />
+          <line x1="50%" y1="50%" x2="40%" y2="25%" stroke="hsl(var(--primary) / 0.2)" strokeWidth="1" className="neural-line" style={{ animationDelay: '0.7s' }} />
+          <line x1="50%" y1="50%" x2="60%" y2="75%" stroke="hsl(var(--accent) / 0.15)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '1.4s' }} />
+          <line x1="50%" y1="50%" x2="90%" y2="60%" stroke="hsl(var(--primary) / 0.1)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '1.9s' }} /> {/* Thinner line */}
+          <line x1="15%" y1="90%" x2="20%" y2="70%" stroke="hsl(var(--accent) / 0.2)" strokeWidth="1" className="neural-line" style={{ animationDelay: '0.1s' }} />
+          <line x1="85%" y1="90%" x2="60%" y2="75%" stroke="hsl(var(--primary) / 0.2)" strokeWidth="1" className="neural-line" style={{ animationDelay: '0.9s' }} />
+          <line x1="75%" y1="10%" x2="65%" y2="5%" stroke="hsl(var(--accent) / 0.15)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '1.6s' }} />
+          <line x1="40%" y1="25%" x2="35%" y2="5%" stroke="hsl(var(--primary) / 0.1)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '2.3s' }} /> {/* Thinner line */}
+          <line x1="10%" y1="15%" x2="5%" y2="40%" stroke="hsl(var(--accent) / 0.1)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '2.8s' }} /> {/* Thinner line */}
+
+          {/* Additional cross-connections for more complexity */}
+          <line x1="5%" y1="40%" x2="20%" y2="70%" stroke="hsl(var(--primary) / 0.1)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '3.0s' }} />
+          <line x1="95%" y1="30%" x2="90%" y2="60%" stroke="hsl(var(--accent) / 0.1)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '3.2s' }} />
+          <line x1="15%" y1="90%" x2="50%" y2="50%" stroke="hsl(var(--primary) / 0.08)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '3.5s' }} />
+          <line x1="85%" y1="90%" x2="50%" y2="50%" stroke="hsl(var(--accent) / 0.08)" strokeWidth="0.5" className="neural-line" style={{ animationDelay: '3.7s' }} />
         </svg>
       </div>
 
