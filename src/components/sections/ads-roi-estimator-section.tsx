@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertCircle, Calculator, TrendingUp } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface CalculatorInput {
   adSpend: string;
@@ -23,6 +24,13 @@ interface CalculatorOutput {
   roas: number;
 }
 
+const currencySymbols: { [key: string]: string } = {
+  USD: '$',
+  INR: '₹',
+  EUR: '€',
+  GBP: '£',
+};
+
 export default function AdsRoiEstimatorSection() {
   const [inputs, setInputs] = useState<CalculatorInput>({
     adSpend: '',
@@ -32,22 +40,29 @@ export default function AdsRoiEstimatorSection() {
   });
   const [results, setResults] = useState<CalculatorOutput | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [selectedCurrency, setSelectedCurrency] = useState<string>('USD');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setInputs((prev) => ({ ...prev, [name]: value }));
-    setError(null); // Clear error on input change
-    setResults(null); // Clear results on input change
+    setError(null); 
+    setResults(null); 
+  };
+
+  const handleCurrencyChange = (value: string) => {
+    setSelectedCurrency(value);
+    setResults(null); // Clear results when currency changes
+    setError(null); // Clear error when currency changes
   };
 
   const validateInputs = (): boolean => {
     const { adSpend, cpc, conversionRate, conversionValue } = inputs;
     if (isNaN(parseFloat(adSpend)) || parseFloat(adSpend) <= 0) {
-      setError('Monthly Ad Spend must be a positive number.');
+      setError(`Monthly Ad Spend must be a positive number.`);
       return false;
     }
     if (isNaN(parseFloat(cpc)) || parseFloat(cpc) <= 0) {
-      setError('Average CPC must be a positive number.');
+      setError(`Average CPC must be a positive number.`);
       return false;
     }
     if (isNaN(parseFloat(conversionRate)) || parseFloat(conversionRate) <= 0 || parseFloat(conversionRate) > 100) {
@@ -55,7 +70,7 @@ export default function AdsRoiEstimatorSection() {
       return false;
     }
     if (isNaN(parseFloat(conversionValue)) || parseFloat(conversionValue) <= 0) {
-      setError('Average Conversion Value must be a positive number.');
+      setError(`Average Conversion Value must be a positive number.`);
       return false;
     }
     setError(null);
@@ -86,6 +101,8 @@ export default function AdsRoiEstimatorSection() {
     });
   };
 
+  const currencySymbol = currencySymbols[selectedCurrency] || selectedCurrency;
+
   return (
     <section id="ads-roi-estimator" className="w-full py-16 md:py-24 bg-card/10">
       <div className="container mx-auto px-4 md:px-6">
@@ -105,9 +122,24 @@ export default function AdsRoiEstimatorSection() {
             <CardDescription>Enter your estimated figures to see the potential returns.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
+            <div>
+              <Label htmlFor="currency" className="text-sm font-medium">Select Currency</Label>
+              <Select value={selectedCurrency} onValueChange={handleCurrencyChange}>
+                <SelectTrigger id="currency" className="mt-1 bg-background focus:ring-primary">
+                  <SelectValue placeholder="Select Currency" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="USD">USD ({currencySymbols.USD}) - United States Dollar</SelectItem>
+                  <SelectItem value="INR">INR ({currencySymbols.INR}) - Indian Rupee</SelectItem>
+                  <SelectItem value="EUR">EUR ({currencySymbols.EUR}) - Euro</SelectItem>
+                  <SelectItem value="GBP">GBP ({currencySymbols.GBP}) - British Pound</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <Label htmlFor="adSpend" className="text-sm font-medium">Monthly Ad Spend ($)</Label>
+                <Label htmlFor="adSpend" className="text-sm font-medium">Monthly Ad Spend ({currencySymbol})</Label>
                 <Input
                   id="adSpend"
                   name="adSpend"
@@ -119,7 +151,7 @@ export default function AdsRoiEstimatorSection() {
                 />
               </div>
               <div>
-                <Label htmlFor="cpc" className="text-sm font-medium">Average CPC ($)</Label>
+                <Label htmlFor="cpc" className="text-sm font-medium">Average CPC ({currencySymbol})</Label>
                 <Input
                   id="cpc"
                   name="cpc"
@@ -143,7 +175,7 @@ export default function AdsRoiEstimatorSection() {
                 />
               </div>
               <div>
-                <Label htmlFor="conversionValue" className="text-sm font-medium">Avg. Conversion Value ($)</Label>
+                <Label htmlFor="conversionValue" className="text-sm font-medium">Avg. Conversion Value ({currencySymbol})</Label>
                 <Input
                   id="conversionValue"
                   name="conversionValue"
@@ -182,7 +214,7 @@ export default function AdsRoiEstimatorSection() {
                 </div>
                 <div className="p-3 bg-muted/50 rounded-md">
                   <p className="text-muted-foreground">Estimated Revenue:</p>
-                  <p className="font-semibold text-lg text-foreground">${results.revenue.toFixed(2)}</p>
+                  <p className="font-semibold text-lg text-foreground">{currencySymbol}{results.revenue.toFixed(2)}</p>
                 </div>
                 <div className="p-3 bg-muted/50 rounded-md">
                   <p className="text-muted-foreground">Estimated ROAS:</p>
