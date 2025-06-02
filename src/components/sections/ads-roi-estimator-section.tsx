@@ -4,17 +4,22 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Label } from '@/components/ui/label'; // Keep Label for consistency if needed, but FormLabel is primary
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertCircle, Calculator, TrendingUp } from 'lucide-react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertDescription as UiAlertDescription } from '@/components/ui/alert'; // Renamed to avoid conflict
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from '@/components/ui/form';
+import { useForm, Controller } from 'react-hook-form'; // Import useForm and Controller
+import { zodResolver } from '@hookform/resolvers/zod'; // Import zodResolver
+import { z } from 'zod'; // Import z
 
 interface CalculatorInput {
   adSpend: string;
   cpc: string;
   conversionRate: string;
   conversionValue: string;
+  currency: string; // Added currency to the form values
 }
 
 interface CalculatorOutput {
@@ -31,62 +36,46 @@ const currencySymbols: { [key: string]: string } = {
   GBP: '£',
 };
 
+const calculatorSchema = z.object({
+  currency: z.string(),
+  adSpend: z.string().refine(val => !isNaN(parseFloat(val)) && parseFloat(val) > 0, {
+    message: "Must be a positive number.",
+  }),
+  cpc: z.string().refine(val => !isNaN(parseFloat(val)) && parseFloat(val) > 0, {
+    message: "Must be a positive number.",
+  }),
+  conversionRate: z.string().refine(val => !isNaN(parseFloat(val)) && parseFloat(val) > 0 && parseFloat(val) <= 100, {
+    message: "Must be between 0.01 and 100.",
+  }),
+  conversionValue: z.string().refine(val => !isNaN(parseFloat(val)) && parseFloat(val) > 0, {
+    message: "Must be a positive number.",
+  }),
+});
+
+
 export default function AdsRoiEstimatorSection() {
-  const [inputs, setInputs] = useState<CalculatorInput>({
-    adSpend: '',
-    cpc: '',
-    conversionRate: '',
-    conversionValue: '',
-  });
   const [results, setResults] = useState<CalculatorOutput | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [selectedCurrency, setSelectedCurrency] = useState<string>('USD');
+  // Error state is now handled by react-hook-form
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setInputs((prev) => ({ ...prev, [name]: value }));
-    setError(null); 
-    setResults(null); 
-  };
+  const form = useForm<CalculatorInput>({
+    resolver: zodResolver(calculatorSchema),
+    defaultValues: {
+      adSpend: '',
+      cpc: '',
+      conversionRate: '',
+      conversionValue: '',
+      currency: 'USD',
+    },
+  });
 
-  const handleCurrencyChange = (value: string) => {
-    setSelectedCurrency(value);
-    setResults(null); // Clear results when currency changes
-    setError(null); // Clear error when currency changes
-  };
+  const selectedCurrency = form.watch('currency');
+  const currencySymbol = currencySymbols[selectedCurrency] || selectedCurrency;
 
-  const validateInputs = (): boolean => {
-    const { adSpend, cpc, conversionRate, conversionValue } = inputs;
-    if (isNaN(parseFloat(adSpend)) || parseFloat(adSpend) <= 0) {
-      setError(`Monthly Ad Spend must be a positive number.`);
-      return false;
-    }
-    if (isNaN(parseFloat(cpc)) || parseFloat(cpc) <= 0) {
-      setError(`Average CPC must be a positive number.`);
-      return false;
-    }
-    if (isNaN(parseFloat(conversionRate)) || parseFloat(conversionRate) <= 0 || parseFloat(conversionRate) > 100) {
-      setError('Conversion Rate must be a number between 0 and 100.');
-      return false;
-    }
-    if (isNaN(parseFloat(conversionValue)) || parseFloat(conversionValue) <= 0) {
-      setError(`Average Conversion Value must be a positive number.`);
-      return false;
-    }
-    setError(null);
-    return true;
-  };
-
-  const handleCalculate = () => {
-    if (!validateInputs()) {
-      setResults(null);
-      return;
-    }
-
-    const adSpendNum = parseFloat(inputs.adSpend);
-    const cpcNum = parseFloat(inputs.cpc);
-    const conversionRateNum = parseFloat(inputs.conversionRate) / 100;
-    const conversionValueNum = parseFloat(inputs.conversionValue);
+  const handleCalculate = (data: CalculatorInput) => {
+    const adSpendNum = parseFloat(data.adSpend);
+    const cpcNum = parseFloat(data.cpc);
+    const conversionRateNum = parseFloat(data.conversionRate) / 100;
+    const conversionValueNum = parseFloat(data.conversionValue);
 
     const calculatedClicks = adSpendNum / cpcNum;
     const calculatedConversions = calculatedClicks * conversionRateNum;
@@ -100,8 +89,13 @@ export default function AdsRoiEstimatorSection() {
       roas: calculatedRoas,
     });
   };
+  
+  // Clear results when inputs change
+  const anInputValueIsChanging = form.watch(['adSpend', 'cpc', 'conversionRate', 'conversionValue', 'currency']);
+  React.useEffect(() => {
+    setResults(null);
+  }, [anInputValueIsChanging]);
 
-  const currencySymbol = currencySymbols[selectedCurrency] || selectedCurrency;
 
   return (
     <section id="ads-roi-estimator" className="w-full py-16 md:py-24 bg-card/10">
@@ -109,119 +103,144 @@ export default function AdsRoiEstimatorSection() {
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 flex items-center justify-center">
             <Calculator className="w-8 h-8 mr-3 text-primary icon-glow-primary" />
-            Estimate Your Advertising Potential
+            Advertising Potential Calculator
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Use this simple calculator to estimate potential clicks, conversions, revenue, and ROAS for your Meta & Google Ads campaigns.
+            Discover what your Meta & Google Ads could achieve. This simple tool helps estimate your campaign's success.
           </p>
         </div>
 
         <Card className="max-w-2xl mx-auto bg-card shadow-xl">
           <CardHeader>
-            <CardTitle>Ads ROI Calculator</CardTitle>
-            <CardDescription>Enter your estimated figures to see the potential returns.</CardDescription>
+            <CardTitle>Estimate Your Ad Returns</CardTitle>
+            <CardDescription>
+              Want to see what your ads could do? Pop in a few numbers based on your business and ad goals. Our simple calculator will estimate your website clicks, new customers, potential revenue, and Return On Ad Spend (ROAS). No complex jargon, just straightforward insights!
+            </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div>
-              <Label htmlFor="currency" className="text-sm font-medium">Select Currency</Label>
-              <Select value={selectedCurrency} onValueChange={handleCurrencyChange}>
-                <SelectTrigger id="currency" className="mt-1 bg-background focus:ring-primary">
-                  <SelectValue placeholder="Select Currency" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="USD">USD ({currencySymbols.USD}) - United States Dollar</SelectItem>
-                  <SelectItem value="INR">INR ({currencySymbols.INR}) - Indian Rupee</SelectItem>
-                  <SelectItem value="EUR">EUR ({currencySymbols.EUR}) - Euro</SelectItem>
-                  <SelectItem value="GBP">GBP ({currencySymbols.GBP}) - British Pound</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+          <CardContent>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(handleCalculate)} className="space-y-6">
+                <FormField
+                  control={form.control}
+                  name="currency"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Select Currency</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger className="bg-background focus:ring-primary">
+                            <SelectValue placeholder="Select Currency" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="USD">USD ({currencySymbols.USD}) - United States Dollar</SelectItem>
+                          <SelectItem value="INR">INR ({currencySymbols.INR}) - Indian Rupee</SelectItem>
+                          <SelectItem value="EUR">EUR ({currencySymbols.EUR}) - Euro</SelectItem>
+                          <SelectItem value="GBP">GBP ({currencySymbols.GBP}) - British Pound</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <Label htmlFor="adSpend" className="text-sm font-medium">Monthly Ad Spend ({currencySymbol})</Label>
-                <Input
-                  id="adSpend"
-                  name="adSpend"
-                  type="number"
-                  placeholder="e.g., 1000"
-                  value={inputs.adSpend}
-                  onChange={handleInputChange}
-                  className="mt-1 bg-background focus:ring-primary"
-                />
-              </div>
-              <div>
-                <Label htmlFor="cpc" className="text-sm font-medium">Average CPC ({currencySymbol})</Label>
-                <Input
-                  id="cpc"
-                  name="cpc"
-                  type="number"
-                  placeholder="e.g., 0.50"
-                  value={inputs.cpc}
-                  onChange={handleInputChange}
-                  className="mt-1 bg-background focus:ring-primary"
-                />
-              </div>
-              <div>
-                <Label htmlFor="conversionRate" className="text-sm font-medium">Conversion Rate (%)</Label>
-                <Input
-                  id="conversionRate"
-                  name="conversionRate"
-                  type="number"
-                  placeholder="e.g., 2.5"
-                  value={inputs.conversionRate}
-                  onChange={handleInputChange}
-                  className="mt-1 bg-background focus:ring-primary"
-                />
-              </div>
-              <div>
-                <Label htmlFor="conversionValue" className="text-sm font-medium">Avg. Conversion Value ({currencySymbol})</Label>
-                <Input
-                  id="conversionValue"
-                  name="conversionValue"
-                  type="number"
-                  placeholder="e.g., 50"
-                  value={inputs.conversionValue}
-                  onChange={handleInputChange}
-                  className="mt-1 bg-background focus:ring-primary"
-                />
-              </div>
-            </div>
-            
-            {error && (
-              <Alert variant="destructive" className="mt-4">
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="adSpend"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Monthly Ad Spend ({currencySymbol})</FormLabel>
+                        <FormControl>
+                          <Input type="number" placeholder="e.g., 500" {...field} className="bg-background focus:ring-primary" />
+                        </FormControl>
+                        <FormDescription>How much you plan to spend on ads each month.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="cpc"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Avg. Cost Per Click (CPC) ({currencySymbol})</FormLabel>
+                        <FormControl>
+                          <Input type="number" placeholder="e.g., 1.00" {...field} className="bg-background focus:ring-primary" />
+                        </FormControl>
+                        <FormDescription>The typical cost for a single click on your ad.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="conversionRate"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Website Conversion Rate (%)</FormLabel>
+                        <FormControl>
+                          <Input type="number" placeholder="e.g., 3" {...field} className="bg-background focus:ring-primary" />
+                        </FormControl>
+                        <FormDescription>Out of 100 ad clicks, how many usually become customers?</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="conversionValue"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Avg. Value Per New Customer ({currencySymbol})</FormLabel>
+                        <FormControl>
+                          <Input type="number" placeholder="e.g., 75" {...field} className="bg-background focus:ring-primary" />
+                        </FormControl>
+                        <FormDescription>The average revenue you make from one new customer.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                
+                {/* Global form errors can be displayed here if needed, but field-specific errors are handled by FormMessage */}
+                 {form.formState.errors.root && (
+                    <Alert variant="destructive" className="mt-4">
+                        <AlertCircle className="h-4 w-4" />
+                        <UiAlertDescription>{form.formState.errors.root.message}</UiAlertDescription>
+                    </Alert>
+                )}
 
-            <Button onClick={handleCalculate} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground mt-4">
-              <TrendingUp className="mr-2 h-4 w-4" /> Calculate ROI
-            </Button>
+
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground mt-4">
+                  <TrendingUp className="mr-2 h-4 w-4" /> Calculate Potential
+                </Button>
+              </form>
+            </Form>
           </CardContent>
 
           {results && (
             <CardFooter className="flex-col items-start p-6 mt-2 border-t border-border">
-              <h3 className="text-xl font-semibold text-primary mb-4">Estimated Results:</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 w-full text-sm">
+              <h3 className="text-xl font-semibold text-primary mb-4">Your Estimated Potential:</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 w-full text-sm">
                 <div className="p-3 bg-muted/50 rounded-md">
-                  <p className="text-muted-foreground">Estimated Clicks:</p>
-                  <p className="font-semibold text-lg text-foreground">{results.clicks.toFixed(0)}</p>
+                  <p className="text-muted-foreground">Potential Website Clicks:</p>
+                  <p className="font-semibold text-xl text-foreground">{results.clicks.toFixed(0)}</p>
                 </div>
                 <div className="p-3 bg-muted/50 rounded-md">
-                  <p className="text-muted-foreground">Estimated Conversions:</p>
-                  <p className="font-semibold text-lg text-foreground">{results.conversions.toFixed(1)}</p>
+                  <p className="text-muted-foreground">Potential New Customers:</p>
+                  <p className="font-semibold text-xl text-foreground">{results.conversions.toFixed(1)}</p>
                 </div>
                 <div className="p-3 bg-muted/50 rounded-md">
-                  <p className="text-muted-foreground">Estimated Revenue:</p>
-                  <p className="font-semibold text-lg text-foreground">{currencySymbol}{results.revenue.toFixed(2)}</p>
+                  <p className="text-muted-foreground">Potential Monthly Revenue:</p>
+                  <p className="font-semibold text-xl text-foreground">{currencySymbol}{results.revenue.toFixed(2)}</p>
                 </div>
                 <div className="p-3 bg-muted/50 rounded-md">
-                  <p className="text-muted-foreground">Estimated ROAS:</p>
-                  <p className="font-semibold text-lg text-foreground">{results.roas.toFixed(2)}x</p>
+                  <p className="text-muted-foreground">Potential Return On Ad Spend (ROAS):</p>
+                  <p className="font-semibold text-xl text-foreground">{results.roas.toFixed(2)}x</p>
                 </div>
               </div>
-               <p className="text-xs text-muted-foreground mt-4 italic">
+               <p className="text-xs text-muted-foreground mt-6 italic">
                 *These are estimates. Actual results may vary based on campaign quality, targeting, ad creatives, landing page experience, and market conditions.
               </p>
             </CardFooter>
@@ -231,3 +250,4 @@ export default function AdsRoiEstimatorSection() {
     </section>
   );
 }
+
