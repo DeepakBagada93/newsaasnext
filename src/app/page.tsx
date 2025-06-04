@@ -7,10 +7,11 @@ import WorkProcessSection from '@/components/sections/work-process-section';
 import ServicesOverviewSection from '@/components/sections/services-overview-section';
 import CallToActionSection from '@/components/sections/call-to-action-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
-import { Zap, Lightbulb, Layers } from 'lucide-react'; // Added Layers
+import { Zap, Lightbulb, Layers } from 'lucide-react'; 
 import saasnextWeb2Image from '@/public/saasnextweb2.png';
 import saasnextAiImage from '@/public/saasnextairecom.png'; 
 import ComprehensiveSolutionsSection from '@/components/sections/comprehensive-solutions-section';
+import ProblemSolutionSection from '@/components/sections/problem-solution-section';
 
 
 export const metadata: Metadata = {
@@ -89,6 +90,7 @@ export default function HomePage() {
         ctaText="Discuss Your Industry App"
         ctaLink="/contact"
       />
+      <ProblemSolutionSection />
       <CallToActionSection />
     </>
   );
