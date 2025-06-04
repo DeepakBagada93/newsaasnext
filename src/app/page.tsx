@@ -7,9 +7,9 @@ import WorkProcessSection from '@/components/sections/work-process-section';
 import ServicesOverviewSection from '@/components/sections/services-overview-section';
 import CallToActionSection from '@/components/sections/call-to-action-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
-import { Zap, Lightbulb } from 'lucide-react';
+import { Zap, Lightbulb, Layers } from 'lucide-react'; // Added Layers
 import saasnextWeb2Image from '@/public/saasnextweb2.png';
-import saasnextAiImage from '@/public/saasnextairecom.png'; // Import the AI image
+import saasnextAiImage from '@/public/saasnextairecom.png'; 
 import ComprehensiveSolutionsSection from '@/components/sections/comprehensive-solutions-section';
 
 
@@ -72,6 +72,23 @@ export default function HomePage() {
       <ComprehensiveSolutionsSection /> 
       <ServicesOverviewSection />
       <PortfolioSection />
+      <ImageWithTextSection
+        id="industry-specific-webapps"
+        imageUrl={saasnextWeb2Image}
+        imageHint="diverse business sectors"
+        altText="Custom webapp development for diverse industries by SaaSnext"
+        title="Tailored Webapps for Every Industry"
+        titleIcon={Layers}
+        paragraphs={[
+          "Generic web solutions often fall short, failing to meet the unique operational demands and customer engagement strategies required by diverse sectors such as retail, healthcare, education, or manufacturing.",
+          "SaaSnext excels as a specialized webapp development company, creating industry-specific applications that significantly enhance efficiency and customer interaction. From sophisticated e-commerce platforms to secure patient portals or interactive educational tools, our solutions are engineered to drive success within your specific field.",
+          "Are you ready to equip your business with a custom webapp designed to lead your industry? Let's build the solution that sets you apart."
+        ]}
+        imagePosition="right"
+        bgColor="bg-card/10"
+        ctaText="Discuss Your Industry App"
+        ctaLink="/contact"
+      />
       <CallToActionSection />
     </>
   );
