@@ -33,11 +33,11 @@ export default function Header() {
         </Link>
 
         {/* Centered group for desktop/tablet */}
-        <div className="hidden md:flex items-center gap-8 mx-auto">
+        <div className="hidden md:flex items-center gap-12 mx-auto"> {/* Increased gap from gap-8 to gap-12 */}
           <Link href="/" className="flex items-center space-x-2" aria-label="SaaSnext homepage">
             <Logo />
           </Link>
-          <nav className="flex items-center gap-1 text-base font-medium bg-card/50 backdrop-blur-sm p-1 rounded-full border border-border/30 shadow-sm">
+          <nav className="flex items-center gap-1 text-sm bg-card/50 backdrop-blur-sm p-1 rounded-full border border-border/30 shadow-sm"> {/* Changed text-base font-medium to text-sm */}
             {navItems.map((item) => {
               const isActive = (item.href === '/' && currentPathname === '/') || (item.href !== '/' && currentPathname.startsWith(item.href));
               const isAiRecommender = item.label === 'AI Recommender';
@@ -48,15 +48,15 @@ export default function Header() {
                   key={item.label}
                   href={item.href}
                   className={cn(
-                    "px-5 py-3 rounded-full transition-colors duration-200 ease-in-out flex items-center gap-2", 
+                    "px-4 py-2 rounded-full transition-colors duration-200 ease-in-out flex items-center gap-2",  // Changed padding from px-5 py-3
                     isActive
-                      ? "bg-primary text-primary-foreground font-medium shadow-sm"
+                      ? "bg-primary text-primary-foreground font-medium shadow-sm" // font-medium kept for active
                       : isAiRecommender
                       ? "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                       : "text-foreground/70 hover:text-primary hover:bg-primary/10"
                   )}
                 >
-                  {Icon && <Icon className="h-4 w-4" />}
+                  {Icon && <Icon className="h-3.5 w-3.5" />} {/* Icon size reduced */}
                   {item.label}
                 </Link>
               );
