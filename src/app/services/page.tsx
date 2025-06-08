@@ -3,10 +3,10 @@ import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/hero-section';
 import ServicesSection from '@/components/sections/services-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
-import ProblemSolutionSection from '@/components/sections/problem-solution-section'; // Import the new section
+import ProblemSolutionSection from '@/components/sections/problem-solution-section'; 
 import { Settings, Zap, CheckCircle } from 'lucide-react';
 import saasnextWeb2Image from '@/public/saasnextweb2.png'; 
-import saasnextAiImage from '@/public/saasnextai.png';   
+// saasnextAiImage import removed as it's no longer used in this file
 
 export const metadata: Metadata = {
   title: 'Services | Website Development, AI SaaS, Lead Generation Company',
@@ -25,7 +25,7 @@ export default function ServicesPage() {
         containerPadding="py-16 md:py-24"
       />
       <ServicesSection />
-      <ProblemSolutionSection /> {/* Add the new section here */}
+      <ProblemSolutionSection /> 
       <ImageWithTextSection
         id="driving-transformation"
         imageUrl={saasnextWeb2Image} 
@@ -42,20 +42,62 @@ export default function ServicesPage() {
         ctaText="Discuss Your Project"
         ctaLink="/contact"
       />
-       <ImageWithTextSection
-        id="tailored-for-you"
-        imageUrl={saasnextAiImage} 
-        imageHint="local business success"
-        altText="AI SaaS development tailored for your business"
-        title="Solutions Tailored for Your Business"
-        titleIcon={CheckCircle}
-        paragraphs={[
-          "We possess a deep understanding of unique market dynamics. This insight allows us to craft bespoke website development, AI SaaS, and lead generation services that precisely meet the needs of diverse enterprises, giving you a distinct advantage.",
-          "Our dedicated team empowers businesses to leverage the latest digital tools for sustainable growth and competitive success. Partner with SaaSnext to build a stronger digital future for your enterprise."
-        ]}
-        imagePosition="right"
-        bgColor="bg-background"
-      />
+      {/* New Custom Section for "Tailored Solutions" */}
+      <section id="tailored-for-you" className="w-full py-16 md:py-24 bg-background">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
+            {/* Left Column: Existing Text */}
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 flex items-center">
+                <CheckCircle className="w-9 h-9 mr-3 text-primary icon-glow-primary" />
+                Solutions Tailored for Your Business
+              </h2>
+              <div className="space-y-4 text-muted-foreground mb-8">
+                <p className="text-base md:text-lg">
+                  We possess a deep understanding of unique market dynamics. This insight allows us to craft bespoke website development, AI SaaS, and lead generation services that precisely meet the needs of diverse enterprises, giving you a distinct advantage.
+                </p>
+                <p className="text-base md:text-lg">
+                  Our dedicated team empowers businesses to leverage the latest digital tools for sustainable growth and competitive success. Partner with SaaSnext to build a stronger digital future for your enterprise.
+                </p>
+              </div>
+            </div>
+            {/* Right Column: New Relevant Text */}
+            <div className="bg-card/30 p-8 rounded-xl shadow-lg">
+              <h3 className="text-2xl font-semibold text-primary mb-6">The SaaSnext Advantage: Precision-Crafted Solutions</h3>
+              <ul className="space-y-4 text-muted-foreground">
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 mr-3 mt-1 text-accent flex-shrink-0" />
+                  <div>
+                    <h4 className="font-medium text-foreground">In-Depth Discovery</h4>
+                    <p className="text-sm">We immerse ourselves in your business model, market, and objectives to ensure our solutions are perfectly aligned.</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 mr-3 mt-1 text-accent flex-shrink-0" />
+                  <div>
+                    <h4 className="font-medium text-foreground">Strategic Customization</h4>
+                    <p className="text-sm">Every feature and line of code is purposefully chosen to meet your specific operational needs and strategic goals.</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 mr-3 mt-1 text-accent flex-shrink-0" />
+                  <div>
+                    <h4 className="font-medium text-foreground">Future-Proof Scalability</h4>
+                    <p className="text-sm">Our tailored webapps and AI systems are built to adapt and grow alongside your evolving business.</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 mr-3 mt-1 text-accent flex-shrink-0" />
+                  <div>
+                    <h4 className="font-medium text-foreground">Dedicated Partnership & Support</h4>
+                    <p className="text-sm">Beyond delivery, we provide ongoing support and strategic advice, acting as a true extension of your team.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
