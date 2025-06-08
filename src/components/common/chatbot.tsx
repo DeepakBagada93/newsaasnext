@@ -77,7 +77,7 @@ export default function Chatbot() {
   return (
     <>
       <Button
-        className="fixed bottom-6 right-6 w-14 h-14 rounded-full shadow-xl z-50 bg-primary hover:bg-primary/90 text-primary-foreground"
+        className="fixed bottom-6 right-8 w-14 h-14 rounded-full shadow-xl z-50 bg-primary hover:bg-primary/90 text-primary-foreground"
         size="icon"
         onClick={() => setIsOpen(true)}
         aria-label="Open FAQ"
