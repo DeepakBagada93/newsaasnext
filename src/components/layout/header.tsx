@@ -30,7 +30,7 @@ export default function Header() {
           <Logo />
         </Link>
         
-        <nav className="hidden md:flex items-center gap-1 text-base font-medium bg-card/50 backdrop-blur-sm p-1 rounded-full border border-border/30 shadow-sm">
+        <nav className="hidden md:flex items-center gap-1 text-base font-medium bg-card/50 backdrop-blur-sm p-1 rounded-full border border-border/30 shadow-sm mx-6">
           {navItems.map((item) => {
             const isActive = (item.href === '/' && currentPathname === '/') || (item.href !== '/' && currentPathname.startsWith(item.href));
             const isAiRecommender = item.label === 'AI Recommender';
