@@ -33,7 +33,7 @@ export default function Header() {
         </Link>
 
         {/* Centered group for desktop/tablet */}
-        <div className="hidden md:flex items-center gap-12 mx-auto"> {/* Increased gap from gap-8 to gap-12 */}
+        <div className="hidden md:flex items-center gap-16 mx-auto"> {/* Increased gap from gap-12 to gap-16 */}
           <Link href="/" className="flex items-center space-x-2" aria-label="SaaSnext homepage">
             <Logo />
           </Link>
