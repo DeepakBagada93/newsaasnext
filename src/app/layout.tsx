@@ -8,10 +8,8 @@ import Footer from '@/components/layout/footer';
 import Chatbot from '@/components/common/chatbot'; // Import the Chatbot component
 
 // --- FAVICON GUIDANCE ---
-// To use an icon from your `public` directory (e.g., /public/icon.png),
-// reference it directly in the `metadata.icons` object below (e.g., icon: '/icon.png').
-// For apple-touch-icon, ensure `public/apple-icon.png` exists and uncomment its line in `metadata.icons`.
-// A `favicon.ico` file in the root of the `public` directory is often picked up automatically by browsers.
+// The 'icons' object below configures various icon links for your site.
+// Ensure your icon files are in the 'public' directory (e.g., /public/icon.png).
 // --- END FAVICON GUIDANCE ---
 
 const geistSans = Geist({
@@ -31,11 +29,23 @@ export const metadata: Metadata = {
   },
   description: 'SaaSnext is a leading website development, AI SaaS development, and lead generation company. Igniting your digital success with expert solutions.',
   // --- ICON METADATA ---
+  // The 'icons' object configures various icon links for your site.
+  // Ensure your icon files are in the 'public' directory.
   icons: {
-    icon: '/icon.png', // Assumes icon.png is in the public directory
-    // apple: '/apple-icon.png', // Uncomment if you have public/apple-icon.png
-    // You can add more specific icons here if needed, e.g., different sizes
-    // shortcut: { url: "/favicon.ico", type: "image/x-icon" }, // If you want to explicitly link a /public/favicon.ico
+    // Default icon for browsers (often used for favicons in tabs)
+    // We're using icon.png from your public folder. Explicitly setting the type.
+    icon: { url: '/icon.png', type: 'image/png' },
+
+    // Apple touch icon (for when users add your site to their iOS home screen)
+    // Using '/icon.png' as a fallback. For best results, create a dedicated 'apple-icon.png'
+    // (e.g., 180x180px, square, no transparency) in your /public folder and update the URL below
+    // to point to '/apple-icon.png'.
+    apple: { url: '/icon.png', type: 'image/png' },
+
+    // Shortcut icon (typically for older browsers, often favicon.ico)
+    // If you have a 'public/favicon.ico', you can explicitly link it like this:
+    // shortcut: { url: '/favicon.ico', type: 'image/x-icon' },
+    // Note: Browsers often automatically detect /favicon.ico in the public root even without this.
   },
   // --- END ICON METADATA ---
 };
