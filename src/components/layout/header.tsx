@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Logo from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Sparkles } from 'lucide-react'; // Added Sparkles
+import { Menu, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -14,7 +14,7 @@ const navItems = [
   { label: 'Home', href: '/' },
   { label: 'Services', href: '/services' },
   { label: 'Pricing', href: '/pricing' },
-  { label: 'AI Recommender', href: '/recommendation', icon: Sparkles }, // Added icon prop
+  { label: 'AI Recommender', href: '/recommendation', icon: Sparkles },
   { label: 'About Us', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ];
@@ -25,7 +25,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-20 max-w-screen-2xl items-center"> {/* Removed justify-between */}
+      <div className="container flex h-20 max-w-screen-2xl items-center md:justify-center"> {/* Added md:justify-center */}
         
         {/* Mobile-only logo */}
         <Link href="/" className="flex items-center space-x-2 md:hidden" aria-label="SaaSnext homepage (mobile)">
@@ -33,11 +33,11 @@ export default function Header() {
         </Link>
 
         {/* Centered group for desktop/tablet */}
-        <div className="hidden md:flex items-center gap-16 mx-auto"> {/* Increased gap from gap-12 to gap-16 */}
+        <div className="hidden md:flex items-center gap-16"> {/* Removed mx-auto */}
           <Link href="/" className="flex items-center space-x-2" aria-label="SaaSnext homepage">
             <Logo />
           </Link>
-          <nav className="flex items-center gap-1 text-sm bg-card/50 backdrop-blur-sm p-1 rounded-full border border-border/30 shadow-sm"> {/* Changed text-base font-medium to text-sm */}
+          <nav className="flex items-center gap-1 text-sm bg-card/50 backdrop-blur-sm p-1 rounded-full border border-border/30 shadow-sm">
             {navItems.map((item) => {
               const isActive = (item.href === '/' && currentPathname === '/') || (item.href !== '/' && currentPathname.startsWith(item.href));
               const isAiRecommender = item.label === 'AI Recommender';
@@ -48,15 +48,15 @@ export default function Header() {
                   key={item.label}
                   href={item.href}
                   className={cn(
-                    "px-4 py-2 rounded-full transition-colors duration-200 ease-in-out flex items-center gap-2",  // Changed padding from px-5 py-3
+                    "px-4 py-2 rounded-full transition-colors duration-200 ease-in-out flex items-center gap-2",
                     isActive
-                      ? "bg-primary text-primary-foreground font-medium shadow-sm" // font-medium kept for active
+                      ? "bg-primary text-primary-foreground font-medium shadow-sm"
                       : isAiRecommender
                       ? "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                       : "text-foreground/70 hover:text-primary hover:bg-primary/10"
                   )}
                 >
-                  {Icon && <Icon className="h-3.5 w-3.5" />} {/* Icon size reduced */}
+                  {Icon && <Icon className="h-3.5 w-3.5" />}
                   {item.label}
                 </Link>
               );
@@ -65,7 +65,7 @@ export default function Header() {
         </div>
 
         {/* Mobile menu trigger - pushed to the right */}
-        <div className="md:hidden ml-auto"> {/* Added ml-auto */}
+        <div className="md:hidden ml-auto">
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" aria-label="Open mobile menu">
