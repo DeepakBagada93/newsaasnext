@@ -25,15 +25,16 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-20 max-w-screen-2xl items-center md:justify-center"> {/* Added md:justify-center */}
+      {/* Removed md:justify-center to allow items to align left by default on md+ screens */}
+      <div className="container flex h-20 max-w-screen-2xl items-center"> 
         
         {/* Mobile-only logo */}
         <Link href="/" className="flex items-center space-x-2 md:hidden" aria-label="SaaSnext homepage (mobile)">
           <Logo />
         </Link>
 
-        {/* Centered group for desktop/tablet */}
-        <div className="hidden md:flex items-center gap-16"> {/* Removed mx-auto */}
+        {/* Group for desktop/tablet, now aligns left */}
+        <div className="hidden md:flex items-center gap-16"> 
           <Link href="/" className="flex items-center space-x-2" aria-label="SaaSnext homepage">
             <Logo />
           </Link>
