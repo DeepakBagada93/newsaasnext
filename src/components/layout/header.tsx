@@ -25,48 +25,40 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      {/* Removed md:justify-center to allow items to align left by default on md+ screens */}
-      <div className="container flex h-20 max-w-screen-2xl items-center"> 
+      <div className="container flex h-20 max-w-screen-2xl items-center justify-between"> 
         
-        {/* Mobile-only logo */}
-        <Link href="/" className="flex items-center space-x-2 md:hidden" aria-label="SaaSnext homepage (mobile)">
+        <Link href="/" className="flex items-center space-x-2" aria-label="SaaSnext homepage">
           <Logo />
         </Link>
 
-        {/* Group for desktop/tablet, now aligns left */}
-        <div className="hidden md:flex items-center gap-16"> 
-          <Link href="/" className="flex items-center space-x-2" aria-label="SaaSnext homepage">
-            <Logo />
-          </Link>
-          <nav className="flex items-center gap-1 text-sm bg-card/50 backdrop-blur-sm p-1 rounded-full border border-border/30 shadow-sm">
-            {navItems.map((item) => {
-              const isActive = (item.href === '/' && currentPathname === '/') || (item.href !== '/' && currentPathname.startsWith(item.href));
-              const isAiRecommender = item.label === 'AI Recommender';
-              const Icon = item.icon;
+        <nav className="hidden md:flex items-center gap-1 text-sm bg-card/50 backdrop-blur-sm p-1 rounded-full border border-border/30 shadow-sm">
+          {navItems.map((item) => {
+            const isActive = (item.href === '/' && currentPathname === '/') || (item.href !== '/' && currentPathname.startsWith(item.href));
+            const isAiRecommender = item.label === 'AI Recommender';
+            const Icon = item.icon;
 
-              return (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={cn(
-                    "px-4 py-2 rounded-full transition-colors duration-200 ease-in-out flex items-center gap-2",
-                    isActive
-                      ? "bg-primary text-primary-foreground font-medium shadow-sm"
-                      : isAiRecommender
-                      ? "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                      : "text-foreground/70 hover:text-primary hover:bg-primary/10"
-                  )}
-                >
-                  {Icon && <Icon className="h-3.5 w-3.5" />}
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-        </div>
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={cn(
+                  "px-4 py-2 rounded-full transition-colors duration-200 ease-in-out flex items-center gap-2",
+                  isActive
+                    ? "bg-primary text-primary-foreground font-medium shadow-sm"
+                    : isAiRecommender
+                    ? "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                    : "text-foreground/70 hover:text-primary hover:bg-primary/10"
+                )}
+              >
+                {Icon && <Icon className="h-3.5 w-3.5" />}
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
 
-        {/* Mobile menu trigger - pushed to the right */}
-        <div className="md:hidden ml-auto">
+        {/* Mobile menu trigger - pushed to the right by justify-between on parent */}
+        <div className="md:hidden">
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" aria-label="Open mobile menu">
