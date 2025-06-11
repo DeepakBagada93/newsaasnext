@@ -7,11 +7,13 @@ import WorkProcessSection from '@/components/sections/work-process-section';
 import ServicesOverviewSection from '@/components/sections/services-overview-section';
 import CallToActionSection from '@/components/sections/call-to-action-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
-import { Zap, Lightbulb, Layers, Search } from 'lucide-react'; 
+import { Zap, Lightbulb, Layers, Search, ArrowRight, CheckCircle } from 'lucide-react'; 
 import saasnextWeb2Image from '@/public/saasnextweb2.png';
 import saasnextAiImage from '@/public/saasnextairecom.png'; 
 import ComprehensiveSolutionsSection from '@/components/sections/comprehensive-solutions-section';
 import ProblemSolutionSection from '@/components/sections/problem-solution-section';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 
 export const metadata: Metadata = {
@@ -91,23 +93,76 @@ export default function HomePage() {
         ctaLink="/contact"
       />
       <ProblemSolutionSection />
-      <ImageWithTextSection
-        id="seo-growth-section"
-        imageUrl={saasnextWeb2Image}
-        imageHint="search engine optimization strategy"
-        altText="SaaSnext enhancing online visibility with SEO strategies"
-        title="Boost Your Visibility with Expert SEO"
-        titleIcon={Search}
-        paragraphs={[
-          "Is your business struggling to get noticed online? Effective Search Engine Optimization (SEO) is crucial for attracting organic traffic and reaching your target audience.",
-          "SaaSnext provides comprehensive SEO services, from local SEO for community-focused businesses to advanced strategies for competitive markets. We help you climb search rankings, increase website traffic, and convert visitors into loyal customers.",
-          "Let us optimize your digital presence and unlock sustainable growth for your business."
-        ]}
-        imagePosition="left"
-        bgColor="bg-background"
-        ctaText="Enhance Your SEO"
-        ctaLink="/contact"
-      />
+      
+      <section id="seo-growth-section" className="w-full py-16 md:py-24 bg-background">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
+            {/* Left Column */}
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 flex items-center">
+                <Search className="w-9 h-9 mr-3 text-primary icon-glow-primary" />
+                Boost Your Visibility with Expert SEO
+              </h2>
+              <p className="text-base md:text-lg text-muted-foreground mb-4">
+                Is your business struggling to get noticed online? Effective Search Engine Optimization (SEO) is crucial for attracting organic traffic and reaching your target audience. Without a strong online presence, you're missing out on valuable local customers.
+              </p>
+              <p className="text-base md:text-lg text-muted-foreground mb-8">
+                SaaSnext provides comprehensive SEO services. As a local SEO company, we focus on strategies that help businesses like yours dominate local search results, increase website traffic, and convert visitors into loyal customers.
+              </p>
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md transition-transform duration-300 hover:scale-105">
+                <Link href="/contact">
+                  Enhance Your SEO <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+            {/* Right Column */}
+            <div className="bg-card/30 p-8 rounded-xl shadow-lg">
+              <h3 className="text-2xl font-semibold text-primary mb-6">Our SEO Focus: Driving Local Success</h3>
+              <ul className="space-y-4 text-muted-foreground">
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 mr-3 mt-1 text-accent flex-shrink-0" />
+                  <div>
+                    <h4 className="font-medium text-foreground">Targeted Keyword Research</h4>
+                    <p className="text-sm">Identifying high-intent keywords your local customers use (e.g., "web developer near me", "AI for small business").</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 mr-3 mt-1 text-accent flex-shrink-0" />
+                  <div>
+                    <h4 className="font-medium text-foreground">Comprehensive Optimization</h4>
+                    <p className="text-sm">On-page, off-page, and technical SEO tailored for maximum local impact and visibility.</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 mr-3 mt-1 text-accent flex-shrink-0" />
+                  <div>
+                    <h4 className="font-medium text-foreground">Google Business Profile Power-Up</h4>
+                    <p className="text-sm">Maximizing your presence on Google Maps and in local search pack results.</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 mr-3 mt-1 text-accent flex-shrink-0" />
+                  <div>
+                    <h4 className="font-medium text-foreground">Local Citation & Link Building</h4>
+                    <p className="text-sm">Ensuring consistent business information and building local online authority.</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 mr-3 mt-1 text-accent flex-shrink-0" />
+                  <div>
+                    <h4 className="font-medium text-foreground">Transparent & Measurable Results</h4>
+                    <p className="text-sm">Clear reporting on rankings, traffic, and lead generation improvements.</p>
+                  </div>
+                </li>
+              </ul>
+              <p className="text-base md:text-lg text-foreground mt-8 font-semibold">
+                Partner with us to make your business the top choice for local customers.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <CallToActionSection />
     </>
   );
