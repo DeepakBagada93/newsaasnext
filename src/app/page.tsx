@@ -7,7 +7,7 @@ import WorkProcessSection from '@/components/sections/work-process-section';
 import ServicesOverviewSection from '@/components/sections/services-overview-section';
 import CallToActionSection from '@/components/sections/call-to-action-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
-import { Zap, Lightbulb, Layers } from 'lucide-react'; 
+import { Zap, Lightbulb, Layers, Search } from 'lucide-react'; 
 import saasnextWeb2Image from '@/public/saasnextweb2.png';
 import saasnextAiImage from '@/public/saasnextairecom.png'; 
 import ComprehensiveSolutionsSection from '@/components/sections/comprehensive-solutions-section';
@@ -91,6 +91,23 @@ export default function HomePage() {
         ctaLink="/contact"
       />
       <ProblemSolutionSection />
+      <ImageWithTextSection
+        id="seo-growth-section"
+        imageUrl={saasnextWeb2Image}
+        imageHint="search engine optimization strategy"
+        altText="SaaSnext enhancing online visibility with SEO strategies"
+        title="Boost Your Visibility with Expert SEO"
+        titleIcon={Search}
+        paragraphs={[
+          "Is your business struggling to get noticed online? Effective Search Engine Optimization (SEO) is crucial for attracting organic traffic and reaching your target audience.",
+          "SaaSnext provides comprehensive SEO services, from local SEO for community-focused businesses to advanced strategies for competitive markets. We help you climb search rankings, increase website traffic, and convert visitors into loyal customers.",
+          "Let us optimize your digital presence and unlock sustainable growth for your business."
+        ]}
+        imagePosition="left"
+        bgColor="bg-background"
+        ctaText="Enhance Your SEO"
+        ctaLink="/contact"
+      />
       <CallToActionSection />
     </>
   );
