@@ -9,7 +9,7 @@ import Chatbot from '@/components/common/chatbot'; // Import the Chatbot compone
 
 // --- FAVICON GUIDANCE ---
 // The 'icons' object below configures various icon links for your site.
-// Ensure your icon files are in the 'public' directory (e.g., /public/icon.png).
+// Ensure your icon files are in the 'public' directory (e.g., /public/saasnext-site-icon.png).
 // --- END FAVICON GUIDANCE ---
 
 const geistSans = Geist({
@@ -33,14 +33,13 @@ export const metadata: Metadata = {
   // Ensure your icon files are in the 'public' directory.
   icons: {
     // Default icon for browsers (often used for favicons in tabs)
-    // We're using icon.png from your public folder. Explicitly setting the type.
-    icon: { url: '/icon.png', type: 'image/png' },
+    // Pointing to your new site icon file.
+    icon: { url: '/saasnext-site-icon.png', type: 'image/png' },
 
     // Apple touch icon (for when users add your site to their iOS home screen)
-    // Using '/icon.png' as a fallback. For best results, create a dedicated 'apple-icon.png'
-    // (e.g., 180x180px, square, no transparency) in your /public folder and update the URL below
-    // to point to '/apple-icon.png'.
-    apple: { url: '/icon.png', type: 'image/png' },
+    // Using your new site icon file. For best results, create a dedicated 'apple-icon.png'
+    // (e.g., 180x180px, square, no transparency) in your /public folder and update the URL.
+    apple: { url: '/saasnext-site-icon.png', type: 'image/png' },
 
     // Shortcut icon (typically for older browsers, often favicon.ico)
     // If you have a 'public/favicon.ico', you can explicitly link it like this:
