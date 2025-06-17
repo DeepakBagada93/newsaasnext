@@ -14,6 +14,7 @@ import ComprehensiveSolutionsSection from '@/components/sections/comprehensive-s
 import ProblemSolutionSection from '@/components/sections/problem-solution-section';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import AnimatedServicesShowcaseSection from '@/components/sections/animated-services-showcase-section';
 
 
 export const metadata: Metadata = {
@@ -38,6 +39,7 @@ export default function HomePage() {
         showCtaButtons={true}
         containerPadding="py-20 md:py-32"
       />
+      <AnimatedServicesShowcaseSection />
       <ImageWithTextSection
         id="ai-recommender-promo"
         imageUrl={saasnextAiImage} 
