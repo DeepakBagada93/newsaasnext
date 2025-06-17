@@ -22,7 +22,7 @@ export type ServiceRecommendationInput = z.infer<typeof ServiceRecommendationInp
 const ServiceRecommendationOutputSchema = z.object({
   recommendedServices: z
     .array(z.string())
-    .describe('An array of general service categories that are most relevant to the user\'s needs (e.g., "Web Development", "Lead Generation").'),
+    .describe('An array of general service categories that are most relevant to the user\'s needs (e.g., "Web Development", "Lead Generation", "Logo & Branding Design").'),
   reasoning: z
     .string()
     .describe('Explanation of why these services are recommended, including specific suggestions for technologies or platforms (e.g., WordPress, Next.js, Google Ads, Meta Ads) based on the user\'s needs description.'),
@@ -37,7 +37,7 @@ const prompt = ai.definePrompt({
   name: 'serviceRecommendationPrompt',
   input: {schema: ServiceRecommendationInputSchema},
   output: {schema: ServiceRecommendationOutputSchema},
-  prompt: `You are an expert consultant at SaaSnext, a leading web development, AI automation, lead generation, and email marketing company.
+  prompt: `You are an expert consultant at SaaSnext, a leading web development, AI automation, lead generation, email marketing, and logo & branding design company.
 
 A user has described their needs and goals. Based on this description, you will recommend the most relevant services offered by SaaSnext and provide specific suggestions within those services where applicable.
 
@@ -46,6 +46,7 @@ The services offered by SaaSnext are:
 - AI Automation: Automating business processes using artificial intelligence to improve efficiency and reduce costs.
 - Lead Generation: Identifying and attracting potential customers through targeted marketing strategies like online advertising.
 - Email Marketing: Engaging audiences and nurturing leads through targeted email campaigns.
+- Logo & Branding Design: Crafting unique and memorable visual identities, including logos, color palettes, typography, and complete brand guidelines to ensure consistency and impact across all platforms.
 
 Analyze the user's needs: {{{needsDescription}}}
 
@@ -67,9 +68,12 @@ Specific Guidelines for Recommendations:
 3.  **AI Automation and Email Marketing:**
     *   Recommend "AI Automation" or "Email Marketing" if the user's needs explicitly or implicitly point towards process optimization, data insights, customer engagement through intelligent systems, or nurturing leads via email campaigns.
 
+4.  **Logo & Branding Design:**
+    *   If the user's description mentions **starting a new business, rebranding an existing one, needing a new logo, expressing a desire for a more professional or cohesive visual identity, or concerns about brand perception**, recommend "Logo & Branding Design" as a service. In your 'reasoning', explain how professional branding can establish trust, attract the target audience, and differentiate their business in the market.
+
 Output Format:
 Ensure your output strictly adheres to the defined ServiceRecommendationOutputSchema.
-- The 'recommendedServices' array should list the general service categories (e.g., "Web Development", "Lead Generation").
+- The 'recommendedServices' array should list the general service categories (e.g., "Web Development", "Lead Generation", "Logo & Branding Design").
 - The detailed suggestions (e.g., "WordPress", "Next.js", "Google Ads", "Meta Ads") and the rationale behind them should be included in the 'reasoning' field.
 `,
 });

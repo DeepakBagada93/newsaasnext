@@ -24,12 +24,12 @@ const qnaList: QnaPair[] = [
   {
     id: 'q1',
     question: 'What services does SaaSnext offer?',
-    answer: 'SaaSnext specializes in Web Development (custom sites, e-commerce, CMS, PWAs), AI Automation (chatbots, machine learning, RPA, NLP, data analysis), Lead Generation (SEO, PPC, CRO, social media marketing), and Email Marketing (strategy, design, automation, analytics).',
+    answer: 'SaaSnext specializes in Web Development (custom sites, e-commerce, CMS, PWAs), AI Automation (chatbots, machine learning, RPA, NLP, data analysis), Lead Generation (SEO, PPC, CRO, social media marketing), Email Marketing (strategy, design, automation, analytics), and Logo & Branding Design (logos, brand strategy, visual guides).',
   },
   {
     id: 'q2',
     question: "What is SaaSnext's mission?",
-    answer: 'Our mission is to ignite digital success for businesses by providing cutting-edge web development, intelligent AI automation, and effective lead generation strategies.',
+    answer: 'Our mission is to ignite digital success for businesses by providing cutting-edge web development, intelligent AI automation, effective lead generation strategies, and compelling branding solutions.',
   },
   {
     id: 'q3',
@@ -67,6 +67,11 @@ const qnaList: QnaPair[] = [
     id: 'q7',
     question: 'What lead generation strategies do you use?',
     answer: 'Our lead generation strategies include Search Engine Optimization (SEO), Pay-Per-Click (PPC) advertising on platforms like Google Ads and Meta Ads, Conversion Rate Optimization (CRO), social media marketing, and content marketing designed to attract and convert your target audience.'
+  },
+  {
+    id: 'q8',
+    question: 'What does Logo & Branding Design involve?',
+    answer: "Our Logo & Branding Design service includes creating unique logos, developing brand strategy, designing visual style guides (color palettes, typography), marketing collateral (business cards, brochures), and ensuring your brand has a consistent and impactful visual presence across all platforms."
   }
 ];
 

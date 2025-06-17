@@ -1,5 +1,5 @@
 
-import { Palette, Bot, LineChart, MailCheck, Layers } from 'lucide-react';
+import { Palette, Bot, LineChart, MailCheck, Layers, Brush } from 'lucide-react'; // Added Brush
 
 const services = [
   {
@@ -30,6 +30,13 @@ const services = [
     animationWrapperClass: "animate-gentle-bounce",
     iconClass: "icon-glow-primary",
   },
+  {
+    icon: Brush, 
+    title: "Logo & Branding", 
+    description: "Crafting memorable brand identities that resonate.",
+    animationWrapperClass: "animate-subtle-rotate", 
+    iconClass: "icon-glow-primary",
+  },
 ];
 
 export default function AnimatedServicesShowcaseSection() {
@@ -45,7 +52,7 @@ export default function AnimatedServicesShowcaseSection() {
             Explore how our core services dynamically adapt to power your business growth and digital transformation.
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8"> {/* Adjusted grid for 5 items on xl */}
           {services.map((service) => (
             <div 
               key={service.title} 
@@ -63,3 +70,4 @@ export default function AnimatedServicesShowcaseSection() {
     </section>
   );
 }
+

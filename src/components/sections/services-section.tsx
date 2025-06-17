@@ -1,10 +1,11 @@
 
 import ServiceCard from "@/components/common/service-card";
-import { Globe, Cpu, Users, Search, ShoppingCart, Bot, LineChart, Palette, MailCheck } from "lucide-react";
+import { Globe, Cpu, Users, Search, ShoppingCart, Bot, LineChart, Palette, MailCheck, Brush } from "lucide-react"; // Added Brush
 
 const services = [
   {
-    icon: Palette, // Changed from Globe
+    id: "web-development", // Added ID for deep linking
+    icon: Palette, 
     title: "Custom Website Development",
     description: "Crafting modern, responsive, and high-performance websites tailored to your unique business needs and brand identity. As a leading local website development company, we ensure exceptional user experiences.",
     details: [
@@ -19,7 +20,8 @@ const services = [
     ],
   },
   {
-    icon: Bot, // Changed from Cpu
+    id: "ai-automation", // Added ID
+    icon: Bot, 
     title: "AI SaaS Development",
     description: "Leveraging artificial intelligence to automate complex business processes, unlock insights from data, and create intelligent applications. Our AI SaaS development enhances efficiency.",
     details: [
@@ -34,7 +36,8 @@ const services = [
     ],
   },
   {
-    icon: LineChart, // Changed from Users
+    id: "lead-generation", // Added ID
+    icon: LineChart, 
     title: "Strategic Lead Generation",
     description: "Identifying, attracting, and converting potential customers through targeted, data-driven marketing strategies. Our local lead generation company optimizes sales funnels.",
     details: [
@@ -49,6 +52,7 @@ const services = [
     ],
   },
   {
+    id: "email-marketing", // Added ID
     icon: MailCheck,
     title: "Email Marketing Solutions",
     description: "Engaging your audience, nurturing leads, and driving conversions through targeted and personalized email campaigns, supporting your business growth.",
@@ -62,6 +66,22 @@ const services = [
       "Compliance & deliverability best practices",
       "Integration with CRM and sales platforms",
     ],
+  },
+  {
+    id: "logo-branding-design", // Added ID
+    icon: Brush,
+    title: "Logo & Branding Design",
+    description: "Creating impactful visual identities that capture your brand's essence. We craft logos, brand guidelines, and more to ensure your business stands out.",
+    details: [
+      "Custom logo design and brand identity systems",
+      "Comprehensive brand strategy and positioning",
+      "Visual style guide and typography development",
+      "Marketing collateral design (brochures, business cards, etc.)",
+      "Packaging design concepts and execution",
+      "Digital asset creation for web and social media",
+      "Brand messaging and communication guidelines",
+      "Rebranding services for existing businesses",
+    ],
   }
 ];
 
@@ -74,18 +94,19 @@ export default function ServicesSection() {
             Our Core Services
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We provide a comprehensive suite of services including website development, AI SaaS solutions, and lead generation, designed to elevate your business and drive sustainable growth.
+            We provide a comprehensive suite of services including website development, AI SaaS solutions, lead generation, email marketing, and branding, designed to elevate your business and drive sustainable growth.
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"> {/* Adjusted grid for better flow with 5 items */}
           {services.map((service) => (
-            <ServiceCard
-              key={service.title}
-              icon={service.icon}
-              title={service.title}
-              description={service.description}
-              details={service.details}
-            />
+            <div key={service.id} id={service.id} className="flex"> {/* Added id for anchor linking */}
+              <ServiceCard
+                icon={service.icon}
+                title={service.title}
+                description={service.description}
+                details={service.details}
+              />
+            </div>
           ))}
         </div>
       </div>
