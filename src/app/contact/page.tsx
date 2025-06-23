@@ -4,7 +4,6 @@ import HeroSection from '@/components/sections/hero-section';
 import ContactSection from '@/components/sections/contact-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import { Mail, MessageCircle, Users } from 'lucide-react';
-import saasnextWebImage from '@/public/saasnextweb.png'; 
 
 export const metadata: Metadata = {
   title: 'Contact Us | SaaSnext - Local Website & AI Development Company',
@@ -24,7 +23,7 @@ export default function ContactPage() {
       />
       <ImageWithTextSection
         id="ready-to-innovate"
-        imageUrl={saasnextWebImage} 
+        imageUrl="/saasnextweb.png" 
         imageHint="innovation lightbulb"
         altText="Innovate with SaaSnext"
         title="Ready for Innovative Website Development?"
@@ -39,7 +38,7 @@ export default function ContactPage() {
       <ContactSection />
       <ImageWithTextSection
         id="local-support"
-        imageUrl={saasnextWebImage} 
+        imageUrl="/saasnextweb.png" 
         imageHint="support team"
         altText="SaaSnext support for clients"
         title="Dedicated Support for Our Clients"

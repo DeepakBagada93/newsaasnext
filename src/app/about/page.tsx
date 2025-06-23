@@ -4,8 +4,6 @@ import HeroSection from '@/components/sections/hero-section';
 import AboutSection from '@/components/sections/about-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import { Building, Users, Briefcase, Lightbulb } from 'lucide-react'; // Added Lightbulb
-import saasnextWebImage from '@/public/saasnextweb.png';
-import saasnextWeb2Image from '@/public/saasnextweb2.png'; // Assuming this image is suitable for innovation
 
 export const metadata: Metadata = {
   title: 'About SaaSnext | Local Website Development & AI SaaS Experts',
@@ -26,7 +24,7 @@ export default function AboutPage() {
       <AboutSection />
       <ImageWithTextSection
         id="our-team-culture"
-        imageUrl={saasnextWebImage} 
+        imageUrl="/saasnextweb.png" 
         imageHint="diverse team collaborating"
         altText="SaaSnext team: experts in local website development"
         title="Our Collaborative Culture for Your Projects"
@@ -42,7 +40,7 @@ export default function AboutPage() {
       />
       <ImageWithTextSection
         id="local-focus"
-        imageUrl={saasnextWebImage} 
+        imageUrl="/saasnextweb.png" 
         imageHint="thriving city"
         altText="SaaSnext: Your local lead generation company"
         title="Committed to Local Growth"
@@ -55,7 +53,7 @@ export default function AboutPage() {
       />
       <ImageWithTextSection
         id="innovation-core"
-        imageUrl={saasnextWeb2Image} 
+        imageUrl="/saasnextweb2.png" 
         imageHint="abstract technology innovation"
         altText="Innovation at SaaSnext - Local AI Solutions Company"
         title="Innovation at Our Core"

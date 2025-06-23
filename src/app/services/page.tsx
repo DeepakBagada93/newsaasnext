@@ -5,8 +5,6 @@ import ServicesSection from '@/components/sections/services-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import ProblemSolutionSection from '@/components/sections/problem-solution-section'; 
 import { Settings, Zap, CheckCircle } from 'lucide-react';
-import saasnextWeb2Image from '@/public/saasnextweb2.png'; 
-// saasnextAiImage import removed as it's no longer used in this file
 
 export const metadata: Metadata = {
   title: 'Services | Website Development, AI SaaS, Lead Generation Company',
@@ -28,7 +26,7 @@ export default function ServicesPage() {
       <ProblemSolutionSection /> 
       <ImageWithTextSection
         id="driving-transformation"
-        imageUrl={saasnextWeb2Image} 
+        imageUrl="/saasnextweb2.png" 
         imageHint="digital transformation abstract"
         altText="Digital transformation with SaaSnext"
         title="Driving Digital Transformation for Businesses"

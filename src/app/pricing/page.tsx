@@ -4,8 +4,6 @@ import HeroSection from '@/components/sections/hero-section';
 import PricingSection from '@/components/sections/pricing-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import { DollarSign, Handshake, TrendingUp } from 'lucide-react';
-import saasnextWeb2Image from '@/public/saasnextweb2.png'; 
-import saasnextWebImage from '@/public/saasnextweb.png';   
 
 export const metadata: Metadata = {
   title: 'Pricing | Custom Quotes for Web & AI SaaS Development',
@@ -26,7 +24,7 @@ export default function PricingPage() {
       <PricingSection />
       <ImageWithTextSection
         id="value-partnership"
-        imageUrl={saasnextWeb2Image} 
+        imageUrl="/saasnextweb2.png" 
         imageHint="business handshake deal"
         altText="Partnerships for local website development"
         title="Value Beyond Price, Partnerships That Last"
@@ -42,7 +40,7 @@ export default function PricingPage() {
       />
       <ImageWithTextSection
         id="roi-focus"
-        imageUrl={saasnextWebImage} 
+        imageUrl="/saasnextweb.png" 
         imageHint="financial growth chart"
         altText="ROI for local AI SaaS development"
         title="Maximizing Your ROI with Our Expertise"

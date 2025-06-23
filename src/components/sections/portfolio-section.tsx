@@ -2,10 +2,6 @@
 import PortfolioCard from "@/components/common/portfolio-card";
 import { Briefcase } from "lucide-react";
 import Image from "next/image"; // Import next/image here
-import webfile from '@/public/saasnextweb.png'; 
-import webfile2 from '@/public/saasnextai.png';
-import webfile5 from '@/public/saasnextp1.png';
-import webfile6 from '@/public/saasnextp2.png';
 
 const portfolioItems = [
   {
@@ -15,7 +11,7 @@ const portfolioItems = [
     projectUrl: "https://dbwp.vercel.app/",
     imageElement: (
       <Image
-        src={webfile} 
+        src="/saasnextweb.png" 
         alt="AI WordPress Blog Management Software"
         fill
         sizes="(max-width: 639px) 100vw, 50vw"
@@ -31,7 +27,7 @@ const portfolioItems = [
     projectUrl: "https://deepakgramai.vercel.app/",
     imageElement: (
       <Image
-        src={webfile5} 
+        src="/saasnextp1.png" 
         alt="AI Powered Grammar & Content Suggestion Webapp"
         fill
         sizes="(max-width: 639px) 100vw, 50vw"
@@ -47,7 +43,7 @@ const portfolioItems = [
     projectUrl: "https://dbsaasnext.vercel.app/",
     imageElement: (
       <Image
-        src={webfile6} 
+        src="/saasnextp2.png" 
         alt="AI Powered Social Media Post Creation Webapp"
         fill
         sizes="(max-width: 639px) 100vw, 50vw"
@@ -63,7 +59,7 @@ const portfolioItems = [
     projectUrl: "https://dbwp.vercel.app/",
     imageElement: (
       <Image
-        src={webfile2} 
+        src="/saasnextai.png" 
         alt="E-commerce Store Overhaul"
         fill
         sizes="(max-width: 639px) 100vw, 50vw"

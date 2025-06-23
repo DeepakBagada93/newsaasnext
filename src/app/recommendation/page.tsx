@@ -5,7 +5,6 @@ import RecommendationSection from '@/components/sections/recommendation-section'
 import AdsRoiEstimatorSection from '@/components/sections/ads-roi-estimator-section'; // Import the new section
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import { Lightbulb, Rocket } from 'lucide-react';
-import saasnextWebImage from '@/public/saasnextweb.png';
 
 export const metadata: Metadata = {
   title: 'AI Service Recommender & ROI Calculator | SaaSnext',
@@ -27,7 +26,7 @@ export default function RecommendationPage() {
       <AdsRoiEstimatorSection /> {/* Add the new section here */}
       <ImageWithTextSection
         id="after-recommendation-next-steps"
-        imageUrl={saasnextWebImage}
+        imageUrl="/saasnextweb.png"
         imageHint="team discussion strategy"
         altText="Discussing AI recommendations with SaaSnext experts"
         title="Your Insights: What's Next?"
