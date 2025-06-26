@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/hero-section';
 import RecommendationSection from '@/components/sections/recommendation-section';
@@ -26,7 +27,6 @@ export default function RecommendationPage() {
       <ImageWithTextSection
         id="after-recommendation-next-steps"
         imageUrl="/saasnextai.png"
-        imageHint="team discussion strategy"
         altText="Discussing AI recommendations with SaaSnext experts"
         title="Your Insights: What's Next?"
         titleIcon={Rocket}

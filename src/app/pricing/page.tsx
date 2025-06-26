@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/hero-section';
 import PricingSection from '@/components/sections/pricing-section';
@@ -24,7 +25,6 @@ export default function PricingPage() {
       <ImageWithTextSection
         id="value-partnership"
         imageUrl="/saasnextweb.png"
-        imageHint="business handshake deal"
         altText="Partnerships for local website development"
         title="Value Beyond Price, Partnerships That Last"
         titleIcon={Handshake}
@@ -40,7 +40,6 @@ export default function PricingPage() {
       <ImageWithTextSection
         id="roi-focus"
         imageUrl="/saasnextweb2.png"
-        imageHint="financial growth chart"
         altText="ROI for local AI SaaS development"
         title="Maximizing Your ROI with Our Expertise"
         titleIcon={TrendingUp}

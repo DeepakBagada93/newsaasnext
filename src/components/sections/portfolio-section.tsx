@@ -1,3 +1,4 @@
+
 import PortfolioCard from "@/components/common/portfolio-card";
 import { Briefcase } from "lucide-react";
 
@@ -8,7 +9,6 @@ const portfolioItems = [
     tags: ["AI Automation", "WordPress", "Content Management", "SaaS"],
     projectUrl: "https://dbwp.vercel.app/",
     imageUrl: "/saasnextp1.png",
-    imageHint: "AI software interface",
   },
   {
     title: "AI Powered Grammar & Content Suggestion Webapp",
@@ -16,7 +16,6 @@ const portfolioItems = [
     tags: ["AI Automation", "NLP", "Web Application", "SaaS", "Content Creation"],
     projectUrl: "https://deepakgramai.vercel.app/",
     imageUrl: "/saasnextp2.png",
-    imageHint: "writing assistant AI",
   },
   {
     title: "AI Powered Social Media Post Creation Webapp",
@@ -24,7 +23,6 @@ const portfolioItems = [
     tags: ["AI Automation", "Social Media", "Content Creation", "SaaS", "Web Application"],
     projectUrl: "https://dbsaasnext.vercel.app/",
     imageUrl: "/saasnextp1.png",
-    imageHint: "AI social media",
   },
    {
     title: "E-commerce Store Overhaul",
@@ -32,7 +30,6 @@ const portfolioItems = [
     tags: ["Web Development", "E-commerce", "AI Automation", "UX/UI"],
     projectUrl: "https://dbwp.vercel.app/",
     imageUrl: "/saasnextp2.png",
-    imageHint: "online shopping",
   },
 ];
 
@@ -54,7 +51,6 @@ export default function PortfolioSection() {
             <PortfolioCard
               key={item.title}
               imageUrl={item.imageUrl}
-              imageHint={item.imageHint}
               title={item.title}
               description={item.description}
               tags={item.tags}

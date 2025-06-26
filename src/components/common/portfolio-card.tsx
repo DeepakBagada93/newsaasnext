@@ -7,14 +7,13 @@ import Link from "next/link";
 
 interface PortfolioCardProps {
   imageUrl: string;
-  imageHint: string;
   title: string;
   description: string;
   tags: string[];
   projectUrl?: string;
 }
 
-export default function PortfolioCard({ imageUrl, imageHint, title, description, tags, projectUrl }: PortfolioCardProps) {
+export default function PortfolioCard({ imageUrl, title, description, tags, projectUrl }: PortfolioCardProps) {
   return (
     <Card className="overflow-hidden flex flex-col h-full bg-card/50 hover:shadow-primary/20 hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:-translate-y-1">
       <CardHeader className="p-0">
@@ -22,7 +21,6 @@ export default function PortfolioCard({ imageUrl, imageHint, title, description,
           <Image
             src={imageUrl}
             alt={title}
-            data-ai-hint={imageHint}
             fill
             sizes="(max-width: 639px) 100vw, 50vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"

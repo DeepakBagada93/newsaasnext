@@ -1,5 +1,7 @@
+
 import Image from 'next/image';
 import type { HTMLAttributes } from 'react';
+import { cn } from '@/lib/utils';
 
 interface LogoProps extends HTMLAttributes<HTMLDivElement> {
   // You can add specific props here if needed in the future
@@ -18,10 +20,4 @@ export default function Logo({ className, ...props }: LogoProps) {
       />
     </div>
   );
-}
-
-// Helper function, assuming you might want to use cn for consistency
-// If not using elsewhere, you can inline it or simplify.
-function cn(...inputs: (string | undefined | null | false)[]) {
-  return inputs.filter(Boolean).join(' ');
 }

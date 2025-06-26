@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/hero-section';
 import ContactSection from '@/components/sections/contact-section';
@@ -23,7 +24,6 @@ export default function ContactPage() {
       <ImageWithTextSection
         id="ready-to-innovate"
         imageUrl="/saasnextweb.png"
-        imageHint="innovation lightbulb"
         altText="Innovate with SaaSnext"
         title="Ready for Innovative Website Development?"
         titleIcon={MessageCircle}
@@ -38,7 +38,6 @@ export default function ContactPage() {
       <ImageWithTextSection
         id="local-support"
         imageUrl="/saasnextweb2.png"
-        imageHint="support team"
         altText="SaaSnext support for clients"
         title="Dedicated Support for Our Clients"
         titleIcon={Users}

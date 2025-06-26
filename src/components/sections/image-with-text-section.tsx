@@ -8,7 +8,6 @@ import type { LucideIcon } from 'lucide-react';
 interface ImageWithTextSectionProps {
   id?: string;
   imageUrl: string;
-  imageHint: string;
   altText: string;
   title: string;
   paragraphs: string[];
@@ -22,7 +21,6 @@ interface ImageWithTextSectionProps {
 export default function ImageWithTextSection({
   id,
   imageUrl,
-  imageHint,
   altText,
   title,
   paragraphs,
@@ -40,7 +38,6 @@ export default function ImageWithTextSection({
             <Image
               src={imageUrl}
               alt={altText}
-              data-ai-hint={imageHint}
               fill
               style={{objectFit: 'cover'}}
               className="transform transition-transform duration-500 hover:scale-105"
