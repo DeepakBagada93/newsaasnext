@@ -24,7 +24,7 @@ export default function PricingPage() {
       <PricingSection />
       <ImageWithTextSection
         id="value-partnership"
-        imageUrl="/saasnextweb2.png" 
+        imageUrl="https://placehold.co/600x400.png" 
         imageHint="business handshake deal"
         altText="Partnerships for local website development"
         title="Value Beyond Price, Partnerships That Last"
@@ -40,7 +40,7 @@ export default function PricingPage() {
       />
       <ImageWithTextSection
         id="roi-focus"
-        imageUrl="/saasnextweb.png" 
+        imageUrl="https://placehold.co/600x400.png" 
         imageHint="financial growth chart"
         altText="ROI for local AI SaaS development"
         title="Maximizing Your ROI with Our Expertise"

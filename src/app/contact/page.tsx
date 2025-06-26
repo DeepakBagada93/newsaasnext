@@ -23,7 +23,7 @@ export default function ContactPage() {
       />
       <ImageWithTextSection
         id="ready-to-innovate"
-        imageUrl="/saasnextweb.png" 
+        imageUrl="https://placehold.co/600x400.png" 
         imageHint="innovation lightbulb"
         altText="Innovate with SaaSnext"
         title="Ready for Innovative Website Development?"
@@ -38,7 +38,7 @@ export default function ContactPage() {
       <ContactSection />
       <ImageWithTextSection
         id="local-support"
-        imageUrl="/saasnextweb.png" 
+        imageUrl="https://placehold.co/600x400.png" 
         imageHint="support team"
         altText="SaaSnext support for clients"
         title="Dedicated Support for Our Clients"

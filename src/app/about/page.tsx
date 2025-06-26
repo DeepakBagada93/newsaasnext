@@ -24,7 +24,7 @@ export default function AboutPage() {
       <AboutSection />
       <ImageWithTextSection
         id="our-team-culture"
-        imageUrl="/saasnextweb.png" 
+        imageUrl="https://placehold.co/600x400.png" 
         imageHint="diverse team collaborating"
         altText="SaaSnext team: experts in local website development"
         title="Our Collaborative Culture for Your Projects"
@@ -40,7 +40,7 @@ export default function AboutPage() {
       />
       <ImageWithTextSection
         id="local-focus"
-        imageUrl="/saasnextweb.png" 
+        imageUrl="https://placehold.co/600x400.png" 
         imageHint="thriving city"
         altText="SaaSnext: Your local lead generation company"
         title="Committed to Local Growth"
@@ -53,7 +53,7 @@ export default function AboutPage() {
       />
       <ImageWithTextSection
         id="innovation-core"
-        imageUrl="/saasnextweb2.png" 
+        imageUrl="https://placehold.co/600x400.png" 
         imageHint="abstract technology innovation"
         altText="Innovation at SaaSnext - Local AI Solutions Company"
         title="Innovation at Our Core"

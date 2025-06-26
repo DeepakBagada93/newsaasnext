@@ -26,7 +26,7 @@ export default function ServicesPage() {
       <ProblemSolutionSection /> 
       <ImageWithTextSection
         id="driving-transformation"
-        imageUrl="/saasnextweb2.png" 
+        imageUrl="https://placehold.co/600x400.png" 
         imageHint="digital transformation abstract"
         altText="Digital transformation with SaaSnext"
         title="Driving Digital Transformation for Businesses"

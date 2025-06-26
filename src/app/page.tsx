@@ -40,7 +40,7 @@ export default function HomePage() {
       <AnimatedServicesShowcaseSection />
       <ImageWithTextSection
         id="ai-recommender-promo"
-        imageUrl="/saasnextairecom.png" 
+        imageUrl="https://placehold.co/600x400.png" 
         imageHint="AI helping business"
         altText="SaaSnext AI Service Recommender for local businesses"
         title="Unlock Your Success: Ask Our AI Recommender Now!"
@@ -56,7 +56,7 @@ export default function HomePage() {
       />
       <ImageWithTextSection
         id="catalyzing-vision"
-        imageUrl="/saasnextweb2.png" 
+        imageUrl="https://placehold.co/600x400.png" 
         imageHint="innovation lightbulb"
         altText="SaaSnext: Catalyzing business vision with local website development"
         title="Fueling Your Business Vision"
@@ -77,7 +77,7 @@ export default function HomePage() {
       <PortfolioSection />
       <ImageWithTextSection
         id="industry-specific-webapps"
-        imageUrl="/saasnextweb2.png"
+        imageUrl="https://placehold.co/600x400.png"
         imageHint="diverse business sectors"
         altText="Custom webapp development for diverse industries by SaaSnext"
         title="Tailored Webapps for Every Industry"
