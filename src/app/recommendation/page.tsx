@@ -4,6 +4,7 @@ import HeroSection from '@/components/sections/hero-section';
 import RecommendationSection from '@/components/sections/recommendation-section';
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import { Lightbulb, Rocket } from 'lucide-react';
+import FilterablePortfolioSection from '@/components/sections/filterable-portfolio-section';
 
 export const metadata: Metadata = {
   title: 'AI Service Recommender | SaaSnext',
@@ -22,6 +23,7 @@ export default function RecommendationPage() {
         containerPadding="py-16 md:py-24"
       />
       <RecommendationSection />
+      <FilterablePortfolioSection />
       <ImageWithTextSection
         id="after-recommendation-next-steps"
         imageUrl="/saasnextai.png"
