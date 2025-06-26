@@ -34,14 +34,13 @@ export default function ImageWithTextSection({
     <section id={id} className={`w-full py-16 md:py-24 ${bgColor}`}>
       <div className="container mx-auto px-4 md:px-6">
         <div className={`grid md:grid-cols-2 gap-8 md:gap-12 items-center`}>
-          <div className={`relative aspect-[4/3] md:aspect-video rounded-lg overflow-hidden shadow-xl ${imagePosition === 'right' ? 'md:order-2' : ''}`}>
+          <div className={`overflow-hidden rounded-lg shadow-xl ${imagePosition === 'right' ? 'md:order-2' : ''}`}>
             <Image
               src={imageUrl}
               alt={altText}
-              fill
-              style={{objectFit: 'cover'}}
-              className="transform transition-transform duration-500 hover:scale-105"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              width={800}
+              height={600}
+              className="w-full h-auto object-cover transform transition-transform duration-500 hover:scale-105"
             />
           </div>
           <div className={`${imagePosition === 'right' ? 'md:order-1' : ''}`}>

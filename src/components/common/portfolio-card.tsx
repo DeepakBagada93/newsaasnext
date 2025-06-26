@@ -17,13 +17,13 @@ export default function PortfolioCard({ imageUrl, title, description, tags, proj
   return (
     <Card className="overflow-hidden flex flex-col h-full bg-card/50 hover:shadow-primary/20 hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:-translate-y-1">
       <CardHeader className="p-0">
-        <div className="aspect-[4/3] relative w-full group">
+        <div className="aspect-[4/3] w-full group overflow-hidden">
           <Image
             src={imageUrl}
             alt={title}
-            fill
-            sizes="(max-width: 639px) 100vw, 50vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            width={600}
+            height={450}
+            className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
           />
         </div>
       </CardHeader>

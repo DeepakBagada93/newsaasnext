@@ -9,12 +9,12 @@ interface LogoProps extends HTMLAttributes<HTMLDivElement> {
 
 export default function Logo({ className, ...props }: LogoProps) {
   return (
-    <div className={cn("relative", className)} {...props} style={{ width: 144, height: 36 }}> {/* Increased size */}
+    <div className={cn("flex items-center justify-center", className)} {...props}>
       <Image
         src="/saasnextnewlogo.png"
         alt="SaaSnext Logo"
-        fill
-        sizes="150px" // Adjusted sizes attribute
+        width={144}
+        height={36}
         style={{ objectFit: 'contain' }}
         priority 
       />
