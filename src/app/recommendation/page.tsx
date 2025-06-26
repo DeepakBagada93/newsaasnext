@@ -2,13 +2,12 @@
 import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/hero-section';
 import RecommendationSection from '@/components/sections/recommendation-section';
-import AdsRoiEstimatorSection from '@/components/sections/ads-roi-estimator-section'; // Import the new section
 import ImageWithTextSection from '@/components/sections/image-with-text-section';
 import { Lightbulb, Rocket } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'AI Service Recommender & ROI Calculator | SaaSnext',
-  description: 'Use our AI tool for recommendations on website development, AI SaaS solutions, or lead generation services. Plus, estimate your ad campaign ROI. Tailored for your needs by SaaSnext, a leading local company.',
+  title: 'AI Service Recommender | SaaSnext',
+  description: 'Use our AI tool for recommendations on website development, AI SaaS solutions, or lead generation services. Tailored for your needs by SaaSnext, a leading local company.',
 };
 
 export default function RecommendationPage() {
@@ -16,14 +15,13 @@ export default function RecommendationPage() {
     <>
       <HeroSection
         pageTitle="AI-Powered Insights for Your Business"
-        pageSubtitle="Let our intelligent assistant guide you to the SaaSnext services that best fit your objectives, and estimate your potential advertising returns."
+        pageSubtitle="Let our intelligent assistant guide you to the SaaSnext services that best fit your objectives."
         tagline="Smart Tools for Your Success"
         TaglineIcon={Lightbulb}
         showCtaButtons={false}
         containerPadding="py-16 md:py-24"
       />
       <RecommendationSection />
-      <AdsRoiEstimatorSection /> {/* Add the new section here */}
       <ImageWithTextSection
         id="after-recommendation-next-steps"
         imageUrl="/saasnextai.png"
@@ -31,8 +29,8 @@ export default function RecommendationPage() {
         title="Your Insights: What's Next?"
         titleIcon={Rocket}
         paragraphs={[
-          "Great! You've received personalized service suggestions and potential ROI estimates. This is an excellent starting point for your project.",
-          "To take the next step, let's connect. Our experts can delve deeper into your specific needs, discuss the AI's recommendations and your ad potential in detail, and tailor a precise strategy to ensure your success. We're here to turn insights into action."
+          "Great! You've received personalized service suggestions. This is an excellent starting point for your project.",
+          "To take the next step, let's connect. Our experts can delve deeper into your specific needs, discuss the AI's recommendations in detail, and tailor a precise strategy to ensure your success. We're here to turn insights into action."
         ]}
         imagePosition="left"
         bgColor="bg-card/30"
