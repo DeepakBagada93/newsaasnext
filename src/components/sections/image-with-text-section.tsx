@@ -1,5 +1,5 @@
 
-import Image, { type StaticImageData } from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
@@ -7,7 +7,7 @@ import type { LucideIcon } from 'lucide-react';
 
 interface ImageWithTextSectionProps {
   id?: string;
-  imageUrl: string | StaticImageData; // Updated to accept StaticImageData
+  imageUrl: string;
   imageHint: string;
   altText: string;
   title: string;

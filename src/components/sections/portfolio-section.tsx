@@ -1,7 +1,6 @@
 
 import PortfolioCard from "@/components/common/portfolio-card";
 import { Briefcase } from "lucide-react";
-import Image from "next/image"; // Import next/image here
 
 const portfolioItems = [
   {
@@ -9,64 +8,32 @@ const portfolioItems = [
     description: "A smart software solution leveraging AI to automate WordPress blog creation, content scheduling, SEO optimization, and performance tracking for efficient content marketing.",
     tags: ["AI Automation", "WordPress", "Content Management", "SaaS"],
     projectUrl: "https://dbwp.vercel.app/",
-    imageElement: (
-      <Image
-        src="/saasnextweb.png" 
-        alt="AI WordPress Blog Management Software"
-        fill
-        sizes="(max-width: 639px) 100vw, 50vw"
-        className="object-cover transition-transform duration-500 group-hover:scale-105"
-        data-ai-hint="AI software interface"
-      />
-    ),
+    imageUrl: "/saasnextweb.png",
+    imageHint: "AI software interface",
   },
   {
     title: "AI Powered Grammar & Content Suggestion Webapp",
     description: "A sophisticated web application that leverages AI to provide real-time grammar checking and intelligent content suggestions, helping users create polished and effective written material.",
     tags: ["AI Automation", "NLP", "Web Application", "SaaS", "Content Creation"],
     projectUrl: "https://deepakgramai.vercel.app/",
-    imageElement: (
-      <Image
-        src="/saasnextp1.png" 
-        alt="AI Powered Grammar & Content Suggestion Webapp"
-        fill
-        sizes="(max-width: 639px) 100vw, 50vw"
-        className="object-cover transition-transform duration-500 group-hover:scale-105"
-        data-ai-hint="writing assistant AI"
-      />
-    ),
+    imageUrl: "/saasnextp1.png",
+    imageHint: "writing assistant AI",
   },
   {
     title: "AI Powered Social Media Post Creation Webapp",
     description: "An innovative web application that utilizes AI to help users generate engaging social media posts, suggest relevant hashtags, and schedule content across multiple platforms.",
     tags: ["AI Automation", "Social Media", "Content Creation", "SaaS", "Web Application"],
     projectUrl: "https://dbsaasnext.vercel.app/",
-    imageElement: (
-      <Image
-        src="/saasnextp2.png" 
-        alt="AI Powered Social Media Post Creation Webapp"
-        fill
-        sizes="(max-width: 639px) 100vw, 50vw"
-        className="object-cover transition-transform duration-500 group-hover:scale-105"
-        data-ai-hint="AI social media"
-      />
-    ),
+    imageUrl: "/saasnextp2.png",
+    imageHint: "AI social media",
   },
    {
     title: "E-commerce Store Overhaul",
     description: "Revamped an existing e-commerce platform, improving user experience, conversion rates, and integrating AI for personalized recommendations.",
     tags: ["Web Development", "E-commerce", "AI Automation", "UX/UI"],
     projectUrl: "https://dbwp.vercel.app/",
-    imageElement: (
-      <Image
-        src="/saasnextai.png" 
-        alt="E-commerce Store Overhaul"
-        fill
-        sizes="(max-width: 639px) 100vw, 50vw"
-        className="object-cover transition-transform duration-500 group-hover:scale-105"
-        data-ai-hint="online shopping"
-      />
-    ),
+    imageUrl: "/saasnextai.png",
+    imageHint: "online shopping",
   },
 ];
 
@@ -87,7 +54,8 @@ export default function PortfolioSection() {
           {portfolioItems.map((item) => (
             <PortfolioCard
               key={item.title}
-              imageElement={item.imageElement} // Pass the constructed Image component
+              imageUrl={item.imageUrl}
+              imageHint={item.imageHint}
               title={item.title}
               description={item.description}
               tags={item.tags}
