@@ -1,4 +1,3 @@
-
 import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/hero-section';
 import ServicesSection from '@/components/sections/services-section';
@@ -26,7 +25,7 @@ export default function ServicesPage() {
       <ProblemSolutionSection /> 
       <ImageWithTextSection
         id="driving-transformation"
-        imageUrl="https://placehold.co/600x400.png" 
+        imageUrl="/saasnextai.png"
         imageHint="digital transformation abstract"
         altText="Digital transformation with SaaSnext"
         title="Driving Digital Transformation for Businesses"

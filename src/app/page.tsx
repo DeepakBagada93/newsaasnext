@@ -1,4 +1,3 @@
-
 import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/hero-section';
 import PortfolioSection from '@/components/sections/portfolio-section';
@@ -40,7 +39,7 @@ export default function HomePage() {
       <AnimatedServicesShowcaseSection />
       <ImageWithTextSection
         id="ai-recommender-promo"
-        imageUrl="https://placehold.co/600x400.png" 
+        imageUrl="/saasnextairecom.png"
         imageHint="AI helping business"
         altText="SaaSnext AI Service Recommender for local businesses"
         title="Unlock Your Success: Ask Our AI Recommender Now!"
@@ -56,7 +55,7 @@ export default function HomePage() {
       />
       <ImageWithTextSection
         id="catalyzing-vision"
-        imageUrl="https://placehold.co/600x400.png" 
+        imageUrl="/saasnextweb.png"
         imageHint="innovation lightbulb"
         altText="SaaSnext: Catalyzing business vision with local website development"
         title="Fueling Your Business Vision"
@@ -77,7 +76,7 @@ export default function HomePage() {
       <PortfolioSection />
       <ImageWithTextSection
         id="industry-specific-webapps"
-        imageUrl="https://placehold.co/600x400.png"
+        imageUrl="/saasnextweb2.png"
         imageHint="diverse business sectors"
         altText="Custom webapp development for diverse industries by SaaSnext"
         title="Tailored Webapps for Every Industry"

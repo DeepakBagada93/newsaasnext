@@ -1,4 +1,3 @@
-
 import PortfolioCard from "@/components/common/portfolio-card";
 import { Briefcase } from "lucide-react";
 
@@ -8,7 +7,7 @@ const portfolioItems = [
     description: "A smart software solution leveraging AI to automate WordPress blog creation, content scheduling, SEO optimization, and performance tracking for efficient content marketing.",
     tags: ["AI Automation", "WordPress", "Content Management", "SaaS"],
     projectUrl: "https://dbwp.vercel.app/",
-    imageUrl: "https://placehold.co/600x400.png",
+    imageUrl: "/saasnextp1.png",
     imageHint: "AI software interface",
   },
   {
@@ -16,7 +15,7 @@ const portfolioItems = [
     description: "A sophisticated web application that leverages AI to provide real-time grammar checking and intelligent content suggestions, helping users create polished and effective written material.",
     tags: ["AI Automation", "NLP", "Web Application", "SaaS", "Content Creation"],
     projectUrl: "https://deepakgramai.vercel.app/",
-    imageUrl: "https://placehold.co/600x400.png",
+    imageUrl: "/saasnextp2.png",
     imageHint: "writing assistant AI",
   },
   {
@@ -24,7 +23,7 @@ const portfolioItems = [
     description: "An innovative web application that utilizes AI to help users generate engaging social media posts, suggest relevant hashtags, and schedule content across multiple platforms.",
     tags: ["AI Automation", "Social Media", "Content Creation", "SaaS", "Web Application"],
     projectUrl: "https://dbsaasnext.vercel.app/",
-    imageUrl: "https://placehold.co/600x400.png",
+    imageUrl: "/saasnextp1.png",
     imageHint: "AI social media",
   },
    {
@@ -32,7 +31,7 @@ const portfolioItems = [
     description: "Revamped an existing e-commerce platform, improving user experience, conversion rates, and integrating AI for personalized recommendations.",
     tags: ["Web Development", "E-commerce", "AI Automation", "UX/UI"],
     projectUrl: "https://dbwp.vercel.app/",
-    imageUrl: "https://placehold.co/600x400.png",
+    imageUrl: "/saasnextp2.png",
     imageHint: "online shopping",
   },
 ];

@@ -1,4 +1,3 @@
-
 import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/hero-section';
 import RecommendationSection from '@/components/sections/recommendation-section';
@@ -26,7 +25,7 @@ export default function RecommendationPage() {
       <AdsRoiEstimatorSection /> {/* Add the new section here */}
       <ImageWithTextSection
         id="after-recommendation-next-steps"
-        imageUrl="https://placehold.co/600x400.png"
+        imageUrl="/saasnextai.png"
         imageHint="team discussion strategy"
         altText="Discussing AI recommendations with SaaSnext experts"
         title="Your Insights: What's Next?"

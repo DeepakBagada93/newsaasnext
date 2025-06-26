@@ -1,4 +1,3 @@
-
 import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/hero-section';
 import AboutSection from '@/components/sections/about-section';
@@ -24,7 +23,7 @@ export default function AboutPage() {
       <AboutSection />
       <ImageWithTextSection
         id="our-team-culture"
-        imageUrl="https://placehold.co/600x400.png" 
+        imageUrl="/saasnextweb.png"
         imageHint="diverse team collaborating"
         altText="SaaSnext team: experts in local website development"
         title="Our Collaborative Culture for Your Projects"
@@ -40,7 +39,7 @@ export default function AboutPage() {
       />
       <ImageWithTextSection
         id="local-focus"
-        imageUrl="https://placehold.co/600x400.png" 
+        imageUrl="/saasnextweb2.png"
         imageHint="thriving city"
         altText="SaaSnext: Your local lead generation company"
         title="Committed to Local Growth"
@@ -53,7 +52,7 @@ export default function AboutPage() {
       />
       <ImageWithTextSection
         id="innovation-core"
-        imageUrl="https://placehold.co/600x400.png" 
+        imageUrl="/saasnextai.png"
         imageHint="abstract technology innovation"
         altText="Innovation at SaaSnext - Local AI Solutions Company"
         title="Innovation at Our Core"
