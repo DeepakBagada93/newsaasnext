@@ -36,6 +36,13 @@ const portfolioItems = [
     imageUrl: "/saasnextmedi.png",
   },
   {
+    title: "Interactive Learning Platform for Schools",
+    description: "A comprehensive e-learning web application for K-12 schools, featuring interactive modules, progress tracking, and collaboration tools for students and teachers.",
+    tags: ["Web Development", "Education", "Web Application"],
+    projectUrl: "https://saasnext-medical.vercel.app/",
+    imageUrl: "/saasnextmedi.png",
+  },
+  {
     title: "Luxury Resort Booking & Management Platform",
     description: "An elegant, all-in-one booking engine and management system for a luxury resort, featuring room selection, package add-ons, and secure online payments.",
     tags: ["Web Development", "Hospitality", "Web Application"],
@@ -48,8 +55,21 @@ const portfolioItems = [
     tags: ["Web Development", "Tiles Industry"],
     projectUrl: "https://styleonart.vercel.app/",
     imageUrl: "/saasnexttile2.png"
-  }
- 
+  },
+  {
+    title: "B2B Order & Inventory System for Tiles",
+    description: "A secure portal for distributors to place bulk orders, track shipments, and manage inventory in real-time, streamlining the entire supply chain process.",
+    tags: ["Web Development", "Tiles Industry", "B2B"],
+    projectUrl: "https://styleonart1.vercel.app/",
+    imageUrl: "/saasnexttile1.png",
+  },
+  {
+    title: "Virtual Tile Visualizer Application",
+    description: "An innovative web application allowing customers to visualize different tile designs in their own space using augmented reality and high-fidelity rendering.",
+    tags: ["Web Application", "Tiles Industry", "AI Automation"],
+    projectUrl: "https://styleonart.vercel.app/",
+    imageUrl: "/saasnexttile2.png",
+  },
 ];
 
 
