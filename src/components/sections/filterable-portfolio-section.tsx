@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -69,6 +70,20 @@ const portfolioItems = [
     tags: ["Web Application", "Tiles Industry", "AI Automation"],
     projectUrl: "https://styleonart.vercel.app/",
     imageUrl: "/saasnexttile2.png",
+  },
+  {
+    title: "Healthcare Clinic Web Application",
+    description: "A comprehensive web app for a healthcare clinic, featuring appointment scheduling, doctor profiles, and patient portals to streamline operations and patient care.",
+    tags: ["Web Development", "Healthcare", "Web Application"],
+    projectUrl: "https://saasnext-medical.vercel.app/",
+    imageUrl: "/saasnextmedi.png",
+  },
+  {
+    title: "SaaS Platform for Project Management",
+    description: "A collaborative SaaS tool designed to help teams manage projects, track tasks, and communicate effectively, boosting productivity and workflow efficiency.",
+    tags: ["Web Application", "SaaS", "B2B"],
+    projectUrl: "https://dbsaasnext.vercel.app/",
+    imageUrl: "/saasnextp1.png",
   },
 ];
 
