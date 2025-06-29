@@ -85,6 +85,41 @@ const portfolioItems = [
     projectUrl: "https://dbsaasnext.vercel.app/",
     imageUrl: "/saasnextp1.png",
   },
+  {
+    title: "Eduverse - Learning Management System",
+    description: "A collaborative SaaS tool designed to help educational institutions manage courses, track student progress, and facilitate online learning with powerful tools.",
+    tags: ["Web Application", "SaaS", "Education"],
+    projectUrl: "https://educ-kappa.vercel.app/",
+    imageUrl: "/saasnextedu.png",
+  },
+  {
+    title: "Fintech Analytics Dashboard",
+    description: "A cutting-edge fintech dashboard providing real-time financial data analysis, visualizations, and reporting for investment professionals.",
+    tags: ["Web Development", "Fintech"],
+    projectUrl: "https://fintech-three-sigma.vercel.app/",
+    imageUrl: "/saasnextfin.png",
+  },
+  {
+    title: "Apex Folio - Designer Portfolio",
+    description: "A sleek and animated portfolio website for a creative professional, designed to showcase projects with a modern user experience.",
+    tags: ["Web Development", "Portfolio"],
+    projectUrl: "https://folio-three-chi.vercel.app/",
+    imageUrl: "/saasnextfolio.png",
+  },
+  {
+    title: "Glow Studio - Agency Website",
+    description: "A vibrant and engaging website for a creative studio, featuring a project gallery, services showcase, and team presentation.",
+    tags: ["Web Development", "Agency"],
+    projectUrl: "https://glowstudio.vercel.app/",
+    imageUrl: "/saasnextstudio.png",
+  },
+  {
+    title: "Construction Project Management Portal",
+    description: "A B2B platform for a construction company, enabling clients to track project progress, manage documents, and communicate with the team.",
+    tags: ["Web Development", "B2B", "Construction"],
+    projectUrl: "https://construction-flax.vercel.app/",
+    imageUrl: "/saasnextcont.png",
+  },
 ];
 
 
