@@ -31,16 +31,16 @@ const portfolioItems = [
   {
     title: "Online Reservation System for Fine-Dining Restaurant",
     description: "Developed a bespoke web application for a restaurant to manage online reservations, table availability, and customer data, integrated with their POS system.",
-    tags: ["Web Development", "Restaurant", "Web Application"],
+    tags: ["Web Development", "Hospitality", "Web Application"],
     projectUrl: "https://saasnext-medical.vercel.app/",
     imageUrl: "/saasnextmedi.png",
   },
   {
     title: "Luxury Resort Booking & Management Platform",
     description: "An elegant, all-in-one booking engine and management system for a luxury resort, featuring room selection, package add-ons, and secure online payments.",
-    tags: ["Web Development", "Resort", "Web Application"],
-    projectUrl: "#",
-    imageUrl: "/saasnextweb.png",
+    tags: ["Web Development", "Hospitality", "Web Application"],
+    projectUrl: "https://resort-pied.vercel.app/",
+    imageUrl: "/saasnextresort.png",
   },
   {
     title: "Digital Catalog for Tile Exporter",
@@ -49,6 +49,7 @@ const portfolioItems = [
     projectUrl: "https://styleonart.vercel.app/",
     imageUrl: "/saasnexttile2.png"
   }
+ 
 ];
 
 
