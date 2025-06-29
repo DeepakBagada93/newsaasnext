@@ -11,8 +11,8 @@ const portfolioItems = [
     title: "E-commerce Store for Fashion Brand",
     description: "A sleek and modern e-commerce platform built on Shopify, featuring custom theme development, app integrations, and a streamlined checkout process to boost sales.",
     tags: ["Web Development", "E-commerce"],
-    projectUrl: "https://dbwp.vercel.app/",
-    imageUrl: "/saasnextp1.png",
+    projectUrl: "https://saasnext-ecom.vercel.app/",
+    imageUrl: "/saasnext ecom 1.png",
   },
   {
     title: "B2B Portal for Tiles Industry Leader",
