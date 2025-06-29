@@ -19,9 +19,23 @@ const portfolioItems = [
     description: "A comprehensive B2B platform for a leading tiles manufacturer, featuring a dynamic product catalog, real-time inventory, and an exclusive dealer ordering system.",
     tags: ["Web Development", "Tiles Industry", "B2B"],
     projectUrl: "#",
-    imageUrl: "/saasnextp2.png",
+    imageUrl: "/saasnexttile1.png",
   },
-    {
+  {
+    title: "Interactive 3D Tile Visualizer",
+    description: "A cutting-edge web tool allowing customers to visualize different tile combinations in a 3D room setting, boosting engagement and sales for a tile retailer.",
+    tags: ["Web Development", "Tiles Industry", "3D Modeling", "Web Application"],
+    projectUrl: "#",
+    imageUrl: "/saasnexttile1.png"
+  },
+  {
+    title: "Inventory & Logistics Management for Tile Distributor",
+    description: "A custom SaaS platform to manage tile inventory across multiple warehouses, track shipments, and automate logistics, significantly improving operational efficiency.",
+    tags: ["AI Automation", "SaaS", "Tiles Industry", "Logistics"],
+    projectUrl: "#",
+    imageUrl: "/saasnexttile1.png"
+  },
+  {
     title: "AI-Powered Customer Service Chatbot",
     description: "An intelligent chatbot integrated into a client's existing website to handle customer queries 24/7, reducing support tickets and improving user satisfaction.",
     tags: ["AI Automation", "SaaS"],
