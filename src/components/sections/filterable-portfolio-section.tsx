@@ -18,22 +18,8 @@ const portfolioItems = [
     title: "B2B Portal for Tiles Industry Leader",
     description: "A comprehensive B2B platform for a leading tiles manufacturer, featuring a dynamic product catalog, real-time inventory, and an exclusive dealer ordering system.",
     tags: ["Web Development", "Tiles Industry", "B2B"],
-    projectUrl: "#",
+    projectUrl: "https://styleonart1.vercel.app/",
     imageUrl: "/saasnexttile1.png",
-  },
-  {
-    title: "Interactive 3D Tile Visualizer",
-    description: "A cutting-edge web tool allowing customers to visualize different tile combinations in a 3D room setting, boosting engagement and sales for a tile retailer.",
-    tags: ["Web Development", "Tiles Industry", "3D Modeling", "Web Application"],
-    projectUrl: "#",
-    imageUrl: "/saasnexttile1.png"
-  },
-  {
-    title: "Inventory & Logistics Management for Tile Distributor",
-    description: "A custom SaaS platform to manage tile inventory across multiple warehouses, track shipments, and automate logistics, significantly improving operational efficiency.",
-    tags: ["AI Automation", "SaaS", "Tiles Industry", "Logistics"],
-    projectUrl: "#",
-    imageUrl: "/saasnexttile1.png"
   },
   {
     title: "AI-Powered Customer Service Chatbot",
@@ -43,27 +29,28 @@ const portfolioItems = [
     imageUrl: "/saasnextp1.png",
   },
   {
-    title: "High-Intent Lead Generation for Real Estate",
-    description: "Executed a targeted Google Ads and social media campaign that generated a 200% increase in qualified leads for a local real estate agency.",
-    tags: ["Lead Generation", "Real Estate"],
-    projectUrl: "#",
-    imageUrl: "/saasnextp2.png",
+    title: "Online Reservation System for Fine-Dining Restaurant",
+    description: "Developed a bespoke web application for a restaurant to manage online reservations, table availability, and customer data, integrated with their POS system.",
+    tags: ["Web Development", "Restaurant", "Web Application"],
+    projectUrl: "https://saasnext-medical.vercel.app/",
+    imageUrl: "/saasnextmedi.png",
   },
   {
-    title: "Custom Booking System for Hospitality Chain",
-    description: "Developed a bespoke web application for a restaurant group to manage online reservations, table availability, and customer data, integrated with their POS system.",
-    tags: ["Web Development", "Hospitality", "Web Application"],
+    title: "Luxury Resort Booking & Management Platform",
+    description: "An elegant, all-in-one booking engine and management system for a luxury resort, featuring room selection, package add-ons, and secure online payments.",
+    tags: ["Web Development", "Resort", "Web Application"],
     projectUrl: "#",
-    imageUrl: "/saasnextp1.png",
+    imageUrl: "/saasnextweb.png",
   },
   {
-    title: "AI WordPress Blog Automation Tool",
-    description: "A smart SaaS solution leveraging AI to automate WordPress blog creation, content scheduling, and SEO optimization for efficient content marketing.",
-    tags: ["AI Automation", "SaaS", "Content Management"],
-    projectUrl: "https://dbwp.vercel.app/",
-    imageUrl: "/saasnextp2.png",
-  },
+    title: "Digital Catalog for Tile Exporter",
+    description: "A visually stunning digital catalog with high-resolution imagery and advanced search filters, designed to showcase tile collections to international clients.",
+    tags: ["Web Development", "Tiles Industry"],
+    projectUrl: "https://styleonart.vercel.app/",
+    imageUrl: "/saasnexttile2.png"
+  }
 ];
+
 
 // Extract all unique tags for filter buttons
 const allTags = ['All', ...Array.from(new Set(portfolioItems.flatMap(item => item.tags)))];
