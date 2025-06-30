@@ -4,27 +4,43 @@ import { useState, useEffect } from 'react';
 import Logo from '@/components/icons/logo';
 import { cn } from '@/lib/utils';
 
+// Array of engaging hooks/phrases to cycle through
+const loadingTexts = [
+  "Crafting Your Digital Foundation...",
+  "Assembling Your Growth Strategy...",
+  "Generating High-Quality Leads...",
+  "Automating Your Success...",
+  "Building Your Vision...",
+  "Igniting Digital Momentum...",
+];
+
 export default function Preloader() {
   const [loading, setLoading] = useState(true);
   const [counter, setCounter] = useState(0);
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
     // Prevent scrolling while preloader is active
     document.body.style.overflow = 'hidden';
 
-    const timer = setInterval(() => {
+    const counterTimer = setInterval(() => {
       setCounter((prevCounter) => {
         if (prevCounter < 100) {
           return prevCounter + 1;
         }
-        clearInterval(timer);
+        clearInterval(counterTimer);
         return 100;
       });
-    }, 25); // Controls the speed of counting
+    }, 25); // Controls the speed of counting (2.5 seconds total)
+
+    const textTimer = setInterval(() => {
+      setCurrentTextIndex((prevIndex) => (prevIndex + 1) % loadingTexts.length);
+    }, 400); // Cycle text every 400ms
 
     return () => {
-      clearInterval(timer);
+      clearInterval(counterTimer);
+      clearInterval(textTimer);
       // Restore scrolling when component is done
       document.body.style.overflow = '';
     };
@@ -71,7 +87,11 @@ export default function Preloader() {
         <span className="font-mono tabular-nums">{counter}</span>
         <span>%</span>
       </div>
-      <p className="mt-4 text-lg text-muted-foreground">Growing Your Business...</p>
+      <p className="mt-4 text-lg text-muted-foreground text-center h-7">
+        <span key={currentTextIndex} className="animate-in fade-in duration-500 inline-block">
+          {loadingTexts[currentTextIndex]}
+        </span>
+      </p>
     </div>
   );
 }
