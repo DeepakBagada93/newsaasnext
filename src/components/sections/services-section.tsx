@@ -7,7 +7,7 @@ const services = [
     id: "web-development", // Added ID for deep linking
     icon: Palette, 
     title: "Custom Website Development",
-    description: "Crafting modern, responsive, and high-performance websites tailored to your unique business needs and brand identity. As a leading local website development company, we ensure exceptional user experiences.",
+    description: "As a leading web development company, we craft modern, responsive, and high-performance websites tailored to your unique business needs and brand identity.",
     details: [
       "Custom responsive website design & development",
       "Full-stack solutions (React, Next.js, Node.js)",
@@ -22,8 +22,8 @@ const services = [
   {
     id: "ai-automation", // Added ID
     icon: Bot, 
-    title: "AI SaaS Development",
-    description: "Leveraging artificial intelligence to automate complex business processes, unlock insights from data, and create intelligent applications. Our AI SaaS development enhances efficiency.",
+    title: "AI Solution Company Services",
+    description: "Our AI solution company leverages artificial intelligence to automate complex business processes, unlock insights from data, and create intelligent applications that enhance efficiency.",
     details: [
       "AI-powered chatbot development & integration",
       "Custom machine learning model development",
@@ -39,7 +39,7 @@ const services = [
     id: "lead-generation", // Added ID
     icon: LineChart, 
     title: "Strategic Lead Generation",
-    description: "Identifying, attracting, and converting potential customers through targeted, data-driven marketing strategies. Our local lead generation company optimizes sales funnels.",
+    description: "As a premier lead generation company, we identify, attract, and convert potential customers through targeted, data-driven marketing strategies that optimize sales funnels.",
     details: [
       "Comprehensive digital marketing strategy",
       "Search Engine Optimization (SEO) & content strategy",
@@ -55,7 +55,7 @@ const services = [
     id: "email-marketing", // Added ID
     icon: MailCheck,
     title: "Email Marketing Solutions",
-    description: "Engaging your audience, nurturing leads, and driving conversions through targeted and personalized email campaigns, supporting your business growth.",
+    description: "Engaging your audience, nurturing leads, and driving conversions through targeted and personalized email campaigns, supporting the efforts of our lead generation company.",
     details: [
       "Email campaign strategy & planning",
       "Custom email template design & coding",
@@ -71,7 +71,7 @@ const services = [
     id: "logo-branding-design", // Added ID
     icon: Brush,
     title: "Logo & Branding Design",
-    description: "Creating impactful visual identities that capture your brand's essence. We craft logos, brand guidelines, and more to ensure your business stands out.",
+    description: "Creating impactful visual identities that capture your brand's essence. A strong brand is the foundation for any successful web development company or marketing campaign.",
     details: [
       "Custom logo design and brand identity systems",
       "Comprehensive brand strategy and positioning",
@@ -94,7 +94,7 @@ export default function ServicesSection() {
             Our Core Services
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We provide a comprehensive suite of services including website development, AI SaaS solutions, lead generation, email marketing, and branding, designed to elevate your business and drive sustainable growth.
+            We are a full-service digital agency. As a web development company, AI solution company, and lead generation company, we offer a comprehensive suite of services to drive growth.
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"> {/* Adjusted grid for better flow with 5 items */}

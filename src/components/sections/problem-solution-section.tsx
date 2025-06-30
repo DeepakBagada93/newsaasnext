@@ -19,47 +19,47 @@ const challenges: ChallengeSolution[] = [
     icon: Zap,
     title: "Webapp Development: Custom Digital Foundations",
     problem: "Generic web solutions often fail to address the specific needs of diverse industries, leading to lost opportunities and poor user engagement.",
-    solution: "SaaSnext creates modern, responsive, and high-performing web applications. As a local webapp development company, we tailor solutions to your brand and goals, with features like custom designs, seamless performance, and local market expertise to ensure they connect with your target audience and enhance customer engagement effectively.",
+    solution: "As a local web development company, SaaSnext creates modern, responsive, and high-performing web applications. We tailor solutions to your brand and goals, with features like custom designs and seamless performance to ensure they connect with your target audience effectively.",
     hook: "Ready to dominate your market with a custom webapp designed for success?"
   },
   {
     id: "leadgen",
     icon: Target,
     title: "Data-Driven Lead Generation Strategies",
-    problem: "Ineffective marketing wastes resources and delivers poor results.",
-    solution: "As a top local lead generation company, we use advanced analytics and targeting to attract high-potential leads. Our strategies ensure you connect with customers who are ready to buy, boosting your revenue.",
-    hook: "Why settle for low returns when SaaSnext can deliver high-value leads?"
+    problem: "Ineffective marketing wastes resources and delivers poor results, making it hard to find new customers.",
+    solution: "As a top local lead generation company, we use advanced analytics and targeting to attract high-potential leads. Our strategies ensure you connect with customers who are ready to buy, boosting your revenue and ROI.",
+    hook: "Why settle for low returns when our lead generation company can deliver high-value leads?"
   },
   {
     id: "socialmedia",
     icon: MessageSquare,
     title: "Social Media That Builds Your Brand",
-    problem: "A weak social media presence leaves your brand invisible to potential customers.",
-    solution: "As a premier local social media marketing company, we craft campaigns that increase visibility and engagement. Our creative content and targeted ads turn followers into loyal customers.",
+    problem: "A weak social media presence leaves your brand invisible to potential customers in a crowded digital space.",
+    solution: "Our lead generation company includes premier social media marketing services. We craft campaigns that increase visibility and engagement, turning followers into loyal customers for your brand.",
     hook: "Want your brand to shine? Let’s make it happen!"
   },
   {
     id: "ai",
     icon: BrainCircuit,
     title: "AI-Powered Business Transformation",
-    problem: "Outdated processes hinder scalability and competitiveness.",
-    solution: "As an innovative local AI solutions company, we integrate AI to optimize operations and provide insights. From chatbots to predictive analytics, our solutions empower your business to thrive.",
-    hook: "Ready to revolutionize your business with AI?"
+    problem: "Outdated processes hinder scalability and competitiveness in a rapidly evolving market.",
+    solution: "As an innovative local AI solutions company, we integrate AI to optimize operations and provide actionable insights. From chatbots to predictive analytics, our solutions empower your business to thrive.",
+    hook: "Ready to revolutionize your business with our AI solution company?"
   },
   {
     id: "delivery",
     icon: ShieldCheck,
     title: "Seamless Project Delivery",
-    problem: "Delays and miscommunication derail digital projects.",
-    solution: "At SaaSnext, we prioritize transparency and efficiency. Our streamlined processes ensure your webapps, marketing campaigns, and AI solutions are delivered on time and within budget, keeping your business on track.",
-    hook: "Tired of project delays? Trust SaaSnext for seamless execution!"
+    problem: "Delays and miscommunication can derail digital projects, causing frustration and budget overruns.",
+    solution: "Our web development company prioritizes transparency and efficiency. Our streamlined processes ensure your projects are delivered on time and within budget, keeping your business on track for success.",
+    hook: "Tired of project delays? Trust our web development company for seamless execution!"
   },
   {
     id: "localgrowth",
     icon: Handshake,
     title: "Supporting Local Growth",
     problem: "Local businesses often struggle to compete with larger players in the digital space.",
-    solution: "As a company committed to local communities, we empower businesses with affordable, high-quality digital solutions. By partnering with SaaSnext, you’re investing in your local economy's future while growing your business.",
+    solution: "As a company committed to local communities, we empower businesses with affordable, high-quality digital solutions. Partnering with our web development company means investing in your local economy's future.",
     hook: "Let’s grow locally together—partner with SaaSnext today!"
   }
 ];
@@ -71,10 +71,10 @@ export default function ProblemSolutionSection() {
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 flex items-center justify-center">
             <Lightbulb className="w-8 h-8 mr-3 text-primary icon-glow-primary" />
-            Solving Your Business Challenges with SaaSnext
+            Solving Business Challenges with Expert Solutions
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            We understand the hurdles businesses face in today's evolving market. Here’s how SaaSnext addresses your pain points with expert solutions:
+            Our web development company, AI solution company, and lead generation company work together to address your pain points with targeted strategies.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

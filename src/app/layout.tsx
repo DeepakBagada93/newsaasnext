@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     default: 'SaaSnext: Website Development, AI SaaS & Lead Generation Company',
     template: '%s | SaaSnext',
   },
-  description: 'SaaSnext is a leading website development, AI SaaS development, and lead generation company. Igniting your digital success with expert solutions.',
+  description: 'SaaSnext is a leading website development, AI SaaS development, and lead generation company. We specialize in creating custom web applications, intelligent automation, and targeted marketing strategies to ignite your digital success.',
   // --- ICON METADATA ---
   // The 'icons' object configures various icon links for your site.
   // Ensure your icon files are in the 'public' directory.

@@ -16,14 +16,14 @@ import AnimatedServicesShowcaseSection from '@/components/sections/animated-serv
 
 
 export const metadata: Metadata = {
-  title: 'Premier Website & AI SaaS Development Company | SaaSnext',
-  description: 'Choose SaaSnext, a top local website development company. We also specialize in AI SaaS development and strategic lead generation. Let\'s build your success.',
+  title: 'SaaSnext: Premier Website Development, AI & Lead Generation Company',
+  description: "Partner with SaaSnext, a premier local website development company. We excel in AI SaaS development and results-driven lead generation. Discover how our expert solutions can elevate your business.",
 };
 
 export default function HomePage() {
   const homePageTitle = (
     <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary mb-8">
-      Ignite Your Business Growth: SaaSnext - Your Digital Catalyst.
+      Premier Web Development, AI & Lead Generation Company
     </h1>
   );
 
@@ -41,12 +41,12 @@ export default function HomePage() {
       <ImageWithTextSection
         id="ai-recommender-promo"
         imageUrl="/saasnextairecom.png"
-        altText="SaaSnext AI Service Recommender for local businesses"
+        altText="AI Recommender tool from our AI solutions company helping a user choose services."
         title="Unlock Your Success: Ask Our AI Recommender Now!"
         titleIcon={Lightbulb}
         paragraphs={[
           "Overwhelmed by choices for your business? Stop the guesswork! Our intelligent AI Recommender instantly analyzes your unique requirements, saving you time and confusion.",
-          "Whether you need a stunning new website, powerful AI automation, or a flood of new leads, get a personalized, actionable service recommendation in minutes. This is your fast track to a winning strategy!"
+          "Whether you need a stunning new website from an expert web development company, powerful automation from an AI solution company, or a flood of new leads from a top lead generation company, get a personalized, actionable service recommendation in minutes. This is your fast track to a winning strategy!"
         ]}
         imagePosition="right"
         bgColor="bg-card/10"
@@ -56,12 +56,12 @@ export default function HomePage() {
       <ImageWithTextSection
         id="catalyzing-vision"
         imageUrl="/saasnextweb.png"
-        altText="SaaSnext: Catalyzing business vision with local website development"
+        altText="A professional from our web development company discussing a project plan."
         title="Fueling Your Business Vision"
         titleIcon={Zap} 
         paragraphs={[
-          "At SaaSnext, we understand that every great business starts with a vision. As your dedicated local webapp development company, our mission is to be the catalyst that turns your innovative ideas into tangible, impactful digital solutions, tailored for your market.",
-          "We leverage cutting-edge technology and strategic insights to build custom web platforms. Our AI SaaS development expertise helps implement intelligent AI automation, and our local lead generation company drives effective growth for businesses aiming to thrive locally and beyond."
+          "At SaaSnext, we understand that every great business starts with a vision. As your dedicated local web development company, our mission is to be the catalyst that turns your innovative ideas into tangible, impactful digital solutions, tailored for your market.",
+          "We leverage cutting-edge technology and strategic insights to build custom web platforms. Our AI solutions company expertise helps implement intelligent automation, and our local lead generation company drives effective growth for businesses aiming to thrive locally and beyond."
         ]}
         imagePosition="left"
         bgColor="bg-background"
@@ -76,12 +76,12 @@ export default function HomePage() {
       <ImageWithTextSection
         id="industry-specific-webapps"
         imageUrl="/saasnextweb2.png"
-        altText="Custom webapp development for diverse industries by SaaSnext"
+        altText="Screenshot of a custom web application developed by our web development company."
         title="Tailored Webapps for Every Industry"
         titleIcon={Layers}
         paragraphs={[
-          "Generic web solutions often fall short, failing to meet the unique operational demands and customer engagement strategies required by diverse sectors such as retail, healthcare, education, or manufacturing.",
-          "SaaSnext excels as a specialized webapp development company, creating industry-specific applications that significantly enhance efficiency and customer interaction. From sophisticated e-commerce platforms to secure patient portals or interactive educational tools, our solutions are engineered to drive success within your specific field.",
+          "Generic web solutions often fall short. As a specialized web development company, we recognize that diverse sectors like retail, healthcare, or manufacturing require unique operational demands and customer engagement strategies.",
+          "SaaSnext excels at creating industry-specific applications that significantly enhance efficiency and customer interaction. From sophisticated e-commerce platforms to secure patient portals, our solutions are engineered by an expert web development company to drive success within your specific field.",
           "Are you ready to equip your business with a custom webapp designed to lead your industry? Let's build the solution that sets you apart."
         ]}
         imagePosition="right"
@@ -98,57 +98,57 @@ export default function HomePage() {
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 flex items-center">
                 <Search className="w-9 h-9 mr-3 text-primary icon-glow-primary" />
-                Boost Your Visibility with Expert SEO
+                Dominate Search with Our Lead Generation Company
               </h2>
               <p className="text-base md:text-lg text-muted-foreground mb-4">
-                Is your business struggling to get noticed online? Effective Search Engine Optimization (SEO) is crucial for attracting organic traffic and reaching your target audience. Without a strong online presence, you're missing out on valuable local customers.
+                Is your business struggling to get noticed online? Effective Search Engine Optimization (SEO) is a critical component of any successful lead generation strategy. Without a strong online presence, you're missing out on valuable local customers actively searching for your services.
               </p>
               <p className="text-base md:text-lg text-muted-foreground mb-8">
-                SaaSnext provides comprehensive SEO services. As a local SEO company, we focus on strategies that help businesses like yours dominate local search results, increase website traffic, and convert visitors into loyal customers.
+                As a leading lead generation company with a focus on SEO, SaaSnext provides comprehensive services to dominate local search results. We help businesses like yours increase website traffic, enhance visibility, and convert visitors into loyal customers.
               </p>
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md transition-transform duration-300 hover:scale-105">
                 <Link href="/contact">
-                  Enhance Your SEO <ArrowRight className="ml-2 h-5 w-5" />
+                  Boost Your Lead Generation <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
             </div>
             {/* Right Column */}
             <div className="bg-card/30 p-8 rounded-xl shadow-lg">
-              <h3 className="text-2xl font-semibold text-primary mb-6">Our SEO Focus: Driving Local Success</h3>
+              <h3 className="text-2xl font-semibold text-primary mb-6">Our SEO Services for Lead Generation</h3>
               <ul className="space-y-4 text-muted-foreground">
                 <li className="flex items-start">
                   <CheckCircle className="h-5 w-5 mr-3 mt-1 text-accent flex-shrink-0" />
                   <div>
-                    <h4 className="font-medium text-foreground">Targeted Keyword Research</h4>
-                    <p className="text-sm">Identifying high-intent keywords your local customers use (e.g., "web developer near me", "AI for small business").</p>
+                    <h4 className="font-medium text-foreground">Local Keyword Mastery</h4>
+                    <p className="text-sm">Our lead generation company identifies high-intent keywords your customers use, like "web development company near me" or "AI solution company for small business."</p>
                   </div>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="h-5 w-5 mr-3 mt-1 text-accent flex-shrink-0" />
                   <div>
-                    <h4 className="font-medium text-foreground">Comprehensive Optimization</h4>
-                    <p className="text-sm">On-page, off-page, and technical SEO tailored for maximum local impact and visibility.</p>
+                    <h4 className="font-medium text-foreground">Holistic SEO Strategy</h4>
+                    <p className="text-sm">We combine on-page, off-page, and technical SEO, tailoring every aspect for maximum local impact and lead generation.</p>
                   </div>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="h-5 w-5 mr-3 mt-1 text-accent flex-shrink-0" />
                   <div>
-                    <h4 className="font-medium text-foreground">Google Business Profile Power-Up</h4>
-                    <p className="text-sm">Maximizing your presence on Google Maps and in local search pack results.</p>
+                    <h4 className="font-medium text-foreground">Google Business Profile Optimization</h4>
+                    <p className="text-sm">We maximize your visibility on Google Maps and in local search results to capture geographically-relevant leads.</p>
                   </div>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="h-5 w-5 mr-3 mt-1 text-accent flex-shrink-0" />
                   <div>
-                    <h4 className="font-medium text-foreground">Local Citation & Link Building</h4>
-                    <p className="text-sm">Ensuring consistent business information and building local online authority.</p>
+                    <h4 className="font-medium text-foreground">Authoritative Link Building</h4>
+                    <p className="text-sm">Our lead generation company builds your online authority with high-quality local citations and backlinks.</p>
                   </div>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="h-5 w-5 mr-3 mt-1 text-accent flex-shrink-0" />
                   <div>
                     <h4 className="font-medium text-foreground">Transparent & Measurable Results</h4>
-                    <p className="text-sm">Clear reporting on rankings, traffic, and lead generation improvements.</p>
+                    <p className="text-sm">Receive clear reports on ranking improvements, traffic growth, and the direct impact on your lead generation goals.</p>
                   </div>
                 </li>
               </ul>

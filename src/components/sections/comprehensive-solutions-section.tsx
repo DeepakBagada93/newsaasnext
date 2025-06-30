@@ -6,32 +6,32 @@ export default function ComprehensiveSolutionsSection() {
   const solutions = [
     {
       icon: Target,
-      title: "Expert Lead Generation",
+      title: "Expert Lead Generation Company",
       description: "Struggling to attract quality leads? As a premier local lead generation company, we use data-driven strategies to connect you with high-potential customers. Our services include:",
       points: [
-        "Targeted campaigns to boost conversions.",
+        "Targeted SEO and PPC campaigns.",
         "CRM integration for seamless lead management.",
-        "Analytics to optimize your lead pipeline.",
+        "Analytics to optimize your conversion pipeline.",
       ],
     },
     {
       icon: Share2, 
       title: "Dynamic Social Media Marketing",
-      description: "Elevate your brand with Saasnext, a top local social media marketing company. We create engaging content and run strategic campaigns to grow your online presence across platforms like Instagram, Facebook, and LinkedIn. Our services include:",
+      description: "Elevate your brand with Saasnext, a top local social media marketing company. We create engaging content and run strategic campaigns to grow your online presence. Our services include:",
       points: [
         "Tailored social media strategies.",
         "Ad management for maximum ROI.",
-        "Audience engagement to build loyalty.",
+        "Audience engagement to build brand loyalty.",
       ],
     },
     {
       icon: BrainCircuit,
-      title: "Innovative AI Solutions",
-      description: "Embrace the future with Saasnext, a trusted local AI solutions company. We integrate artificial intelligence into your business processes to enhance efficiency and innovation. Our AI offerings include:",
+      title: "Innovative AI Solution Company",
+      description: "Embrace the future with Saasnext, a trusted local AI solutions company. We integrate artificial intelligence into your business to enhance efficiency and innovation. Our offerings include:",
       points: [
-        "Chatbots for 24/7 customer support.",
+        "AI Chatbots for 24/7 customer support.",
         "Predictive analytics for smarter decisions.",
-        "Automation to streamline operations.",
+        "Process automation to streamline operations.",
       ],
     },
   ];
@@ -41,10 +41,10 @@ export default function ComprehensiveSolutionsSection() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Comprehensive Digital Solutions
+            A Leading Web, AI, and Lead Generation Company
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            At Saasnext, we go beyond web development. Our expertise spans multiple domains to help your business thrive in the digital landscape.
+            At Saasnext, we go beyond standard web development. Our expertise as an AI solution company and lead generation company helps your business thrive.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch"> {/* Added items-stretch */}
