@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import Chatbot from '@/components/common/chatbot'; // Import the Chatbot component
+import Preloader from '@/components/common/preloader';
 
 // --- FAVICON GUIDANCE ---
 // The 'icons' object below configures various icon links for your site.
@@ -57,6 +58,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
+        <Preloader />
         <Header />
         <main className="flex-grow">
           {children}
