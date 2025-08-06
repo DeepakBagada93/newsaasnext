@@ -17,50 +17,50 @@ const challenges: ChallengeSolution[] = [
   {
     id: "webapp",
     icon: Zap,
-    title: "Webapp Development: Custom Digital Foundations",
-    problem: "Generic web solutions often fail to address the specific needs of diverse industries, leading to lost opportunities and poor user engagement.",
-    solution: "As a local web development company, SaaSnext creates modern, responsive, and high-performing web applications. We tailor solutions to your brand and goals, with features like custom designs and seamless performance to ensure they connect with your target audience effectively.",
-    hook: "Ready to dominate your market with a custom webapp designed for success?"
+    title: "Web Development Company in Junagadh",
+    problem: "Generic websites fail to capture the local Junagadh market, leading to poor user engagement and lost opportunities in Gujarat.",
+    solution: "As the best web development company in Junagadh, SaaSnext creates custom responsive websites (WordPress, e-commerce) and full-stack web applications. We tailor solutions to connect with your target audience in Junagadh effectively.",
+    hook: "Ready to dominate the Junagadh market with a custom web solution?"
   },
   {
     id: "leadgen",
     icon: Target,
-    title: "Data-Driven Lead Generation Strategies",
-    problem: "Ineffective marketing wastes resources and delivers poor results, making it hard to find new customers.",
-    solution: "As a top local lead generation company, we use advanced analytics and targeting to attract high-potential leads. Our strategies ensure you connect with customers who are ready to buy, boosting your revenue and ROI.",
-    hook: "Why settle for low returns when our lead generation company can deliver high-value leads?"
+    title: "Lead Generation Company in Junagadh",
+    problem: "Ineffective marketing wastes resources and makes it hard to find new customers in the competitive Junagadh market.",
+    solution: "As the top lead generation company in Junagadh, we use data-driven digital marketing and B2B lead generation strategies to attract high-potential local customers, boosting your revenue and ROI.",
+    hook: "Why settle for low returns? Our lead generation services deliver high-value leads in Junagadh."
   },
   {
     id: "socialmedia",
     icon: MessageSquare,
-    title: "Social Media That Builds Your Brand",
-    problem: "A weak social media presence leaves your brand invisible to potential customers in a crowded digital space.",
-    solution: "Our lead generation company includes premier social media marketing services. We craft campaigns that increase visibility and engagement, turning followers into loyal customers for your brand.",
-    hook: "Want your brand to shine? Let’s make it happen!"
+    title: "Digital Marketing Agency in Junagadh",
+    problem: "A weak social media presence makes your brand invisible to potential customers in Junagadh.",
+    solution: "Our digital marketing agency in Junagadh offers premier social media marketing services. We craft campaigns that increase visibility and engagement, turning followers into loyal customers.",
+    hook: "Want your brand to shine in Junagadh? Let’s make it happen!"
   },
   {
     id: "ai",
     icon: BrainCircuit,
-    title: "AI-Powered Business Transformation",
-    problem: "Outdated processes hinder scalability and competitiveness in a rapidly evolving market.",
-    solution: "As an innovative local AI solutions company, we integrate AI to optimize operations and provide actionable insights. From chatbots to predictive analytics, our solutions empower your business to thrive.",
-    hook: "Ready to revolutionize your business with our AI solution company?"
+    title: "AI Solutions Company in Junagadh",
+    problem: "Outdated processes hinder scalability and competitiveness for businesses in Gujarat.",
+    solution: "As an innovative AI development company in Junagadh, we integrate AI to optimize operations. From chatbot development to data analytics services, our AI solutions empower your business to thrive.",
+    hook: "Ready to revolutionize your business with our AI services in Junagadh?"
   },
   {
     id: "delivery",
     icon: ShieldCheck,
-    title: "Seamless Project Delivery",
-    problem: "Delays and miscommunication can derail digital projects, causing frustration and budget overruns.",
-    solution: "Our web development company prioritizes transparency and efficiency. Our streamlined processes ensure your projects are delivered on time and within budget, keeping your business on track for success.",
+    title: "Reliable Project Delivery in Junagadh",
+    problem: "Project delays and miscommunication can derail digital projects, causing budget overruns.",
+    solution: "Our IT company in Junagadh prioritizes transparency. Our streamlined processes ensure your projects are delivered on time and within budget, keeping your business on track for success.",
     hook: "Tired of project delays? Trust our web development company for seamless execution!"
   },
   {
     id: "localgrowth",
     icon: Handshake,
-    title: "Supporting Local Growth",
-    problem: "Local businesses often struggle to compete with larger players in the digital space.",
-    solution: "As a company committed to local communities, we empower businesses with affordable, high-quality digital solutions. Partnering with our web development company means investing in your local economy's future.",
-    hook: "Let’s grow locally together—partner with SaaSnext today!"
+    title: "Supporting Junagadh's Local Growth",
+    problem: "Local businesses in Junagadh often struggle to compete with larger players online.",
+    solution: "As a company committed to the Junagadh community, we empower businesses with affordable, high-quality digital solutions. Partnering with our web development company means investing in your local economy's future.",
+    hook: "Let’s grow together in Junagadh—partner with SaaSnext today!"
   }
 ];
 
@@ -71,10 +71,10 @@ export default function ProblemSolutionSection() {
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 flex items-center justify-center">
             <Lightbulb className="w-8 h-8 mr-3 text-primary icon-glow-primary" />
-            Solving Business Challenges with Expert Solutions
+            Solving Challenges for Junagadh Businesses
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Our web development company, AI solution company, and lead generation company work together to address your pain points with targeted strategies.
+            Our web development, AI, and lead generation company works to address your pain points with targeted strategies for the Junagadh market.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

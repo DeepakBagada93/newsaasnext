@@ -25,10 +25,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'SaaSnext: Website Development, AI SaaS & Lead Generation Company',
-    template: '%s | SaaSnext',
+    default: 'Web Development Company & AI Solutions in Junagadh | SaaSnext',
+    template: '%s | SaaSnext - Junagadh',
   },
-  description: 'SaaSnext is a leading website development, AI SaaS development, and lead generation company. We specialize in creating custom web applications, intelligent automation, and targeted marketing strategies to ignite your digital success.',
+  description: 'SaaSnext is a top web development company in Junagadh, offering AI solutions, lead generation, and digital marketing services in Gujarat. Partner with the best IT company in Junagadh for custom web and AI development.',
   // --- ICON METADATA ---
   // The 'icons' object configures various icon links for your site.
   // Ensure your icon files are in the 'public' directory.
