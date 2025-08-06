@@ -16,14 +16,14 @@ import AnimatedServicesShowcaseSection from '@/components/sections/animated-serv
 
 
 export const metadata: Metadata = {
-  title: 'Top Web Development Company in Junagadh | AI & Lead Generation',
-  description: "SaaSnext is the best web development company in Junagadh. We are a leading IT company in Junagadh, specializing in AI solutions, lead generation, and custom website design.",
+  title: 'Web Development Company in Junagadh | AI & Lead Generation',
+  description: "SaaSnext is a web development company in Junagadh. We are an IT company in Junagadh, specializing in AI solutions, lead generation, and custom website design.",
 };
 
 export default function HomePage() {
   const homePageTitle = (
     <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary mb-8">
-      Top Web Development Company in Junagadh, Gujarat
+      Web Development Company in Junagadh, Gujarat
     </h1>
   );
 
@@ -31,7 +31,7 @@ export default function HomePage() {
     <>
       <HeroSection
         pageTitle={homePageTitle}
-        pageSubtitle="As the leading web development company in Junagadh, SaaSnext offers premier AI solutions and lead generation services. We build custom web solutions to drive growth for businesses in Gujarat."
+        pageSubtitle="As a web development company in Junagadh, SaaSnext offers expert AI solutions and lead generation services. We build custom web solutions to drive growth for businesses in Gujarat."
         tagline="Your Expert IT Company in Junagadh."
         TaglineIcon={Zap}
         showCtaButtons={true}
@@ -46,7 +46,7 @@ export default function HomePage() {
         titleIcon={Lightbulb}
         paragraphs={[
           "Unsure what your business needs to succeed online? Our AI tool provides instant service recommendations.",
-          "Whether you need a responsive website from the best web development company in Junagadh, AI for business automation, or B2B lead generation services, our AI recommender offers a personalized strategy. Get clarity and start your growth journey now."
+          "Whether you need a responsive website from a skilled web development company in Junagadh, AI for business automation, or B2B lead generation services, our AI recommender offers a personalized strategy. Get clarity and start your growth journey now."
         ]}
         imagePosition="right"
         bgColor="bg-card/10"
@@ -57,7 +57,7 @@ export default function HomePage() {
         id="catalyzing-vision"
         imageUrl="/saasnextweb.png"
         altText="A professional from our web development company in Junagadh discussing a project."
-        title="Your Vision, Amplified by the Top IT Company in Junagadh"
+        title="Your Vision, Amplified by Our IT Company in Junagadh"
         titleIcon={Zap} 
         paragraphs={[
           "At SaaSnext, we turn your business vision into a digital reality. As your dedicated web development company in Junagadh, we build impactful digital solutions tailored for the Gujarat market and beyond.",
@@ -98,10 +98,10 @@ export default function HomePage() {
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 flex items-center">
                 <Search className="w-9 h-9 mr-3 text-primary icon-glow-primary" />
-                Dominate Junagadh Search with Our Lead Generation Company
+                Improve Junagadh Search Presence with Our Lead Generation Company
               </h2>
               <p className="text-base md:text-lg text-muted-foreground mb-4">
-                Is your business struggling to be found by customers in Junagadh? As the top lead generation company in Junagadh, we specialize in SEO strategies that put you at the top of local search results.
+                Is your business struggling to be found by customers in Junagadh? As a local lead generation company, we specialize in SEO strategies that put you at the top of local search results.
               </p>
               <p className="text-base md:text-lg text-muted-foreground mb-8">
                 Our digital marketing agency in Junagadh provides SEO services that increase website traffic, enhance online visibility, and convert local searchers into loyal customers. Don't miss out on valuable leads in your area.
@@ -153,7 +153,7 @@ export default function HomePage() {
                 </li>
               </ul>
               <p className="text-base md:text-lg text-foreground mt-8 font-semibold">
-                Partner with the top digital marketing agency in Junagadh.
+                Partner with our digital marketing agency in Junagadh.
               </p>
             </div>
           </div>

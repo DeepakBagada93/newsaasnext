@@ -7,7 +7,7 @@ import { DollarSign, Handshake, TrendingUp } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Pricing | Web Development & AI Solutions in Junagadh | SaaSnext',
-  description: 'Find transparent pricing from a leading web development and AI solutions company in Junagadh. We offer custom quotes for website design, AI automation, and lead generation services in Gujarat.',
+  description: 'Find transparent pricing from a web development and AI solutions company in Junagadh. We offer custom quotes for website design, AI automation, and lead generation services in Gujarat.',
 };
 
 export default function PricingPage() {
@@ -15,7 +15,7 @@ export default function PricingPage() {
     <>
       <HeroSection
         pageTitle="Transparent Pricing for Junagadh Businesses"
-        pageSubtitle="Get custom quotes from the leading web development, AI, and lead generation company in Junagadh. We tailor pricing to your project's unique needs and budget."
+        pageSubtitle="Get custom quotes from the web development, AI, and lead generation company in Junagadh. We tailor pricing to your project's unique needs and budget."
         tagline="Value-Focused Solutions for Junagadh"
         TaglineIcon={DollarSign}
         showCtaButtons={false}
@@ -30,7 +30,7 @@ export default function PricingPage() {
         titleIcon={Handshake}
         paragraphs={[
           "At SaaSnext, our pricing philosophy centers on delivering exceptional value to Junagadh businesses. Whether you need website design, AI consulting, or lead generation services, we provide transparent, tailored quotes.",
-          "As a leading web development company in Junagadh, our goal is to build lasting partnerships. We ensure our solutions provide a significant return, empowering your business with sustainable growth in the local market."
+          "As a web development company in Junagadh, our goal is to build lasting partnerships. We ensure our solutions provide a significant return, empowering your business with sustainable growth in the local market."
         ]}
         imagePosition="right"
         bgColor="bg-card/30"

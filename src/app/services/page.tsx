@@ -8,7 +8,7 @@ import { Settings, Zap, CheckCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Services: Web Development & AI Company in Junagadh | SaaSnext',
-  description: 'Explore our expert services in Junagadh. As a premier web development company, we offer custom webapps, AI solutions, and strategic lead generation to drive business growth in Gujarat.',
+  description: 'Explore our expert services in Junagadh. As a web development company, we offer custom webapps, AI solutions, and strategic lead generation to drive business growth in Gujarat.',
 };
 
 export default function ServicesPage() {
@@ -16,7 +16,7 @@ export default function ServicesPage() {
     <>
       <HeroSection
         pageTitle="Web Development & AI Services in Junagadh"
-        pageSubtitle="As a top web development company and AI solutions provider in Junagadh, we deliver tailored digital strategies. Explore how our lead generation and development services can help your Gujarat business succeed."
+        pageSubtitle="As a web development company and AI solutions provider in Junagadh, we deliver tailored digital strategies. Explore how our lead generation and development services can help your Gujarat business succeed."
         tagline="Digital Solutions for Your Growth in Junagadh"
         TaglineIcon={Settings}
         showCtaButtons={false}
@@ -32,7 +32,7 @@ export default function ServicesPage() {
         titleIcon={Zap}
         paragraphs={[
           "Our AI solutions company in Junagadh is at the forefront of driving digital transformation. Our comprehensive services—from our web development company's cutting-edge websites to our lead generation company's strategic campaigns—are integrated to deliver holistic results for your business.",
-          "Partner with a leading web development and lead generation company in Junagadh. We harness technology to create seamless user experiences, automate for peak efficiency, and connect you with your target audience."
+          "Partner with a web development and lead generation company in Junagadh. We harness technology to create seamless user experiences, automate for peak efficiency, and connect you with your target audience."
         ]}
         imagePosition="left"
         bgColor="bg-card/30"
@@ -47,11 +47,11 @@ export default function ServicesPage() {
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 flex items-center">
                 <CheckCircle className="w-9 h-9 mr-3 text-primary icon-glow-primary" />
-                Solutions by the Top Web Development Company in Junagadh
+                Solutions by Our Web Development Company in Junagadh
               </h2>
               <div className="space-y-4 text-muted-foreground mb-8">
                 <p className="text-base md:text-lg">
-                  As a leading web development company in Junagadh, we possess a deep understanding of the Gujarat market. This insight allows us to craft bespoke solutions that give you a distinct advantage.
+                  As a web development company in Junagadh, we possess a deep understanding of the Gujarat market. This insight allows us to craft bespoke solutions that give you a distinct advantage.
                 </p>
                 <p className="text-base md:text-lg">
                   Our dedicated team empowers businesses to leverage the latest digital tools for sustainable growth. Partner with our web development company to build a stronger digital future.

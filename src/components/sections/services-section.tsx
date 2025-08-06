@@ -7,7 +7,7 @@ const services = [
     id: "web-development", // Added ID for deep linking
     icon: Palette, 
     title: "Web Development in Junagadh",
-    description: "As the best web development company in Junagadh, we craft modern, responsive, and high-performance websites and full-stack applications.",
+    description: "As a skilled web development company in Junagadh, we craft modern, responsive, and high-performance websites and full-stack applications.",
     details: [
       "Custom responsive website design for Junagadh businesses",
       "Full-stack solutions (React, Next.js, Node.js)",
@@ -39,7 +39,7 @@ const services = [
     id: "lead-generation", // Added ID
     icon: LineChart, 
     title: "Lead Generation in Junagadh",
-    description: "As a premier lead generation company in Junagadh, we attract and convert customers through data-driven digital marketing strategies.",
+    description: "As a local lead generation company in Junagadh, we attract and convert customers through data-driven digital marketing strategies.",
     details: [
       "Digital lead generation and marketing strategy",
       "Search Engine Optimization (SEO) for local ranking in Junagadh",
@@ -94,7 +94,7 @@ export default function ServicesSection() {
             Our Core Services in Junagadh
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We are a full-service IT company in Junagadh. As a leading web development, AI, and lead generation company, we offer a comprehensive suite of services to drive growth.
+            We are a full-service IT company in Junagadh. As a web development, AI, and lead generation company, we offer a comprehensive suite of services to drive growth.
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"> {/* Adjusted grid for better flow with 5 items */}

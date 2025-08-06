@@ -7,7 +7,7 @@ export default function ComprehensiveSolutionsSection() {
     {
       icon: Target,
       title: "Expert Lead Generation Company",
-      description: "Struggling to attract quality leads? As a premier local lead generation company, we use data-driven strategies to connect you with high-potential customers. Our services include:",
+      description: "Struggling to attract quality leads? As a local lead generation company, we use data-driven strategies to connect you with high-potential customers. Our services include:",
       points: [
         "Targeted SEO and PPC campaigns.",
         "CRM integration for seamless lead management.",
@@ -17,7 +17,7 @@ export default function ComprehensiveSolutionsSection() {
     {
       icon: Share2, 
       title: "Dynamic Social Media Marketing",
-      description: "Elevate your brand with Saasnext, a top local social media marketing company. We create engaging content and run strategic campaigns to grow your online presence. Our services include:",
+      description: "Elevate your brand with Saasnext, a local social media marketing company. We create engaging content and run strategic campaigns to grow your online presence. Our services include:",
       points: [
         "Tailored social media strategies.",
         "Ad management for maximum ROI.",
@@ -41,7 +41,7 @@ export default function ComprehensiveSolutionsSection() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            A Leading Web, AI, and Lead Generation Company
+            Web, AI, and Lead Generation Company
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             At Saasnext, we go beyond standard web development. Our expertise as an AI solution company and lead generation company helps your business thrive.

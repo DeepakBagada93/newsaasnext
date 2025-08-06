@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     default: 'Web Development Company & AI Solutions in Junagadh | SaaSnext',
     template: '%s | SaaSnext - Junagadh',
   },
-  description: 'SaaSnext is a top web development company in Junagadh, offering AI solutions, lead generation, and digital marketing services in Gujarat. Partner with the best IT company in Junagadh for custom web and AI development.',
+  description: 'SaaSnext is a web development company in Junagadh, offering AI solutions, lead generation, and digital marketing services in Gujarat. Partner with our IT company in Junagadh for custom web and AI development.',
   // --- ICON METADATA ---
   // The 'icons' object configures various icon links for your site.
   // Ensure your icon files are in the 'public' directory.

@@ -7,7 +7,7 @@ import { Building, Users, Briefcase, Lightbulb } from 'lucide-react'; // Added L
 
 export const metadata: Metadata = {
   title: 'About Our IT Company in Junagadh | SaaSnext',
-  description: 'Learn about SaaSnext, a leading web development and AI company in Junagadh. Our mission is to empower businesses in Gujarat with innovative technology and expert lead generation services.',
+  description: 'Learn about SaaSnext, a web development and AI company in Junagadh. Our mission is to empower businesses in Gujarat with innovative technology and expert lead generation services.',
 };
 
 export default function AboutPage() {
@@ -15,7 +15,7 @@ export default function AboutPage() {
     <>
       <HeroSection
         pageTitle="About Our Web & AI Company in Junagadh"
-        pageSubtitle="We are SaaSnext: a passionate team of local experts in Junagadh dedicated to building premier websites, innovative AI solutions, and effective lead generation strategies for Gujarat businesses."
+        pageSubtitle="We are SaaSnext: a passionate team of local experts in Junagadh dedicated to building effective websites, innovative AI solutions, and effective lead generation strategies for Gujarat businesses."
         tagline="Your Local Junagadh IT Company"
         TaglineIcon={Building}
         showCtaButtons={false}
@@ -29,7 +29,7 @@ export default function AboutPage() {
         title="Our Collaborative Culture for Your Success"
         titleIcon={Users}
         paragraphs={[
-          "At SaaSnext, our collaborative culture is the cornerstone of our success as a leading web development and AI solutions company in Junagadh. Our team of local experts works in synergy to solve your challenges and deliver exceptional results.",
+          "At SaaSnext, our collaborative culture is the cornerstone of our success as a web development and AI solutions company in Junagadh. Our team of local experts works in synergy to solve your challenges and deliver exceptional results.",
           "We believe open communication and a passion for excellence lead to the best outcomes. This approach enables our web development company to build cutting-edge digital products and our lead generation services to foster lasting partnerships in Junagadh."
         ]}
         imagePosition="right"
@@ -56,7 +56,7 @@ export default function AboutPage() {
         title="AI Innovation at Our Core"
         titleIcon={Lightbulb}
         paragraphs={[
-          "Innovation drives us. As a leading AI development company in Junagadh, we stay ahead of industry trends, integrating the latest technologies like machine learning and chatbot development. This commitment ensures your business stays competitive in the digital landscape of Gujarat."
+          "Innovation drives us. As an AI development company in Junagadh, we stay ahead of industry trends, integrating the latest technologies like machine learning and chatbot development. This commitment ensures your business stays competitive in the digital landscape of Gujarat."
         ]}
         imagePosition="right"
         bgColor="bg-card/30"
