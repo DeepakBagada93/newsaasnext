@@ -90,7 +90,7 @@ export default function ClientDashboardLayout({
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
-         <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-6 lg:h-[60px]">
+         <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-6 lg:h-[60px] flex-shrink-0">
             <SidebarTrigger />
             <div className="flex-1">
                 <h1 className="text-lg font-semibold">Client Portal</h1>
