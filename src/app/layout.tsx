@@ -28,6 +28,8 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   const isClientDashboard = pathname.startsWith('/client-dashboard');
+  const isAdminPortal = pathname.startsWith('/saasnextdbadmin');
+  const isAppView = isClientDashboard || isAdminPortal;
 
   return (
     <html lang="en" className="dark">
@@ -43,14 +45,14 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/saasnext-site-icon.png" type="image/png" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
-        {!isClientDashboard && <Preloader />}
-        {!isClientDashboard && <Header />}
-        <main className={cn('flex-grow', isClientDashboard && 'contents')}>
+        {!isAppView && <Preloader />}
+        {!isAppView && <Header />}
+        <main className={cn('flex-grow', isAppView && 'contents')}>
           {children}
         </main>
-        {!isClientDashboard && <Footer />}
+        {!isAppView && <Footer />}
         <Toaster />
-        {!isClientDashboard && <Chatbot />}
+        {!isAppView && <Chatbot />}
       </body>
     </html>
   );
