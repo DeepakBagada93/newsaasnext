@@ -1,26 +1,150 @@
 
 import type { Metadata } from 'next';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import { Activity, Target, DollarSign, Users } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Lead Generation | Client Dashboard',
   description: 'Manage your lead generation campaigns with SaaSnext.',
 };
 
+const chartData = [
+  { month: 'Jan', leads: 65, signups: 40 },
+  { month: 'Feb', leads: 59, signups: 33 },
+  { month: 'Mar', leads: 80, signups: 62 },
+  { month: 'Apr', leads: 81, signups: 55 },
+  { month: 'May', leads: 56, signups: 41 },
+  { month: 'Jun', leads: 72, signups: 50 },
+];
+
+const recentLeads = [
+    { id: 1, name: 'Alex Johnson', email: 'alex.j@example.com', source: 'Google Ads', status: 'New' },
+    { id: 2, name: 'Maria Garcia', email: 'maria.g@example.com', source: 'Organic Search', status: 'Contacted' },
+    { id: 3, name: 'Chen Wei', email: 'chen.w@example.com', source: 'Facebook', status: 'Qualified' },
+    { id: 4, name: 'Fatima Al-Sayed', email: 'fatima.a@example.com', source: 'LinkedIn', status: 'New' },
+    { id: 5, name: 'David Smith', email: 'david.s@example.com', source: 'Referral', status: 'Converted' },
+];
+
 export default function LeadGenerationPage() {
+  const getStatusBadge = (status: string) => {
+    switch (status.toLowerCase()) {
+      case 'new':
+        return <Badge variant="secondary">New</Badge>;
+      case 'contacted':
+        return <Badge className="bg-blue-500/20 text-blue-500">Contacted</Badge>;
+      case 'qualified':
+        return <Badge className="bg-yellow-500/20 text-yellow-500">Qualified</Badge>;
+      case 'converted':
+        return <Badge className="bg-green-500/20 text-green-500">Converted</Badge>;
+      default:
+        return <Badge variant="outline">{status}</Badge>;
+    }
+  };
+
   return (
     <div className="flex flex-col gap-8 p-4 md:p-8">
       <h1 className="text-3xl font-bold tracking-tight">Lead Generation</h1>
-      <div className="grid gap-6">
+      
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Leads This Month</CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">1,254</div>
+            <p className="text-xs text-muted-foreground">+15.2% from last month</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Conversion Rate</CardTitle>
+            <Target className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">12.5%</div>
+            <p className="text-xs text-muted-foreground">+2.1% from last month</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Cost Per Lead (CPL)</CardTitle>
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">$25.50</div>
+            <p className="text-xs text-muted-foreground">-5% from last month</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Active Campaigns</CardTitle>
+            <Activity className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">4</div>
+            <p className="text-xs text-muted-foreground">Google Ads, Meta, LinkedIn</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Campaign Performance</CardTitle>
-            <CardDescription>Overview of your lead generation activities.</CardDescription>
+            <CardDescription>Leads and Signups Over Last 6 Months</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">
-              This section is under development. Soon you will be able to track campaign metrics, view lead data, and analyze ROI here.
-            </p>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={chartData}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                <XAxis dataKey="month" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} tickLine={false} axisLine={false} />
+                <YAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} tickLine={false} axisLine={false} />
+                <Tooltip
+                  cursor={{ fill: 'hsl(var(--muted) / 0.5)' }}
+                  contentStyle={{
+                    backgroundColor: 'hsl(var(--card))',
+                    borderColor: 'hsl(var(--border))',
+                    borderRadius: 'var(--radius)',
+                  }}
+                />
+                <Legend iconSize={10} wrapperStyle={{fontSize: "12px"}}/>
+                <Bar dataKey="leads" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="signups" fill="hsl(var(--secondary))" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Recent Leads</CardTitle>
+            <CardDescription>A list of the latest leads from your campaigns.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Source</TableHead>
+                  <TableHead className="text-right">Status</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {recentLeads.map((lead) => (
+                  <TableRow key={lead.id}>
+                    <TableCell>
+                      <div className="font-medium">{lead.name}</div>
+                      <div className="text-xs text-muted-foreground">{lead.email}</div>
+                    </TableCell>
+                    <TableCell>{lead.source}</TableCell>
+                    <TableCell className="text-right">{getStatusBadge(lead.status)}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </CardContent>
         </Card>
       </div>
