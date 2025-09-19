@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Logo from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Sparkles } from 'lucide-react';
+import { Menu, Sparkles, User } from 'lucide-react';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -31,33 +31,40 @@ export default function Header() {
           <Logo />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1 text-sm bg-card/50 backdrop-blur-sm p-1 rounded-full border border-border/30 shadow-sm">
-          {navItems.map((item) => {
-            const isActive = (item.href === '/' && currentPathname === '/') || (item.href !== '/' && currentPathname.startsWith(item.href));
-            const isAiRecommender = item.label === 'AI Recommender';
-            const Icon = item.icon;
+        <div className="hidden md:flex items-center space-x-2">
+          <nav className="flex items-center gap-1 text-sm bg-card/50 backdrop-blur-sm p-1 rounded-full border border-border/30 shadow-sm">
+            {navItems.map((item) => {
+              const isActive = (item.href === '/' && currentPathname === '/') || (item.href !== '/' && currentPathname.startsWith(item.href));
+              const isAiRecommender = item.label === 'AI Recommender';
+              const Icon = item.icon;
 
-            return (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={cn(
-                  "px-4 py-2 rounded-full transition-colors duration-200 ease-in-out flex items-center gap-2",
-                  isActive
-                    ? "bg-primary text-primary-foreground font-medium shadow-sm"
-                    : isAiRecommender
-                    ? "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                    : "text-foreground/70 hover:text-primary hover:bg-primary/10"
-                )}
-              >
-                {Icon && <Icon className="h-3.5 w-3.5" />}
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={cn(
+                    "px-4 py-2 rounded-full transition-colors duration-200 ease-in-out flex items-center gap-2",
+                    isActive
+                      ? "bg-primary text-primary-foreground font-medium shadow-sm"
+                      : isAiRecommender
+                      ? "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                      : "text-foreground/70 hover:text-primary hover:bg-primary/10"
+                  )}
+                >
+                  {Icon && <Icon className="h-3.5 w-3.5" />}
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+          <Button asChild>
+            <Link href="/client-dashboard">
+              <User className="mr-2 h-4 w-4" /> Client Login
+            </Link>
+          </Button>
+        </div>
 
-        {/* Mobile menu trigger - pushed to the right by justify-between on parent */}
+        {/* Mobile menu */}
         <div className="md:hidden">
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
@@ -95,6 +102,13 @@ export default function Header() {
                     );
                   })}
                 </nav>
+                <div className="mt-8 border-t border-border pt-6">
+                  <Button asChild className="w-full">
+                    <Link href="/client-dashboard" onClick={() => setMobileMenuOpen(false)}>
+                       <User className="mr-2 h-4 w-4" /> Client Login
+                    </Link>
+                  </Button>
+                </div>
               </div>
             </SheetContent>
           </Sheet>
