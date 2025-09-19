@@ -15,6 +15,7 @@ const navItems = [
   { label: 'Services', href: '/services' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'AI Recommender', href: '/recommendation', icon: Sparkles },
+  { label: 'Custom Services', href: '/custom-services' },
   { label: 'About Us', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ];
