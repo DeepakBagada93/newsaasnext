@@ -9,6 +9,7 @@ import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import Chatbot from '@/components/common/chatbot';
 import Preloader from '@/components/common/preloader';
+import { cn } from '@/lib/utils';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -44,7 +45,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
         {!isClientDashboard && <Preloader />}
         {!isClientDashboard && <Header />}
-        <main className={isClientDashboard ? 'flex-grow contents' : 'flex-grow'}>
+        <main className={cn('flex-grow', isClientDashboard && 'contents')}>
           {children}
         </main>
         {!isClientDashboard && <Footer />}
