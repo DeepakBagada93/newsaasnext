@@ -1,4 +1,6 @@
 
+'use client';
+
 import type { Metadata } from 'next';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
@@ -6,10 +8,14 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import { Activity, Target, DollarSign, Users } from 'lucide-react';
 
+// Note: Metadata export is not effective in a client component. 
+// Consider moving this to a parent layout or page if SEO is critical for this specific page.
+/*
 export const metadata: Metadata = {
   title: 'Lead Generation | Client Dashboard',
   description: 'Manage your lead generation campaigns with SaaSnext.',
 };
+*/
 
 const chartData = [
   { month: 'Jan', leads: 65, signups: 40 },
