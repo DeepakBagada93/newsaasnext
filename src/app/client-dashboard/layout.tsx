@@ -23,6 +23,7 @@ import {
   Settings,
   User,
   Home,
+  Layers,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -33,6 +34,7 @@ const menuItems = [
   { href: '/client-dashboard/web-development', label: 'Web Development', icon: Globe },
   { href: '/client-dashboard/ai-automation', label: 'AI Automation', icon: Bot },
   { href: '/client-dashboard/lead-generation', label: 'Lead Generation', icon: LineChart },
+  { href: '/client-dashboard/custom-services', label: 'Custom Services', icon: Layers },
   { href: '/client-dashboard/billing', label: 'Billing', icon: CreditCard },
   { href: '/client-dashboard/settings', label: 'Settings', icon: Settings },
 ];
