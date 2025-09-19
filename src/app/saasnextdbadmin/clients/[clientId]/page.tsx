@@ -7,7 +7,8 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { MoreHorizontal, ArrowLeft, User, Edit, MessageSquare, Briefcase, DollarSign } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
+import { MoreHorizontal, ArrowLeft, User, Edit, MessageSquare, Briefcase, DollarSign, PlusCircle } from 'lucide-react';
 import Link from 'next/link';
 
 // Mock data - in a real app, this would be fetched based on the client ID from the URL
@@ -150,9 +151,22 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
                                                 </div>
                                             </TableCell>
                                             <TableCell className="text-right">
-                                                <Button variant="ghost" size="sm">
-                                                    Manage
-                                                </Button>
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger asChild>
+                                                        <Button variant="ghost" className="h-8 w-8 p-0">
+                                                            <span className="sr-only">Open menu</span>
+                                                            <MoreHorizontal className="h-4 w-4" />
+                                                        </Button>
+                                                    </DropdownMenuTrigger>
+                                                    <DropdownMenuContent align="end">
+                                                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                                        <DropdownMenuItem>Edit Project</DropdownMenuItem>
+                                                        <DropdownMenuItem>Update Status</DropdownMenuItem>
+                                                        <DropdownMenuItem>View Timeline</DropdownMenuItem>
+                                                        <DropdownMenuSeparator />
+                                                        <DropdownMenuItem className="text-destructive">Archive Project</DropdownMenuItem>
+                                                    </DropdownMenuContent>
+                                                </DropdownMenu>
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -161,7 +175,7 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
                         </CardContent>
                          <CardFooter>
                             <Button>
-                                Add New Project
+                                <PlusCircle className="mr-2 h-4 w-4" /> Add New Project
                             </Button>
                         </CardFooter>
                     </Card>
