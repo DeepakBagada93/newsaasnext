@@ -1,26 +1,118 @@
 
 import type { Metadata } from 'next';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { CheckCircle, Circle, Clock } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 
 export const metadata: Metadata = {
   title: 'Web Development | Client Dashboard',
   description: 'Manage your web development projects with SaaSnext.',
 };
 
+const project = {
+  name: 'E-commerce Platform Launch',
+  progress: 65,
+  startDate: '2024-05-01',
+  deadline: '2024-08-15',
+  milestones: [
+    { name: 'Project Kick-off & Discovery', completed: true },
+    { name: 'UI/UX Design & Wireframing', completed: true },
+    { name: 'Frontend Development', completed: true },
+    { name: 'Backend & API Integration', completed: true },
+    { name: 'Testing & Quality Assurance', completed: false },
+    { name: 'Deployment to Staging Environment', completed: false },
+    { name: 'Final Client Review & UAT', completed: false },
+    { name: 'Launch & Handover', completed: false },
+  ],
+};
+
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC', // Ensure consistent date formatting regardless of server location
+  });
+};
+
 export default function WebDevelopmentPage() {
   return (
     <div className="flex flex-col gap-8 p-4 md:p-8">
       <h1 className="text-3xl font-bold tracking-tight">Web Development</h1>
-      <div className="grid gap-6">
-        <Card>
+      <div className="grid gap-6 lg:grid-cols-3">
+        <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle>Project Status</CardTitle>
-            <CardDescription>Overview of your ongoing web development projects.</CardDescription>
+            <CardTitle>{project.name}</CardTitle>
+            <CardDescription>Overview of your ongoing web development project.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm font-medium text-muted-foreground">Project Progress</span>
+                <span className="text-sm font-bold text-primary">{project.progress}% Complete</span>
+              </div>
+              <Progress value={project.progress} className="w-full" />
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="bg-muted/50 p-3 rounded-lg">
+                    <p className="font-semibold text-foreground">Start Date</p>
+                    <p className="text-muted-foreground">{formatDate(project.startDate)}</p>
+                </div>
+                <div className="bg-muted/50 p-3 rounded-lg">
+                    <p className="font-semibold text-foreground">Target Deadline</p>
+                    <p className="text-muted-foreground">{formatDate(project.deadline)}</p>
+                </div>
+            </div>
+
+            <Separator />
+
+            <div>
+              <h3 className="text-lg font-semibold text-foreground mb-4">Project Milestones</h3>
+              <div className="space-y-4">
+                {project.milestones.map((milestone) => (
+                  <div key={milestone.name} className="flex items-start space-x-3">
+                    {milestone.completed ? (
+                      <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    ) : (
+                      <Circle className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                    )}
+                    <span className={milestone.completed ? "text-muted-foreground line-through" : "text-foreground"}>
+                      {milestone.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </CardContent>
+        </Card>
+
+        {/* Sidebar Card for quick info */}
+        <Card className="lg:col-span-1">
+          <CardHeader>
+            <CardTitle>Project Details</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">
-              This section is under development. Soon you will be able to track project milestones, view analytics, and access project files here.
-            </p>
+             <ul className="space-y-3 text-sm text-muted-foreground">
+                <li className="flex items-center justify-between">
+                    <span className="font-medium">Current Status:</span>
+                    <span className="font-semibold text-primary">In Progress</span>
+                </li>
+                 <li className="flex items-center justify-between">
+                    <span className="font-medium">Next Milestone:</span>
+                    <span className="font-semibold text-foreground">Testing & QA</span>
+                </li>
+                 <li className="flex items-center justify-between">
+                    <span className="font-medium">Project Manager:</span>
+                    <span className="font-semibold text-foreground">Deepak B.</span>
+                </li>
+            </ul>
+             <Separator className="my-6" />
+             <p className="text-xs text-muted-foreground">
+                This is a demo representation. Actual project timelines and details may vary. For any questions, please contact support.
+             </p>
           </CardContent>
         </Card>
       </div>
