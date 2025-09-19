@@ -1,0 +1,108 @@
+
+'use client';
+
+import {
+  SidebarProvider,
+  Sidebar,
+  SidebarHeader,
+  SidebarContent,
+  SidebarTrigger,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarInset,
+  SidebarFooter,
+} from '@/components/ui/sidebar';
+import Logo from '@/components/icons/logo';
+import {
+  LayoutDashboard,
+  Globe,
+  LineChart,
+  Bot,
+  CreditCard,
+  Settings,
+  User,
+  Home,
+} from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+
+const menuItems = [
+  { href: '/client-dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/client-dashboard/web-development', label: 'Web Development', icon: Globe },
+  { href: '/client-dashboard/ai-automation', label: 'AI Automation', icon: Bot },
+  { href: '/client-dashboard/lead-generation', label: 'Lead Generation', icon: LineChart },
+  { href: '/client-dashboard/billing', label: 'Billing', icon: CreditCard },
+  { href: '/client-dashboard/settings', label: 'Settings', icon: Settings },
+];
+
+export default function ClientDashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const pathname = usePathname();
+
+  return (
+    <SidebarProvider>
+      <Sidebar>
+        <SidebarHeader>
+          <div className="flex items-center justify-between p-2">
+            <Logo />
+            <SidebarTrigger className="md:hidden" />
+          </div>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarMenu>
+            {menuItems.map((item) => (
+              <SidebarMenuItem key={item.label}>
+                <Link href={item.href} legacyBehavior passHref>
+                  <SidebarMenuButton
+                    isActive={pathname === item.href}
+                    tooltip={item.label}
+                  >
+                    <item.icon />
+                    <span>{item.label}</span>
+                  </SidebarMenuButton>
+                </Link>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarContent>
+        <SidebarFooter>
+           <SidebarMenu>
+              <SidebarMenuItem>
+                 <Link href="/" legacyBehavior passHref>
+                  <SidebarMenuButton tooltip="Back to Homepage">
+                    <Home />
+                    <span>Homepage</span>
+                  </SidebarMenuButton>
+                </Link>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                 <SidebarMenuButton tooltip="Your Account">
+                    <User />
+                    <span>Your Account</span>
+                  </SidebarMenuButton>
+              </SidebarMenuItem>
+           </SidebarMenu>
+        </SidebarFooter>
+      </Sidebar>
+      <SidebarInset>
+         <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-6 lg:h-[60px]">
+            <SidebarTrigger />
+            <div className="flex-1">
+                <h1 className="text-lg font-semibold">Client Portal</h1>
+            </div>
+            <Button asChild size="sm">
+                <Link href="/contact">Contact Support</Link>
+            </Button>
+        </header>
+        <main className="flex-1 overflow-y-auto">
+            {children}
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}
