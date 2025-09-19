@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal, PlusCircle } from 'lucide-react';
+import Link from 'next/link';
 
 /*
 export const metadata: Metadata = {
@@ -85,9 +86,15 @@ export default function ManageClientsPage() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>Edit Client</DropdownMenuItem>
-                        <DropdownMenuItem>View Details</DropdownMenuItem>
-                        <DropdownMenuItem>Manage Services</DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                           <Link href={`/saasnextdbadmin/clients/${client.id}`}>Edit Client</Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link href={`/saasnextdbadmin/clients/${client.id}`}>View Details</Link>
+                        </DropdownMenuItem>
+                         <DropdownMenuItem asChild>
+                           <Link href={`/saasnextdbadmin/clients/${client.id}`}>Manage Services</Link>
+                        </DropdownMenuItem>
                         <DropdownMenuItem className="text-destructive">Deactivate</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
