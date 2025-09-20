@@ -7,7 +7,6 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Activity, Target, DollarSign, Users, Loader2 } from 'lucide-react';
-import { createClient } from '@/lib/supabase/client';
 import type { Project } from '@/lib/types';
 
 
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
 };
 */
 
-// Mock data, as we don't have this in the DB yet
+// Mock data, as we don't have this in the DB anymore
 const chartData = [
   { month: 'Jan', leads: 65, signups: 40 },
   { month: 'Feb', leads: 59, signups: 33 },
@@ -37,45 +36,36 @@ const recentLeads = [
     { id: 5, name: 'David Smith', email: 'david.s@example.com', source: 'Referral', status: 'Converted' },
 ];
 
+const mockProject: Project = {
+    id: "proj_456",
+    client_id: "user_789",
+    name: "Q3 Lead Generation Campaign",
+    status: "In Progress",
+    progress: 50,
+    deadline: "2024-09-30T00:00:00.000Z",
+    total_budget: 25000,
+    paid: 12000,
+    timeline: [
+        { event: "Strategy Finalized", date: "2024-07-01", completed: true },
+        { event: "Ads Launched", date: "2024-07-05", completed: true },
+        { event: "Mid-Campaign Review", date: "2024-08-15", completed: false },
+    ],
+    created_at: "2024-06-20T10:00:00.000Z",
+};
+
 export default function LeadGenerationPage() {
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const supabase = createClient();
 
   useEffect(() => {
-    const fetchProject = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        setError("You must be logged in to view project details.");
+    setLoading(true);
+    setTimeout(() => {
+        setProject(mockProject);
+        setError("This is a demo project. Data is not loaded from a database.");
         setLoading(false);
-        return;
-      }
-      
-      const { data, error } = await supabase
-        .from('projects')
-        .select('*')
-        .eq('client_id', session.user.id)
-        .ilike('name', '%lead generation%') // Simple filter for lead gen
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .single();
-      
-      if (error) {
-        console.error("Error fetching project:", error);
-         if (error.code === 'PGRST116') { // "exact one row expected, but found no rows"
-             setError("No active lead generation project found for your account. The data below is for demonstration only.");
-        } else {
-             setError("Could not fetch project data. The data below is for demonstration only.");
-        }
-      } else {
-        setProject(data);
-      }
-      setLoading(false);
-    };
-
-    fetchProject();
-  }, [supabase]);
+    }, 1000);
+  }, []);
 
   const getStatusBadge = (status: string) => {
     switch (status.toLowerCase()) {
@@ -99,6 +89,8 @@ export default function LeadGenerationPage() {
       {loading ? (
         <div className="flex items-center text-muted-foreground"><Loader2 className="mr-2 h-4 w-4 animate-spin" />Loading campaign data...</div>
       ) : project ? (
+        <>
+        <div className="p-4 bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 rounded-md text-sm">{error}</div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -141,6 +133,7 @@ export default function LeadGenerationPage() {
             </CardContent>
           </Card>
         </div>
+        </>
       ) : (
          <div className="text-muted-foreground">{error}</div>
       )}

@@ -5,8 +5,29 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Progress } from '@/components/ui/progress';
 import { CheckCircle, Circle, Loader2 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-import { createClient } from '@/lib/supabase/client';
 import type { Project } from '@/lib/types';
+
+// Mock Data
+const mockProject: Project = {
+  id: "proj_123",
+  client_id: "user_456",
+  name: "Client Web Development Project",
+  status: "In Progress",
+  progress: 65,
+  deadline: "2024-09-30T00:00:00.000Z",
+  total_budget: 15000,
+  paid: 7500,
+  timeline: [
+    { event: "Project Kick-off & Discovery", date: "2024-07-01", completed: true },
+    { event: "Design & Wireframing", date: "2024-07-15", completed: true },
+    { event: "Frontend Development", date: "2024-08-15", completed: true },
+    { event: "Backend & API Integration", date: "2024-09-01", completed: false },
+    { event: "Testing & QA", date: "2024-09-15", completed: false },
+    { event: "Deployment & Launch", date: "2024-09-30", completed: false },
+  ],
+  created_at: "2024-07-01T10:00:00.000Z",
+};
+
 
 // This data will be fetched from Supabase
 const formatDate = (dateString: string | null) => {
@@ -23,41 +44,18 @@ export default function WebDevelopmentPage() {
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const supabase = createClient();
 
   useEffect(() => {
-    const fetchProject = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        setError("You must be logged in to view project details.");
+    // Simulate fetching data
+    setLoading(true);
+    setTimeout(() => {
+        // In a real app, you'd fetch this data. For now, we use mock data.
+        // Since login is removed, we show a demo project.
+        setProject(mockProject);
+        setError("This is a demo project. Data is not loaded from a database.");
         setLoading(false);
-        return;
-      }
-      
-      const { data, error } = await supabase
-        .from('projects')
-        .select('*')
-        .eq('client_id', session.user.id)
-        .ilike('name', '%web development%') // Simple filter for web dev
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .single();
-      
-      if (error) {
-        console.error("Error fetching project:", error);
-        if (error.code === 'PGRST116') { // "exact one row expected, but found no rows"
-             setError("No active web development project found for your account.");
-        } else {
-             setError("Could not fetch project data. Please try again later.");
-        }
-      } else {
-        setProject(data);
-      }
-      setLoading(false);
-    };
-
-    fetchProject();
-  }, [supabase]);
+    }, 1000);
+  }, []);
 
   if (loading) {
     return (
@@ -68,17 +66,14 @@ export default function WebDevelopmentPage() {
     );
   }
 
-  if (error && !project) {
-    return <div className="p-8 text-muted-foreground">{error}</div>;
-  }
-  
   if (!project) {
-    return <div className="p-8 text-muted-foreground">No active web development project found.</div>;
+    return <div className="p-8 text-muted-foreground">{error || "No active web development project found."}</div>;
   }
 
   return (
     <div className="flex flex-col gap-8 p-4 md:p-8">
       <h1 className="text-3xl font-bold tracking-tight">Web Development</h1>
+      {error && <div className="p-4 bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 rounded-md text-sm">{error}</div>}
       <div className="grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardHeader>
@@ -149,7 +144,7 @@ export default function WebDevelopmentPage() {
             </ul>
              <Separator className="my-6" />
              <p className="text-xs text-muted-foreground">
-                Project data is updated in real-time. For any questions, please contact support.
+                Project data is for demonstration purposes. For any questions, please contact support.
              </p>
           </CardContent>
         </Card>

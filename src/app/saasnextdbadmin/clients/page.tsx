@@ -16,7 +16,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from "@/hooks/use-toast";
-import { createClient } from '@/lib/supabase/client';
 import type { Profile } from '@/lib/types';
 
 
@@ -28,6 +27,12 @@ const newClientSchema = z.object({
 
 type NewClientFormValues = z.infer<typeof newClientSchema>;
 
+const mockClients: Profile[] = [
+    { id: "user_123", full_name: "Alice Johnson", company: "Innovate Inc.", email: "alice@innovate.com", role: "client" },
+    { id: "user_456", full_name: "Bob Williams", company: "Solutions Co.", email: "bob@solutions.co", role: "client" },
+    { id: "user_789", full_name: "Charlie Brown", company: "Synergy Corp", email: "charlie@synergy.com", role: "client" },
+];
+
 
 export default function ManageClientsPage() {
   const [clients, setClients] = useState<Profile[]>([]);
@@ -35,31 +40,19 @@ export default function ManageClientsPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { toast } = useToast();
-  const supabase = createClient();
 
-  const fetchClients = async () => {
+  const fetchClients = () => {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('profiles')
-        .select(`id, full_name, company, email, role`)
-        .eq('role', 'client');
-      
-      if (error) {
-        console.error("Error fetching clients:", error);
-        toast({
-          variant: "destructive",
-          title: "Error fetching clients",
-          description: error.message,
-        });
-      } else {
-        setClients(data as Profile[]);
-      }
-      setLoading(false);
+      // Simulate API call
+      setTimeout(() => {
+          setClients(mockClients);
+          setLoading(false);
+      }, 500);
   };
 
   useEffect(() => {
     fetchClients();
-  }, []); // removed dependencies as they are not needed
+  }, []);
 
   const form = useForm<NewClientFormValues>({
     resolver: zodResolver(newClientSchema),
@@ -79,32 +72,22 @@ export default function ManageClientsPage() {
 
   const handleCreateClient = async (data: NewClientFormValues) => {
     setIsSubmitting(true);
-    // With Supabase Auth, we invite a user, we don't create them directly with a password.
-    const { data: inviteData, error } = await supabase.auth.admin.inviteUserByEmail(data.email, {
-        data: {
-            full_name: data.full_name,
-            company: data.company,
-            role: 'client'
-        }
-    });
-
-    setIsSubmitting(false);
-
-    if (error) {
-      toast({
-        variant: "destructive",
-        title: "Failed to invite client",
-        description: error.message,
-      });
-    } else {
-      toast({
-        title: "Client Invited",
-        description: "An invitation email has been sent to the new client.",
-      });
-      fetchClients(); // Re-fetch clients to update the list
-      setIsDialogOpen(false);
-      form.reset();
-    }
+    // Simulate API call
+    setTimeout(() => {
+        const newClient: Profile = {
+            id: `user_${Math.random().toString(36).substr(2, 9)}`,
+            role: 'client',
+            ...data
+        };
+        setClients(prev => [newClient, ...prev]);
+        setIsSubmitting(false);
+        toast({
+            title: "Client Added (Demo)",
+            description: `${data.full_name} has been added to the list.`,
+        });
+        setIsDialogOpen(false);
+        form.reset();
+    }, 1000);
   };
 
 
@@ -115,14 +98,14 @@ export default function ManageClientsPage() {
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button>
-              <PlusCircle className="mr-2 h-4 w-4" /> Invite New Client
+              <PlusCircle className="mr-2 h-4 w-4" /> Add New Client
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-lg">
             <DialogHeader>
-              <DialogTitle>Invite New Client</DialogTitle>
+              <DialogTitle>Add New Client</DialogTitle>
               <DialogDescription>
-                Send an invitation to a new client. They will be able to sign up with Google.
+                Enter the details for the new client.
               </DialogDescription>
             </DialogHeader>
             <Form {...form}>
@@ -172,7 +155,7 @@ export default function ManageClientsPage() {
                     </DialogClose>
                     <Button type="submit" disabled={isSubmitting}>
                       {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                      Send Invitation
+                      Add Client
                     </Button>
                 </DialogFooter>
               </form>
@@ -184,7 +167,7 @@ export default function ManageClientsPage() {
       <Card>
         <CardHeader>
           <CardTitle>Client List</CardTitle>
-          <CardDescription>An overview of all client accounts.</CardDescription>
+          <CardDescription>An overview of all client accounts. (Demo Data)</CardDescription>
         </CardHeader>
         <CardContent>
           {loading ? (

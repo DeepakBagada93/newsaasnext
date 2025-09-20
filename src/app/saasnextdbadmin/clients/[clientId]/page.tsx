@@ -15,7 +15,6 @@ import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { createClient } from '@/lib/supabase/client';
 import type { Profile, Project, ProjectStatus, TimelineEvent } from '@/lib/types';
 import { useToast } from "@/hooks/use-toast";
 
@@ -37,9 +36,19 @@ const getStatusBadge = (status: ProjectStatus) => {
     }
 };
 
+const mockClients: Profile[] = [
+    { id: "user_123", full_name: "Alice Johnson", company: "Innovate Inc.", email: "alice@innovate.com", role: "client" },
+    { id: "user_456", full_name: "Bob Williams", company: "Solutions Co.", email: "bob@solutions.co", role: "client" },
+    { id: "user_789", full_name: "Charlie Brown", company: "Synergy Corp", email: "charlie@synergy.com", role: "client" },
+];
+
+const mockProjects: Project[] = [
+    { id: "proj_abc", client_id: "user_123", name: "Innovate Inc. Website Redesign", status: "In Progress", progress: 75, deadline: "2024-08-30", total_budget: 20000, paid: 15000, timeline: [{event: "Design", date: "2024-07-01", completed: true}, {event: "Development", date: "2024-08-01", completed: false}], created_at: "2024-06-01" },
+    { id: "proj_def", client_id: "user_123", name: "AI Chatbot for Support", status: "Planning", progress: 10, deadline: "2024-09-15", total_budget: 12000, paid: 2000, timeline: [{event: "Scoping", date: "2024-07-10", completed: false}], created_at: "2024-07-01" },
+];
+
 export default function ClientDetailPage({ params }: { params: { clientId: string } }) {
     const { toast } = useToast();
-    const supabase = createClient();
     const [client, setClient] = useState<Profile | null>(null);
     const [projects, setProjects] = useState<Project[]>([]);
     const [loading, setLoading] = useState(true);
@@ -50,42 +59,27 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            // Fetch client profile
-            const { data: clientData, error: clientError } = await supabase
-                .from('profiles')
-                .select('*')
-                .eq('id', params.clientId)
-                .single();
+            // Simulate fetching data
+            setTimeout(() => {
+                const foundClient = mockClients.find(c => c.id === params.clientId);
+                setClient(foundClient || null);
 
-            if (clientError) {
-                console.error('Error fetching client:', clientError);
-                toast({ variant: 'destructive', title: 'Error', description: 'Could not fetch client data.' });
-            } else {
-                setClient(clientData);
-            }
+                const clientProjects = mockProjects.filter(p => p.client_id === params.clientId);
+                setProjects(clientProjects);
 
-            // Fetch client projects
-            const { data: projectsData, error: projectsError } = await supabase
-                .from('projects')
-                .select('*')
-                .eq('client_id', params.clientId);
-            
-            if (projectsError) {
-                console.error('Error fetching projects:', projectsError);
-                toast({ variant: 'destructive', title: 'Error', description: 'Could not fetch project data.' });
-            } else {
-                setProjects(projectsData);
-            }
+                if (!foundClient) {
+                    toast({ variant: 'destructive', title: 'Error', description: 'Could not find client data.' });
+                }
 
-            setLoading(false);
+                setLoading(false);
+            }, 500);
         };
 
         fetchData();
-    }, [params.clientId, supabase, toast]);
+    }, [params.clientId, toast]);
 
     const handleOpenDialog = (project: Project) => {
         setSelectedProject(project);
-        // Deep copy for editing to avoid mutating state directly
         setEditingProject(JSON.parse(JSON.stringify(project))); 
     };
     
@@ -97,21 +91,9 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
     const handleUpdateProject = async () => {
         if (!editingProject) return;
 
-        const { id, ...updateData } = editingProject;
-        const { data, error } = await supabase
-            .from('projects')
-            .update(updateData)
-            .eq('id', id)
-            .select()
-            .single();
-
-        if (error) {
-            console.error("Error updating project:", error);
-            toast({ variant: 'destructive', title: 'Error', description: 'Failed to update project.' });
-        } else {
-            setProjects(prev => prev.map(p => p.id === data.id ? data : p));
-            toast({ title: 'Success', description: 'Project updated successfully.' });
-        }
+        // Simulate update
+        setProjects(prev => prev.map(p => p.id === editingProject.id ? editingProject : p));
+        toast({ title: 'Success (Demo)', description: 'Project updated successfully.' });
         
         handleDialogClose();
     };
@@ -138,6 +120,20 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
         );
     }
     
+    if (!client) {
+         return (
+            <div className="flex flex-col gap-4 p-4 md:p-8 items-start">
+                 <Button variant="outline" size="icon" asChild>
+                    <Link href="/saasnextdbadmin/clients">
+                        <ArrowLeft className="h-4 w-4" />
+                        <span className="sr-only">Back to Clients</span>
+                    </Link>
+                </Button>
+                <p className="text-muted-foreground">Client not found.</p>
+            </div>
+         )
+    }
+
     return (
         <div className="flex flex-col gap-8 p-4 md:p-8">
             <div className="flex items-center gap-4">
@@ -189,7 +185,7 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
                                 <Briefcase /> Active Services & Projects
                             </CardTitle>
                             <CardDescription>
-                                An overview of all services and projects for this client.
+                                An overview of all services and projects for this client. (Demo Data)
                             </CardDescription>
                         </CardHeader>
                         <CardContent>

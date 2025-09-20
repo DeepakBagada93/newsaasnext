@@ -21,15 +21,12 @@ import {
   Bot,
   CreditCard,
   Settings,
-  User,
   Home,
   Layers,
-  LogOut,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { signOut } from '@/app/auth/actions';
 
 
 const menuItems = [
@@ -84,16 +81,6 @@ export default function ClientDashboardLayout({
                     <span>Homepage</span>
                   </SidebarMenuButton>
                 </Link>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                 <form action={signOut} className="w-full">
-                    <SidebarMenuButton tooltip="Logout" className="w-full" asChild>
-                      <button type="submit" className='w-full'>
-                        <LogOut />
-                        <span>Logout</span>
-                      </button>
-                    </SidebarMenuButton>
-                 </form>
               </SidebarMenuItem>
            </SidebarMenu>
         </SidebarFooter>

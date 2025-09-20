@@ -21,12 +21,11 @@ import {
   CreditCard,
   Settings,
   Shield,
-  LogOut,
+  Home,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { signOut } from '@/app/auth/actions';
 
 const menuItems = [
   { href: '/saasnextdbadmin', label: 'Dashboard', icon: LayoutDashboard },
@@ -77,14 +76,12 @@ export default function AdminLayout({
         <SidebarFooter>
            <SidebarMenu>
               <SidebarMenuItem>
-                <form action={signOut} className="w-full">
-                  <SidebarMenuButton tooltip="Logout" className="w-full" asChild>
-                    <button type="submit" className='w-full'>
-                      <LogOut />
-                      <span>Logout</span>
-                    </button>
+                 <Link href="/" legacyBehavior passHref>
+                  <SidebarMenuButton tooltip="Back to Homepage">
+                    <Home />
+                    <span>Homepage</span>
                   </SidebarMenuButton>
-                </form>
+                </Link>
               </SidebarMenuItem>
            </SidebarMenu>
         </SidebarFooter>
