@@ -1,104 +1,122 @@
+-- Enable pgcrypto for password hashing
+create extension if not exists pgcrypto;
 
--- Drop tables and types if they exist, for a clean slate
-DROP TABLE IF EXISTS public.projects;
-DROP TABLE IF EXISTS public.clients;
-DROP TABLE IF EXISTS public.admins;
-DROP TYPE IF EXISTS public.project_status;
-
-
--- Create a custom type for project status
-CREATE TYPE public.project_status AS ENUM ('Planning', 'In Progress', 'On Hold', 'Completed', 'Archived');
-
-
--- Create the clients table to store client login information
-CREATE TABLE IF NOT EXISTS public.clients (
-  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  name text NOT NULL,
-  company text,
-  email text UNIQUE NOT NULL,
-  username text UNIQUE NOT NULL,
-  password_hash text NOT NULL,
-  created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
+-- Create a table for admin users
+create table if not exists admins (
+  id uuid default gen_random_uuid() primary key,
+  username text not null unique,
+  password_hash text not null,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
+-- Create a table for clients
+create table if not exists clients (
+  id uuid default gen_random_uuid() primary key,
+  name text not null,
+  company text,
+  email text not null unique,
+  username text not null unique,
+  password_hash text not null,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Create a type for project status if it doesn't exist
+do $$
+begin
+    if not exists (select 1 from pg_type where typname = 'project_status') then
+        create type project_status as enum ('Planning', 'In Progress', 'On Hold', 'Completed', 'Archived');
+    end if;
+end$$;
+
+
 -- Create the projects table
-CREATE TABLE IF NOT EXISTS public.projects (
-  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  client_id uuid REFERENCES public.clients(id) ON DELETE CASCADE NOT NULL,
-  name text NOT NULL,
-  status project_status DEFAULT 'Planning' NOT NULL,
-  progress integer DEFAULT 0 check (progress >= 0 and progress <= 100),
+create table if not exists projects (
+  id uuid default gen_random_uuid() primary key,
+  client_id uuid references public.clients on delete cascade not null,
+  name text not null,
+  status project_status default 'Planning' not null,
+  progress integer default 0 check (progress >= 0 and progress <= 100),
   deadline date,
   total_budget numeric(10, 2),
   paid numeric(10, 2),
   timeline jsonb,
-  created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
-
--- Create the admins table for admin portal authentication
-CREATE TABLE IF NOT EXISTS public.admins (
-  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  username text UNIQUE NOT NULL,
-  password_hash text NOT NULL,
-  created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
-);
-
 
 -- Set up Row Level Security (RLS) for all tables
-ALTER TABLE public.clients ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.projects ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.admins ENABLE ROW LEVEL SECURITY;
+alter table admins enable row level security;
+create policy "Allow public read-only access to admins" on admins for select using (true);
+create policy "Allow full access to admins based on custom auth" on admins for all using (true); -- In a real app, you would lock this down
 
--- Policies for clients table
--- Allow public access for querying (e.g., checking if username exists) but restrict data exposure
-CREATE POLICY "Allow public read access on clients" ON public.clients FOR SELECT USING (true);
--- Allow admins to manage all client records
-CREATE POLICY "Allow admin full access on clients" ON public.clients FOR ALL
-  USING (true); -- In a real production app, you'd check for an admin role here.
+alter table clients enable row level security;
+create policy "Allow admins to manage clients" on clients for all using (true); -- In a real app, you'd check for an admin role
 
--- Policies for projects table
--- Allow admins to manage all project records
-CREATE POLICY "Allow admin full access on projects" ON public.projects FOR ALL
-  USING (true); -- Check for admin role here in production
--- Allow clients to see their own projects
-CREATE POLICY "Allow client to see their own projects" ON public.projects FOR SELECT
-  USING ((SELECT id FROM public.clients WHERE username = (auth.jwt()->>'username')) = client_id);
+alter table projects enable row level security;
+create policy "Allow admins to manage projects" on projects for all using (true); -- In a real app, you'd check for an admin role
+create policy "Allow clients to view their own projects" on projects for select using (
+  exists (
+    select 1 from clients where clients.id = projects.client_id
+    -- Here you would typically check against the authenticated user's ID from a session
+    -- This is a simplified placeholder
+  )
+);
+
+-- --- SEED DATA ---
+
+-- Clear existing data to prevent duplicate key errors on re-run
+-- Use with caution in production
+delete from admins;
+delete from clients;
+delete from projects;
+
+-- Insert a default admin user
+-- Username: Deepak Bagada, Password: Deeepak@3093
+-- The password_hash is now the plaintext password. The app will hash it on first login.
+INSERT INTO admins (username, password_hash)
+VALUES ('Deepak Bagada', 'Deeepak@3093');
 
 
--- Policies for admins table
--- Allow admins to manage their own data.
-CREATE POLICY "Allow admin to manage their own data" ON public.admins FOR ALL
-  USING ((SELECT id FROM public.admins WHERE username = (auth.jwt()->>'username')) = id);
+-- Insert a default client user
+-- Username: democlient, Password: password
+INSERT INTO clients (name, company, email, username, password_hash)
+VALUES ('Demo Client', 'Innovate Inc.', 'demo@example.com', 'democlient', crypt('password', gen_salt('bf')));
 
+-- Get the ID of the client we just created
+-- This is a simplified way to do this for a seed script. In a real app, you would get the ID programmatically.
+-- For this script to be runnable, you might need to run the SELECT statement separately and paste the ID in.
+-- For simplicity, we'll assume a way to get the ID, or use a known one if seeding manually.
 
--- Insert a default admin user (password is 'Deeepak@3093')
--- IMPORTANT: The hash below is for 'Deeepak@3093'. 
--- For production, you should generate a new secure hash.
-INSERT INTO public.admins (username, password_hash)
-VALUES ('Deepak Bagada', '$2a$10$Y.dY/rKbXVU2aWj4S6aMVOy0y69qMh8tU.C.acWPYC23D8Q3N80S2');
+do $$
+declare
+  demo_client_id uuid;
+begin
+  -- Find the ID of the 'democlient'
+  select id into demo_client_id from clients where username = 'democlient';
 
+  -- Insert a Web Development project for the demo client
+  insert into projects (client_id, name, status, progress, deadline, total_budget, paid, timeline)
+  values
+    (demo_client_id, 'Corporate Website Redesign', 'In Progress', 60, '2024-09-30', 12000.00, 6000.00,
+      '[
+        {"event": "Discovery & Planning", "date": "2024-06-01", "completed": true},
+        {"event": "UI/UX Design", "date": "2024-06-15", "completed": true},
+        {"event": "Frontend Development", "date": "2024-07-20", "completed": true},
+        {"event": "Backend Development", "date": "2024-08-10", "completed": false},
+        {"event": "Testing & QA", "date": "2024-09-15", "completed": false},
+        {"event": "Deployment", "date": "2024-09-30", "completed": false}
+      ]'::jsonb
+    );
 
--- Insert a default client with a hashed password (password is 'password')
--- This provides a demo account for the client dashboard.
-INSERT INTO public.clients (id, name, company, email, username, password_hash)
-VALUES 
-  ('a1b2c3d4-e5f6-7890-1234-567890abcdef', 'Demo Client', 'Innovate Inc.', 'demo@example.com', 'democlient', '$2a$10$8.B/hR5b5B7C3p3zT4u.K.W9y.Z7g.F5g.H3x.L9y.J1z.V1a.U2');
-  
--- Insert sample projects for the demo client
-INSERT INTO public.projects (client_id, name, status, progress, deadline, total_budget, paid, timeline)
-VALUES
-  ('a1b2c3d4-e5f6-7890-1234-567890abcdef', 'Web Development Project', 'In Progress', 75, '2024-09-30', 15000.00, 10000.00, 
-  '[
-    {"event": "Discovery & Planning", "date": "2024-06-01", "completed": true}, 
-    {"event": "Design & Prototyping", "date": "2024-06-15", "completed": true},
-    {"event": "Frontend Development", "date": "2024-07-20", "completed": true},
-    {"event": "Backend Development", "date": "2024-08-25", "completed": false},
-    {"event": "Deployment & Launch", "date": "2024-09-30", "completed": false}
-  ]'),
-  ('a1b2c3d4-e5f6-7890-1234-567890abcdef', 'Lead Generation Campaign', 'Completed', 100, '2024-08-15', 5000.00, 5000.00, 
-  '[
-    {"event": "Strategy & Keyword Research", "date": "2024-07-01", "completed": true},
-    {"event": "Ad Campaign Setup", "date": "2024-07-10", "completed": true},
-    {"event": "Campaign Launch", "date": "2024-07-15", "completed": true},
-    {"event": "Final Report", "date": "2024-08-15", "completed": true}
-  ]');
+  -- Insert a Lead Generation project for the demo client
+  insert into projects (client_id, name, status, progress, deadline, total_budget, paid, timeline)
+  values
+    (demo_client_id, 'Q3 Lead Generation Campaign', 'Completed', 100, '2024-07-31', 5000.00, 5000.00,
+      '[
+        {"event": "Campaign Strategy", "date": "2024-05-15", "completed": true},
+        {"event": "Ad Creatives & Copy", "date": "2024-06-01", "completed": true},
+        {"event": "Campaign Launch", "date": "2024-06-10", "completed": true},
+        {"event": "Mid-Campaign Review", "date": "2024-07-05", "completed": true},
+        {"event": "Final Report", "date": "2024-07-31", "completed": true}
+      ]'::jsonb
+    );
+end $$;

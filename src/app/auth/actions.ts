@@ -34,7 +34,32 @@ export async function loginAdmin(data: unknown) {
     return { error: 'Invalid username or password.' };
   }
 
-  const passwordsMatch = await bcrypt.compare(password, admin.password_hash);
+  // Check if the password_hash looks like a bcrypt hash. If not, assume it's a plaintext password
+  // that needs to be hashed for the first time.
+  const isHashed = admin.password_hash.startsWith('$2a$');
+
+  let passwordsMatch;
+
+  if (isHashed) {
+    passwordsMatch = await bcrypt.compare(password, admin.password_hash);
+  } else {
+    // This is a one-time operation. The plaintext password from the initial seed is the "hash"
+    passwordsMatch = (password === admin.password_hash);
+    if (passwordsMatch) {
+      // If it matches, hash it and update the database
+      const newHash = await bcrypt.hash(password, 10);
+      const { error: updateError } = await supabase
+        .from('admins')
+        .update({ password_hash: newHash })
+        .eq('id', admin.id);
+      
+      if (updateError) {
+        console.error('Failed to update admin password hash:', updateError);
+        return { error: 'Database error during login. Please try again.' };
+      }
+    }
+  }
+
 
   if (!passwordsMatch) {
     return { error: 'Invalid username or password.' };
