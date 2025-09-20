@@ -1,24 +1,9 @@
 
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { clerkMiddleware } from '@clerk/nextjs/server';
 
-const isPublicRoute = createRouteMatcher([
-  '/',
-  '/about',
-  '/services',
-  '/pricing',
-  '/recommendation',
-  '/contact',
-  '/privacy-policy',
-  '/terms-conditions',
-  '/api/(.*)', 
-  '/custom-services'
-]);
-
-export default clerkMiddleware((auth, req) => {
-  if (!isPublicRoute(req)) {
-    auth().protect();
-  }
-});
+// By not providing any arguments to clerkMiddleware, all routes are public by default.
+// We will handle route protection in the layout components themselves using <SignedIn>.
+export default clerkMiddleware();
 
 export const config = {
   matcher: [

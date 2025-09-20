@@ -27,7 +27,7 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { UserButton } from '@clerk/nextjs';
+import { SignedIn, UserButton } from '@clerk/nextjs';
 
 
 const menuItems = [
@@ -48,61 +48,63 @@ export default function ClientDashboardLayout({
   const pathname = usePathname();
 
   return (
-    <SidebarProvider>
-      <Sidebar>
-        <SidebarHeader>
-          <div className="flex items-center justify-between p-2">
-            <Logo />
-            <SidebarTrigger className="md:hidden" />
-          </div>
-        </SidebarHeader>
-        <SidebarContent>
-          <SidebarMenu>
-            {menuItems.map((item) => (
-              <SidebarMenuItem key={item.label}>
-                <Link href={item.href} legacyBehavior passHref>
-                  <SidebarMenuButton
-                    isActive={pathname === item.href}
-                    tooltip={item.label}
-                  >
-                    <item.icon />
-                    <span>{item.label}</span>
-                  </SidebarMenuButton>
-                </Link>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarContent>
-        <SidebarFooter>
-           <SidebarMenu>
-              <SidebarMenuItem>
-                 <Link href="/" legacyBehavior passHref>
-                  <SidebarMenuButton tooltip="Back to Homepage">
-                    <Home />
-                    <span>Homepage</span>
-                  </SidebarMenuButton>
-                </Link>
-              </SidebarMenuItem>
-           </SidebarMenu>
-        </SidebarFooter>
-      </Sidebar>
-      <SidebarInset>
-         <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-6 lg:h-[60px] flex-shrink-0">
-            <SidebarTrigger />
-            <div className="flex-1">
-                <h1 className="text-lg font-semibold">Client Portal</h1>
+    <SignedIn>
+      <SidebarProvider>
+        <Sidebar>
+          <SidebarHeader>
+            <div className="flex items-center justify-between p-2">
+              <Logo />
+              <SidebarTrigger className="md:hidden" />
             </div>
-            <div className="flex items-center gap-4">
-                <Button asChild size="sm">
-                    <Link href="/contact">Contact Support</Link>
-                </Button>
-                <UserButton afterSignOutUrl="/" />
-            </div>
-        </header>
-        <main className="flex-1 overflow-y-auto">
-            {children}
-        </main>
-      </SidebarInset>
-    </SidebarProvider>
+          </SidebarHeader>
+          <SidebarContent>
+            <SidebarMenu>
+              {menuItems.map((item) => (
+                <SidebarMenuItem key={item.label}>
+                  <Link href={item.href} legacyBehavior passHref>
+                    <SidebarMenuButton
+                      isActive={pathname === item.href}
+                      tooltip={item.label}
+                    >
+                      <item.icon />
+                      <span>{item.label}</span>
+                    </SidebarMenuButton>
+                  </Link>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarContent>
+          <SidebarFooter>
+            <SidebarMenu>
+                <SidebarMenuItem>
+                  <Link href="/" legacyBehavior passHref>
+                    <SidebarMenuButton tooltip="Back to Homepage">
+                      <Home />
+                      <span>Homepage</span>
+                    </SidebarMenuButton>
+                  </Link>
+                </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarFooter>
+        </Sidebar>
+        <SidebarInset>
+          <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-6 lg:h-[60px] flex-shrink-0">
+              <SidebarTrigger />
+              <div className="flex-1">
+                  <h1 className="text-lg font-semibold">Client Portal</h1>
+              </div>
+              <div className="flex items-center gap-4">
+                  <Button asChild size="sm">
+                      <Link href="/contact">Contact Support</Link>
+                  </Button>
+                  <UserButton afterSignOutUrl="/" />
+              </div>
+          </header>
+          <main className="flex-1 overflow-y-auto">
+              {children}
+          </main>
+        </SidebarInset>
+      </SidebarProvider>
+    </SignedIn>
   );
 }
