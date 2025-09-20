@@ -29,7 +29,8 @@ export default function RootLayout({
   const pathname = usePathname();
   const isClientDashboard = pathname.startsWith('/client-dashboard');
   const isAdminPortal = pathname.startsWith('/saasnextdbadmin');
-  const isAppView = isClientDashboard || isAdminPortal;
+  const isLoginPage = pathname === '/login';
+  const isAppView = isClientDashboard || isAdminPortal || isLoginPage;
 
   return (
     <html lang="en" className="dark">
@@ -47,7 +48,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
         {!isAppView && <Preloader />}
         {!isAppView && <Header />}
-        <main className={cn('flex-grow', isAppView && 'contents')}>
+        <main className={cn('flex-grow', (isClientDashboard || isAdminPortal) && 'contents', isLoginPage && 'w-full')}>
           {children}
         </main>
         {!isAppView && <Footer />}

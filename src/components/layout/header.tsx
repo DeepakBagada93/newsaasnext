@@ -58,7 +58,7 @@ export default function Header() {
             })}
           </nav>
           <Button asChild>
-            <Link href="/client-dashboard">
+            <Link href="/login">
               <User className="mr-2 h-4 w-4" /> Grow mode
             </Link>
           </Button>
@@ -104,7 +104,7 @@ export default function Header() {
                 </nav>
                 <div className="mt-8 border-t border-border pt-6">
                   <Button asChild className="w-full">
-                    <Link href="/client-dashboard" onClick={() => setMobileMenuOpen(false)}>
+                    <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
                        <User className="mr-2 h-4 w-4" /> Grow mode
                     </Link>
                   </Button>
