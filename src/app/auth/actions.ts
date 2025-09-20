@@ -7,7 +7,15 @@ import { redirect } from 'next/navigation';
 
 export async function signInWithGoogle() {
   const supabase = createClient();
-  const origin = headers().get('origin');
+  
+  // Use a reliable origin for the production environment
+  const origin = process.env.NODE_ENV === 'development' 
+    ? headers().get('origin') 
+    : 'https://saasnext-82835.web.app';
+
+  if (!origin) {
+    throw new Error('Could not determine redirect origin');
+  }
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
