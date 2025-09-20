@@ -24,10 +24,13 @@ import {
   User,
   Home,
   Layers,
+  LogOut,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { signOutClient } from '@/app/auth/actions';
+
 
 const menuItems = [
   { href: '/client-dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -83,10 +86,12 @@ export default function ClientDashboardLayout({
                 </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                 <SidebarMenuButton tooltip="Your Account">
-                    <User />
-                    <span>Your Account</span>
-                  </SidebarMenuButton>
+                 <form action={signOutClient} className="w-full">
+                    <SidebarMenuButton tooltip="Logout" className="w-full">
+                        <LogOut />
+                        <span>Logout</span>
+                    </SidebarMenuButton>
+                 </form>
               </SidebarMenuItem>
            </SidebarMenu>
         </SidebarFooter>

@@ -42,23 +42,18 @@ export default function LeadGenerationPage() {
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // Client-side Supabase client
   const supabase = createClient();
 
   useEffect(() => {
     const fetchProject = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        setError("You must be logged in to view projects.");
-        setLoading(false);
-        return;
-      }
-
-      // Fetch the lead generation project for the current user
+      // This is a placeholder for fetching data for the logged-in client.
+      // In a real app, you would get the client's ID from their session.
+      // For now, we fetch a project with a hardcoded name.
       const { data, error } = await supabase
         .from('projects')
         .select('*')
-        .eq('client_id', user.id)
-        .ilike('name', '%lead generation%') // Filter for lead gen
+        .ilike('name', '%lead generation%') // Simple filter for lead gen
         .order('created_at', { ascending: false })
         .limit(1)
         .single();
@@ -73,7 +68,7 @@ export default function LeadGenerationPage() {
     };
 
     fetchProject();
-  }, []);
+  }, [supabase]);
 
   const getStatusBadge = (status: string) => {
     switch (status.toLowerCase()) {
@@ -203,4 +198,3 @@ export default function LeadGenerationPage() {
     </div>
   );
 }
-

@@ -1,9 +1,13 @@
 
-export type Profile = {
+
+export type Client = {
   id: string;
-  name: string | null;
+  name: string;
   company: string | null;
-  email?: string; // email is on auth.users, but we might join it
+  email: string;
+  username: string;
+  password_hash?: string; // Should not be sent to client
+  created_at: string;
 };
 
 export type ProjectStatus = "In Progress" | "Completed" | "Planning" | "On Hold" | "Archived";
@@ -25,5 +29,5 @@ export type Project = {
   paid: number | null;
   timeline: TimelineEvent[] | null;
   created_at: string;
-  profiles?: Profile; // Optional profile if joining tables
+  clients?: Client; // Optional client data if joining tables
 };

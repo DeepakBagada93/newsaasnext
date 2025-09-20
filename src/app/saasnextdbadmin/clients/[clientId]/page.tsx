@@ -10,13 +10,13 @@ import { Separator } from '@/components/ui/separator';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger, DialogClose } from '@/components/ui/dialog';
-import { MoreHorizontal, ArrowLeft, User, Edit, MessageSquare, Briefcase, DollarSign, PlusCircle, CheckCircle, Loader2 } from 'lucide-react';
+import { MoreHorizontal, ArrowLeft, User, Edit, Briefcase, DollarSign, PlusCircle, CheckCircle, Loader2, Circle } from 'lucide-react';
 import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { createClient } from '@/lib/supabase/client';
-import type { Profile, Project, ProjectStatus, TimelineEvent } from '@/lib/types';
+import type { Client, Project, ProjectStatus, TimelineEvent } from '@/lib/types';
 import { useToast } from "@/hooks/use-toast";
 
 
@@ -40,7 +40,7 @@ const getStatusBadge = (status: ProjectStatus) => {
 export default function ClientDetailPage({ params }: { params: { clientId: string } }) {
     const { toast } = useToast();
     const supabase = createClient();
-    const [client, setClient] = useState<Profile | null>(null);
+    const [client, setClient] = useState<Client | null>(null);
     const [projects, setProjects] = useState<Project[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -52,7 +52,7 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
             setLoading(true);
             // Fetch client profile
             const { data: clientData, error: clientError } = await supabase
-                .from('profiles')
+                .from('clients')
                 .select('*')
                 .eq('id', params.clientId)
                 .single();
@@ -269,7 +269,7 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
                                                                     {(editingProject.timeline || []).map((item, index) => (
                                                                         <div key={index} className="flex items-center gap-2 text-sm">
                                                                             <div onClick={() => handleTimelineChange(index, 'completed', !item.completed)} className="cursor-pointer">
-                                                                                 {item.completed ? <CheckCircle className="h-5 w-5 text-green-500"/> : <div className="h-5 w-5 border rounded-full"/>}
+                                                                                 {item.completed ? <CheckCircle className="h-5 w-5 text-green-500"/> : <Circle className="h-5 w-5 border-2 border-muted-foreground rounded-full"/>}
                                                                             </div>
                                                                             <Input value={item.event} onChange={(e) => handleTimelineChange(index, 'event', e.target.value)} className="h-8"/>
                                                                             <Input type="date" value={item.date} onChange={(e) => handleTimelineChange(index, 'date', e.target.value)} className="h-8 w-36"/>
@@ -341,4 +341,3 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
         </div>
     );
 }
-

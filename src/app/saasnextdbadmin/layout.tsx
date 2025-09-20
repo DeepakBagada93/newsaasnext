@@ -78,9 +78,11 @@ export default function AdminLayout({
            <SidebarMenu>
               <SidebarMenuItem>
                 <form action={signOut} className="w-full">
-                  <SidebarMenuButton tooltip="Logout" className="w-full">
-                    <LogOut />
-                    <span>Logout</span>
+                  <SidebarMenuButton tooltip="Logout" className="w-full" asChild>
+                    <button type="submit" className='w-full'>
+                      <LogOut />
+                      <span>Logout</span>
+                    </button>
                   </SidebarMenuButton>
                 </form>
               </SidebarMenuItem>

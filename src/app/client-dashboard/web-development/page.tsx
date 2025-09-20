@@ -1,10 +1,9 @@
 
 'use client'
 import { useEffect, useState } from 'react';
-import type { Metadata } from 'next';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { CheckCircle, Circle, Clock, Loader2 } from 'lucide-react';
+import { CheckCircle, Circle, Loader2 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { createClient } from '@/lib/supabase/client';
 import type { Project } from '@/lib/types';
@@ -28,18 +27,12 @@ export default function WebDevelopmentPage() {
 
   useEffect(() => {
     const fetchProject = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        setError("You must be logged in to view projects.");
-        setLoading(false);
-        return;
-      }
-
-      // Fetch the web development project for the current user
+      // This is a placeholder for fetching data for the logged-in client.
+      // In a real app, you would get the client's ID from their session.
+      // For now, we fetch a project with a hardcoded name.
       const { data, error } = await supabase
         .from('projects')
         .select('*')
-        .eq('client_id', user.id)
         .ilike('name', '%web development%') // Simple filter for web dev
         .order('created_at', { ascending: false })
         .limit(1)
@@ -47,7 +40,7 @@ export default function WebDevelopmentPage() {
       
       if (error) {
         console.error("Error fetching project:", error);
-        setError("Could not fetch project data. Please try again later.");
+        setError("Could not fetch project data. Please ensure you have a 'Web Development' project for the demo client.");
       } else {
         setProject(data);
       }
@@ -55,7 +48,7 @@ export default function WebDevelopmentPage() {
     };
 
     fetchProject();
-  }, []);
+  }, [supabase]);
 
   if (loading) {
     return (
@@ -95,7 +88,6 @@ export default function WebDevelopmentPage() {
             <div className="grid grid-cols-2 gap-4 text-sm">
                 <div className="bg-muted/50 p-3 rounded-lg">
                     <p className="font-semibold text-foreground">Start Date</p>
-                    {/* Assuming the first timeline event is the start date */}
                     <p className="text-muted-foreground">{formatDate(project.timeline?.[0]?.date)}</p>
                 </div>
                 <div className="bg-muted/50 p-3 rounded-lg">
@@ -127,7 +119,6 @@ export default function WebDevelopmentPage() {
           </CardContent>
         </Card>
 
-        {/* Sidebar Card for quick info */}
         <Card className="lg:col-span-1">
           <CardHeader>
             <CardTitle>Project Details</CardTitle>

@@ -11,15 +11,15 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { MoreHorizontal, PlusCircle, Loader2 } from 'lucide-react';
+import { MoreHorizontal, PlusCircle, Loader2, User, Lock, Building, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger, DialogClose } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from "@/hooks/use-toast";
-import { signup } from '@/app/auth/actions';
+import { createClientAccount } from '@/app/auth/actions';
 import { createClient } from '@/lib/supabase/client';
-import type { Profile } from '@/lib/types';
+import type { Client } from '@/lib/types';
 
 
 /*
@@ -31,8 +31,9 @@ export const metadata: Metadata = {
 
 const newClientSchema = z.object({
   name: z.string().min(1, 'Name is required'),
-  company: z.string().min(1, 'Company is required'),
+  company: z.string().optional(),
   email: z.string().email('Invalid email address'),
+  username: z.string().min(3, 'Username must be at least 3 characters'),
   password: z.string().min(8, 'Password must be at least 8 characters long'),
 });
 
@@ -40,22 +41,18 @@ type NewClientFormValues = z.infer<typeof newClientSchema>;
 
 
 export default function ManageClientsPage() {
-  const [clients, setClients] = useState<Profile[]>([]);
+  const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { toast } = useToast();
   const supabase = createClient();
 
-  useEffect(() => {
-    const fetchClients = async () => {
+  const fetchClients = async () => {
+      setLoading(true);
       const { data, error } = await supabase
-        .from('profiles')
-        .select(`
-          id,
-          name,
-          company
-        `);
+        .from('clients')
+        .select(`id, name, company, email, username`);
       
       if (error) {
         console.error("Error fetching clients:", error);
@@ -65,18 +62,19 @@ export default function ManageClientsPage() {
           description: error.message,
         });
       } else {
-        setClients(data as Profile[]);
+        setClients(data as Client[]);
       }
       setLoading(false);
-    };
+  };
 
+  useEffect(() => {
     fetchClients();
   }, [supabase, toast]);
 
 
   const form = useForm<NewClientFormValues>({
     resolver: zodResolver(newClientSchema),
-    defaultValues: { name: '', company: '', email: '', password: '' },
+    defaultValues: { name: '', company: '', email: '', username: '', password: '' },
   });
   
   const getStatusBadge = (status: string) => {
@@ -94,24 +92,21 @@ export default function ManageClientsPage() {
 
   const handleCreateClient = async (data: NewClientFormValues) => {
     setIsSubmitting(true);
-    const result = await signup(data);
+    const result = await createClientAccount(data);
     setIsSubmitting(false);
 
-    if (result.error) {
+    if (!result.success) {
       toast({
         variant: "destructive",
         title: "Failed to create client",
-        description: result.error,
+        description: result.message,
       });
     } else {
       toast({
         title: "Client created",
         description: "The new client account has been created successfully.",
       });
-      // In a real app, you'd fetch and update the client list here
-      // For now, we can manually add to the list to see the update
-      const newClient = { id: '', name: data.name, company: data.company };
-      setClients(prev => [...prev, newClient]);
+      fetchClients(); // Re-fetch clients to update the list
       setIsDialogOpen(false);
       form.reset();
     }
@@ -128,25 +123,25 @@ export default function ManageClientsPage() {
               <PlusCircle className="mr-2 h-4 w-4" /> Add New Client
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
+          <DialogContent className="sm:max-w-lg">
             <DialogHeader>
-              <DialogTitle>Add New Client</DialogTitle>
+              <DialogTitle>Add New Client Account</DialogTitle>
               <DialogDescription>
-                Enter the details for the new client account.
+                Create a new client with their details and login credentials.
               </DialogDescription>
             </DialogHeader>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleCreateClient)} className="grid gap-4 py-4">
+              <form onSubmit={form.handleSubmit(handleCreateClient)} className="space-y-4 py-4">
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
-                    <FormItem className="grid grid-cols-4 items-center gap-4">
-                      <FormLabel className="text-right">Name</FormLabel>
-                      <FormControl className="col-span-3">
+                    <FormItem>
+                      <FormLabel>Full Name</FormLabel>
+                      <FormControl>
                         <Input placeholder="Alex Johnson" {...field} disabled={isSubmitting} />
                       </FormControl>
-                      <FormMessage className="col-span-4 pl-[25%]" />
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -154,12 +149,12 @@ export default function ManageClientsPage() {
                   control={form.control}
                   name="company"
                   render={({ field }) => (
-                    <FormItem className="grid grid-cols-4 items-center gap-4">
-                      <FormLabel className="text-right">Company</FormLabel>
-                      <FormControl className="col-span-3">
+                    <FormItem>
+                      <FormLabel>Company</FormLabel>
+                      <FormControl>
                         <Input placeholder="Innovate Inc." {...field} disabled={isSubmitting} />
                       </FormControl>
-                      <FormMessage className="col-span-4 pl-[25%]" />
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -167,12 +162,25 @@ export default function ManageClientsPage() {
                   control={form.control}
                   name="email"
                   render={({ field }) => (
-                    <FormItem className="grid grid-cols-4 items-center gap-4">
-                      <FormLabel className="text-right">Email</FormLabel>
-                      <FormControl className="col-span-3">
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
                         <Input type="email" placeholder="alex@example.com" {...field} disabled={isSubmitting} />
                       </FormControl>
-                       <FormMessage className="col-span-4 pl-[25%]" />
+                       <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Username</FormLabel>
+                      <FormControl>
+                        <Input placeholder="alexj" {...field} disabled={isSubmitting} />
+                      </FormControl>
+                       <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -180,16 +188,16 @@ export default function ManageClientsPage() {
                   control={form.control}
                   name="password"
                   render={({ field }) => (
-                    <FormItem className="grid grid-cols-4 items-center gap-4">
-                      <FormLabel className="text-right">Password</FormLabel>
-                      <FormControl className="col-span-3">
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
                         <Input type="password" placeholder="••••••••" {...field} disabled={isSubmitting} />
                       </FormControl>
-                      <FormMessage className="col-span-4 pl-[25%]" />
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
-                <DialogFooter>
+                <DialogFooter className="pt-4">
                     <DialogClose asChild>
                       <Button variant="outline" type="button">Cancel</Button>
                     </DialogClose>
@@ -220,6 +228,7 @@ export default function ManageClientsPage() {
               <TableRow>
                 <TableHead>Name</TableHead>
                 <TableHead>Company</TableHead>
+                <TableHead>Username</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
@@ -229,6 +238,7 @@ export default function ManageClientsPage() {
                 <TableRow key={client.id}>
                   <TableCell>{client.name}</TableCell>
                   <TableCell>{client.company}</TableCell>
+                  <TableCell>{client.username}</TableCell>
                   <TableCell>{getStatusBadge('Active')}</TableCell>
                   <TableCell className="text-right">
                      <DropdownMenu>

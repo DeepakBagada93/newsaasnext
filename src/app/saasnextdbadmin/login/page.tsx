@@ -13,7 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Loader2, LogIn, User, Lock } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import Logo from '@/components/icons/logo';
-import { login } from '@/app/auth/actions';
+import { loginAdmin } from '@/app/auth/actions';
 
 const loginSchema = z.object({
   email: z.string().email({ message: "A valid email is required." }),
@@ -38,7 +38,7 @@ export default function AdminLoginPage() {
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
     setIsLoading(true);
 
-    const result = await login(data);
+    const result = await loginAdmin(data);
 
     if (result.error) {
       toast({
