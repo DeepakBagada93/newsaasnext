@@ -29,7 +29,7 @@ export default function RootLayout({
   const pathname = usePathname();
   const isClientDashboard = pathname.startsWith('/client-dashboard');
   const isAdminPortal = pathname.startsWith('/saasnextdbadmin');
-  const isLoginPage = pathname === '/login';
+  const isLoginPage = pathname === '/login' || pathname === '/saasnextdbadmin/login';
   const isAppView = isClientDashboard || isAdminPortal || isLoginPage;
 
   return (

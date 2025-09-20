@@ -26,6 +26,7 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { signOut } from '@/app/auth/actions';
 
 const menuItems = [
   { href: '/saasnextdbadmin', label: 'Dashboard', icon: LayoutDashboard },
@@ -62,7 +63,7 @@ export default function AdminLayout({
               <SidebarMenuItem key={item.label}>
                 <Link href={item.href} legacyBehavior passHref>
                   <SidebarMenuButton
-                    isActive={pathname === item.href}
+                    isActive={pathname.startsWith(item.href) && (item.href !== '/saasnextdbadmin' || pathname === '/saasnextdbadmin')}
                     tooltip={item.label}
                   >
                     <item.icon />
@@ -76,12 +77,12 @@ export default function AdminLayout({
         <SidebarFooter>
            <SidebarMenu>
               <SidebarMenuItem>
-                 <Link href="/" legacyBehavior passHref>
-                  <SidebarMenuButton tooltip="Logout">
+                <form action={signOut} className="w-full">
+                  <SidebarMenuButton tooltip="Logout" className="w-full">
                     <LogOut />
                     <span>Logout</span>
                   </SidebarMenuButton>
-                </Link>
+                </form>
               </SidebarMenuItem>
            </SidebarMenu>
         </SidebarFooter>
