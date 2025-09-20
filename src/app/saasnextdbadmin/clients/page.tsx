@@ -1,17 +1,24 @@
 
 'use client';
 
+import { useState } from 'react';
 import type { Metadata } from 'next';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { MoreHorizontal, PlusCircle } from 'lucide-react';
+import { MoreHorizontal, PlusCircle, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger, DialogClose } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { useToast } from "@/hooks/use-toast";
+import { signup } from '@/app/auth/actions';
+
 
 /*
 export const metadata: Metadata = {
@@ -28,7 +35,25 @@ const clients = [
   { id: 'C005', name: 'Fatima Al-Sayed', company: 'Creative Minds', email: 'fatima.a@example.com', status: 'Pending', joinedDate: '2024-05-21' },
 ];
 
+const newClientSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  company: z.string().min(1, 'Company is required'),
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(8, 'Password must be at least 8 characters long'),
+});
+
+type NewClientFormValues = z.infer<typeof newClientSchema>;
+
+
 export default function ManageClientsPage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { toast } = useToast();
+
+  const form = useForm<NewClientFormValues>({
+    resolver: zodResolver(newClientSchema),
+    defaultValues: { name: '', company: '', email: '', password: '' },
+  });
   
   const getStatusBadge = (status: string) => {
     switch (status.toLowerCase()) {
@@ -43,11 +68,34 @@ export default function ManageClientsPage() {
     }
   };
 
+  const handleCreateClient = async (data: NewClientFormValues) => {
+    setIsSubmitting(true);
+    const result = await signup(data);
+    setIsSubmitting(false);
+
+    if (result.error) {
+      toast({
+        variant: "destructive",
+        title: "Failed to create client",
+        description: result.error,
+      });
+    } else {
+      toast({
+        title: "Client created",
+        description: "The new client account has been created successfully.",
+      });
+      // Note: In a real app, you'd fetch and update the client list here
+      setIsDialogOpen(false);
+      form.reset();
+    }
+  };
+
+
   return (
     <div className="flex flex-col gap-8 p-4 md:p-8">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Manage Clients</h1>
-        <Dialog>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button>
               <PlusCircle className="mr-2 h-4 w-4" /> Add New Client
@@ -60,43 +108,71 @@ export default function ManageClientsPage() {
                 Enter the details for the new client account.
               </DialogDescription>
             </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-right">
-                  Name
-                </Label>
-                <Input id="name" placeholder="Alex Johnson" className="col-span-3" />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="company" className="text-right">
-                  Company
-                </Label>
-                <Input id="company" placeholder="Innovate Inc." className="col-span-3" />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="email" className="text-right">
-                  Email
-                </Label>
-                <Input id="email" type="email" placeholder="alex@example.com" className="col-span-3" />
-              </div>
-               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="username" className="text-right">
-                  Username
-                </Label>
-                <Input id="username" placeholder="alex.johnson" className="col-span-3" />
-              </div>
-               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="password" aria-label="Password" className="text-right">
-                  Password
-                </Label>
-                <Input id="password" type="password" placeholder="••••••••" className="col-span-3" />
-              </div>
-            </div>
-            <DialogFooter>
-              <DialogClose asChild>
-                <Button type="submit">Save Client</Button>
-              </DialogClose>
-            </DialogFooter>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(handleCreateClient)} className="grid gap-4 py-4">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem className="grid grid-cols-4 items-center gap-4">
+                      <FormLabel className="text-right">Name</FormLabel>
+                      <FormControl className="col-span-3">
+                        <Input placeholder="Alex Johnson" {...field} disabled={isSubmitting} />
+                      </FormControl>
+                      <FormMessage className="col-span-4 pl-[25%]" />
+                    </FormItem>
+                  )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="company"
+                  render={({ field }) => (
+                    <FormItem className="grid grid-cols-4 items-center gap-4">
+                      <FormLabel className="text-right">Company</FormLabel>
+                      <FormControl className="col-span-3">
+                        <Input placeholder="Innovate Inc." {...field} disabled={isSubmitting} />
+                      </FormControl>
+                      <FormMessage className="col-span-4 pl-[25%]" />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem className="grid grid-cols-4 items-center gap-4">
+                      <FormLabel className="text-right">Email</FormLabel>
+                      <FormControl className="col-span-3">
+                        <Input type="email" placeholder="alex@example.com" {...field} disabled={isSubmitting} />
+                      </FormControl>
+                       <FormMessage className="col-span-4 pl-[25%]" />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem className="grid grid-cols-4 items-center gap-4">
+                      <FormLabel className="text-right">Password</FormLabel>
+                      <FormControl className="col-span-3">
+                        <Input type="password" placeholder="••••••••" {...field} disabled={isSubmitting} />
+                      </FormControl>
+                      <FormMessage className="col-span-4 pl-[25%]" />
+                    </FormItem>
+                  )}
+                />
+                <DialogFooter>
+                    <DialogClose asChild>
+                      <Button variant="outline" type="button">Cancel</Button>
+                    </DialogClose>
+                    <Button type="submit" disabled={isSubmitting}>
+                      {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      Save Client
+                    </Button>
+                </DialogFooter>
+              </form>
+            </Form>
           </DialogContent>
         </Dialog>
       </div>

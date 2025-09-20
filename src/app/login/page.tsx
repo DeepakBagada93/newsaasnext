@@ -13,9 +13,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Loader2, LogIn, User, Lock } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import Logo from '@/components/icons/logo';
+import { login } from '@/app/auth/actions';
 
 const loginSchema = z.object({
-  username: z.string().min(1, { message: "Username is required." }),
+  email: z.string().email({ message: "A valid email is required." }),
   password: z.string().min(1, { message: "Password is required." }),
 });
 
@@ -29,36 +30,32 @@ export default function LoginPage() {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      username: '',
+      email: '',
       password: '',
     },
   });
 
-  const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
+  const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
     setIsLoading(true);
 
-    // Simulate an API call for authentication
-    setTimeout(() => {
-      // In a real app, you would verify credentials against a backend.
-      // For this demo, we'll accept any credentials to simulate a successful login.
-      // We can add a sample check for 'alex.johnson' to show it works with admin-created credentials.
-      if (data.username === 'alex.johnson' || data.username.length > 0) {
-        toast({
-          title: "Login Successful",
-          description: "Welcome back! Redirecting to your dashboard...",
-        });
-        router.push('/client-dashboard');
-      } else {
-        // This part is for demonstration; in this setup, it's hard to trigger.
-        toast({
-          variant: "destructive",
-          title: "Login Failed",
-          description: "Invalid username or password.",
-        });
-        setIsLoading(false);
-      }
-      // No need to set isLoading to false on success because of the redirect.
-    }, 1500);
+    const result = await login(data);
+
+    if (result.error) {
+      toast({
+        variant: "destructive",
+        title: "Login Failed",
+        description: result.error,
+      });
+      setIsLoading(false);
+    } else {
+       toast({
+        title: "Login Successful",
+        description: "Welcome back! Redirecting to your dashboard...",
+      });
+      // useRouter.refresh() is needed to update Server Components
+      router.refresh();
+      router.push('/client-dashboard');
+    }
   };
 
   return (
@@ -76,14 +73,14 @@ export default function LoginPage() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
                 control={form.control}
-                name="username"
+                name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="username">Username</FormLabel>
+                    <FormLabel htmlFor="email">Email</FormLabel>
                     <FormControl>
                       <div className="relative">
                         <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                        <Input id="username" placeholder="e.g., alex.johnson" {...field} disabled={isLoading} className="pl-10 bg-background" />
+                        <Input id="email" type="email" placeholder="e.g., alex.j@example.com" {...field} disabled={isLoading} className="pl-10 bg-background" />
                       </div>
                     </FormControl>
                     <FormMessage />
