@@ -63,7 +63,7 @@ export default function ManageClientsPage() {
                 <TableHead>Company</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Joined Date</TableHead>
+                <TableHead className="whitespace-nowrap">Joined Date</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
