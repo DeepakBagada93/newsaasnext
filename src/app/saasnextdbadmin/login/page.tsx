@@ -16,7 +16,7 @@ import Logo from '@/components/icons/logo';
 import { loginAdmin } from '@/app/auth/actions';
 
 const loginSchema = z.object({
-  email: z.string().email({ message: "A valid email is required." }),
+  username: z.string().min(1, { message: "Username is required." }),
   password: z.string().min(1, { message: "Password is required." }),
 });
 
@@ -30,7 +30,7 @@ export default function AdminLoginPage() {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: '',
+      username: '',
       password: '',
     },
   });
@@ -73,14 +73,14 @@ export default function AdminLoginPage() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
                 control={form.control}
-                name="email"
+                name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <FormLabel htmlFor="username">Username</FormLabel>
                     <FormControl>
                       <div className="relative">
                         <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                        <Input id="email" type="email" placeholder="admin@saasnext.com" {...field} disabled={isLoading} className="pl-10 bg-background" />
+                        <Input id="username" type="text" placeholder="admin" {...field} disabled={isLoading} className="pl-10 bg-background" />
                       </div>
                     </FormControl>
                     <FormMessage />

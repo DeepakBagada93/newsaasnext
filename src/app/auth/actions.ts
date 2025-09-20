@@ -6,45 +6,71 @@ import { createClient } from '@/lib/supabase/server';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import bcrypt from 'bcryptjs';
-import { SignJWT } from 'jose';
+import { SignJWT, jwtVerify } from 'jose';
 
-// --- Admin Supabase Auth Actions ---
+// --- Admin Custom Auth Actions ---
 
 const adminLoginSchema = z.object({
-  email: z.string().email(),
-  password: z.string(),
+  username: z.string().min(1, { message: "Username is required." }),
+  password: z.string().min(1, { message: "Password is required." }),
 });
 
 export async function loginAdmin(data: unknown) {
   const parsedData = adminLoginSchema.safeParse(data);
-   if (!parsedData.success) {
-    return { error: 'Invalid data provided.' };
+  if (!parsedData.success) {
+    return { error: 'Invalid username or password.' };
   }
 
-  const { email, password } = parsedData.data;
+  const { username, password } = parsedData.data;
   const supabase = createClient();
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
+  const { data: admin, error } = await supabase
+    .from('admins')
+    .select('id, password_hash')
+    .eq('username', username)
+    .single();
+
+  if (error || !admin) {
+    return { error: 'Invalid username or password.' };
+  }
+
+  const passwordsMatch = await bcrypt.compare(password, admin.password_hash);
+
+  if (!passwordsMatch) {
+    return { error: 'Invalid username or password.' };
+  }
+
+  // Manually create a session for the admin using a JWT
+  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+  const alg = 'HS256';
+
+  const jwt = await new SignJWT({
+    sub: admin.id,
+    aud: 'authenticated',
+    role: 'admin',
+    exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24), // 24-hour expiry
+  })
+    .setProtectedHeader({ alg })
+    .setIssuedAt()
+    .sign(secret);
+
+  cookies().set('admin_session', jwt, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 60 * 60 * 24, // 1 day
+    path: '/',
   });
 
-  if (error) {
-    return { error: `Could not authenticate admin: ${error.message}` };
-  }
-  
   return { error: null };
 }
 
 export async function signOut() {
-  const supabase = createClient();
-  await supabase.auth.signOut();
-  // Redirect to home after sign out
+  cookies().delete('admin_session');
   return redirect('/');
 }
 
 
-// --- Custom Client Authentication Actions ---
+// --- Client Custom Authentication Actions ---
 
 const newClientSchema = z.object({
   name: z.string().min(1, 'Name is required'),

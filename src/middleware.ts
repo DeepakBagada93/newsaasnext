@@ -3,60 +3,75 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/middleware';
 import { jwtVerify } from 'jose';
 
+// Helper function to verify JWT
+async function verifyJWT(token: string) {
+  if (!token) return false;
+  try {
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+    await jwtVerify(token, secret);
+    return true;
+  } catch (error) {
+    console.error('JWT Verification failed:', error);
+    return false;
+  }
+}
+
 export async function middleware(request: NextRequest) {
-  const { supabase, response } = createClient(request);
+  const { response } = createClient(request);
   const { pathname } = request.nextUrl;
 
-  // --- Admin Auth ---
-  const { data: { session: adminSession } } = await supabase.auth.getSession();
-  const isAdminRoute = pathname.startsWith('/saasnextdbadmin') && !pathname.startsWith('/saasnextdbadmin/login');
+  const adminSessionCookie = request.cookies.get('admin_session');
+  const clientSessionCookie = request.cookies.get('client_session');
 
-  if (!adminSession && isAdminRoute) {
+  const isAdminSessionValid = await verifyJWT(adminSessionCookie?.value || '');
+  const isClientSessionValid = await verifyJWT(clientSessionCookie?.value || '');
+
+  const isAdminRoute = pathname.startsWith('/saasnextdbadmin') && !pathname.startsWith('/saasnextdbadmin/login');
+  const isClientRoute = pathname.startsWith('/client-dashboard');
+  
+  const isAdminLoginPage = pathname === '/saasnextdbadmin/login';
+  const isClientLoginPage = pathname === '/login';
+
+  // --- Admin Route Protection ---
+  if (isAdminRoute && !isAdminSessionValid) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = '/saasnextdbadmin/login';
     return NextResponse.redirect(redirectUrl);
   }
-
-  if (adminSession && pathname === '/saasnextdbadmin/login') {
+  
+  // If admin is logged in, redirect away from admin login page
+  if (isAdminLoginPage && isAdminSessionValid) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = '/saasnextdbadmin';
     return NextResponse.redirect(redirectUrl);
   }
 
-  // --- Client Auth ---
-  const isClientRoute = pathname.startsWith('/client-dashboard');
-  const clientSessionCookie = request.cookies.get('client_session');
-  let clientSessionValid = false;
-
-  if (clientSessionCookie) {
-    try {
-      const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-      await jwtVerify(clientSessionCookie.value, secret);
-      clientSessionValid = true;
-    } catch (error) {
-      // Token is invalid or expired
-      clientSessionValid = false;
-    }
-  }
-
-  // If trying to access a client route without a valid session, redirect to client login
-  if (isClientRoute && !clientSessionValid) {
+  // --- Client Route Protection ---
+  if (isClientRoute && !isClientSessionValid) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = '/login';
     return NextResponse.redirect(redirectUrl);
   }
-
-  // If has a valid client session and tries to access login page, redirect to dashboard
-  if (clientSessionValid && pathname === '/login') {
-      const redirectUrl = request.nextUrl.clone();
-      redirectUrl.pathname = '/client-dashboard';
-      return NextResponse.redirect(redirectUrl);
+  
+  // If client is logged in, redirect away from client login page
+  if (isClientLoginPage && isClientSessionValid) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = '/client-dashboard';
+    return NextResponse.redirect(redirectUrl);
   }
 
-  // If there is an admin session, and user tries to access client login page, redirect to admin dashboard
-  if (adminSession && pathname === '/login') {
+  // --- Prevent Cross-Login Access ---
+  // If admin is logged in, don't let them access the client login page
+  if (isClientLoginPage && isAdminSessionValid) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = '/saasnextdbadmin';
+    return NextResponse.redirect(redirectUrl);
+  }
+  
+  // If client is logged in, don't let them access the admin login page
+  if (isAdminLoginPage && isClientSessionValid) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = '/client-dashboard';
     return NextResponse.redirect(redirectUrl);
   }
 
