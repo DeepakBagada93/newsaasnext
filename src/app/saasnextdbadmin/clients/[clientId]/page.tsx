@@ -19,6 +19,8 @@ import { Textarea } from '@/components/ui/textarea';
 
 
 type ProjectStatus = "In Progress" | "Completed" | "Planning" | "On Hold" | "Archived";
+type TimelineEvent = { event: string; date: string; completed: boolean };
+
 type Project = {
     id: string;
     name: string;
@@ -27,7 +29,7 @@ type Project = {
     deadline: string;
     totalBudget: number;
     paid: number;
-    timeline: { event: string; date: string; completed: boolean }[];
+    timeline: TimelineEvent[];
 };
 
 // Mock data - in a real app, this would be fetched based on the client ID from the URL
@@ -51,8 +53,10 @@ const initialClientProjects: Project[] = [
         timeline: [
             { event: "Project Kick-off", date: "2024-05-01", completed: true},
             { event: "Design Phase", date: "2024-05-15", completed: true},
-            { event: "Development Start", date: "2024-06-01", completed: true},
+            { event: "Frontend Development", date: "2024-06-01", completed: true},
+            { event: "Backend & API Integration", date: "2024-07-01", completed: false},
             { event: "QA Testing", date: "2024-07-20", completed: false},
+            { event: "Deployment to Staging", date: "2024-08-01", completed: false},
             { event: "Launch", date: "2024-08-15", completed: false},
         ]
     },
@@ -87,16 +91,18 @@ const initialClientProjects: Project[] = [
     }
 ];
 
-const getStatusBadge = (status: string) => {
-    switch (status.toLowerCase()) {
-        case 'in progress':
+const getStatusBadge = (status: ProjectStatus) => {
+    switch (status) {
+        case 'In Progress':
             return <Badge className="bg-blue-500/20 text-blue-500">{status}</Badge>;
-        case 'completed':
+        case 'Completed':
             return <Badge className="bg-green-500/20 text-green-500">{status}</Badge>;
-        case 'planning':
+        case 'Planning':
             return <Badge variant="secondary">{status}</Badge>;
-        case 'on hold':
+        case 'On Hold':
             return <Badge className="bg-yellow-500/20 text-yellow-500">{status}</Badge>;
+        case 'Archived':
+            return <Badge variant="outline">{status}</Badge>;
         default:
             return <Badge variant="outline">{status}</Badge>;
     }
@@ -105,10 +111,35 @@ const getStatusBadge = (status: string) => {
 export default function ClientDetailPage({ params }: { params: { clientId: string } }) {
     const [clientProjects, setClientProjects] = useState<Project[]>(initialClientProjects);
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+    const [editingProject, setEditingProject] = useState<Project | null>(null);
 
-    const handleUpdateProject = (updatedProject: Project) => {
-        setClientProjects(prev => prev.map(p => p.id === updatedProject.id ? updatedProject : p));
-        setSelectedProject(null); // Close dialog
+    const handleOpenDialog = (project: Project) => {
+        setSelectedProject(project);
+        setEditingProject(JSON.parse(JSON.stringify(project))); // Deep copy for editing
+    };
+
+    const handleUpdateProject = () => {
+        if (!editingProject) return;
+        setClientProjects(prev => prev.map(p => p.id === editingProject.id ? editingProject : p));
+        setSelectedProject(null);
+        setEditingProject(null);
+    };
+
+    const handleTimelineChange = (index: number, field: 'event' | 'date' | 'completed', value: string | boolean) => {
+        if (!editingProject) return;
+        const newTimeline = [...editingProject.timeline];
+        if (field === 'completed' && typeof value === 'boolean') {
+             newTimeline[index].completed = value;
+        } else if (typeof value === 'string') {
+            newTimeline[index][field as 'event' | 'date'] = value;
+        }
+
+        setEditingProject({ ...editingProject, timeline: newTimeline });
+    };
+
+    const handleDialogClose = () => {
+        setSelectedProject(null);
+        setEditingProject(null);
     };
     
     return (
@@ -196,7 +227,7 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
                                                 </div>
                                             </TableCell>
                                             <TableCell className="text-right">
-                                                <Dialog onOpenChange={(open) => !open && setSelectedProject(null)}>
+                                                <Dialog onOpenChange={(open) => !open && handleDialogClose()}>
                                                     <DropdownMenu>
                                                         <DropdownMenuTrigger asChild>
                                                             <Button variant="ghost" className="h-8 w-8 p-0">
@@ -206,38 +237,32 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
                                                         </DropdownMenuTrigger>
                                                         <DropdownMenuContent align="end">
                                                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                                            <DialogTrigger asChild onSelect={() => setSelectedProject(project)}>
-                                                                <DropdownMenuItem>Edit Project</DropdownMenuItem>
-                                                            </DialogTrigger>
-                                                            <DialogTrigger asChild onSelect={() => setSelectedProject(project)}>
-                                                                <DropdownMenuItem>Update Status</DropdownMenuItem>
-                                                            </DialogTrigger>
-                                                            <DialogTrigger asChild onSelect={() => setSelectedProject(project)}>
-                                                                <DropdownMenuItem>View Timeline</DropdownMenuItem>
+                                                            <DialogTrigger asChild onSelect={() => handleOpenDialog(project)}>
+                                                                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Edit Project</DropdownMenuItem>
                                                             </DialogTrigger>
                                                             <DropdownMenuSeparator />
                                                             <DropdownMenuItem className="text-destructive">Archive Project</DropdownMenuItem>
                                                         </DropdownMenuContent>
                                                     </DropdownMenu>
                                                     
-                                                    {selectedProject && (
-                                                    <DialogContent className="sm:max-w-[425px]">
+                                                    {selectedProject && editingProject && (
+                                                    <DialogContent className="sm:max-w-md">
                                                          <DialogHeader>
                                                             <DialogTitle>Manage: {selectedProject.name}</DialogTitle>
                                                             <DialogDescription>
-                                                                Update project details and status below.
+                                                                Update project details, status, and timeline below.
                                                             </DialogDescription>
                                                         </DialogHeader>
                                                         <div className="grid gap-4 py-4">
                                                              <div className="grid grid-cols-4 items-center gap-4">
                                                                 <Label htmlFor="name" className="text-right">Project Name</Label>
-                                                                <Input id="name" defaultValue={selectedProject.name} className="col-span-3" />
+                                                                <Input id="name" value={editingProject.name} onChange={(e) => setEditingProject({...editingProject, name: e.target.value})} className="col-span-3" />
                                                             </div>
                                                             <div className="grid grid-cols-4 items-center gap-4">
                                                                 <Label htmlFor="status" className="text-right">Status</Label>
                                                                 <Select 
-                                                                    defaultValue={selectedProject.status} 
-                                                                    onValueChange={(value: ProjectStatus) => handleUpdateProject({...selectedProject, status: value})}
+                                                                    value={editingProject.status} 
+                                                                    onValueChange={(value: ProjectStatus) => setEditingProject({...editingProject, status: value})}
                                                                 >
                                                                     <SelectTrigger className="col-span-3">
                                                                         <SelectValue placeholder="Select status" />
@@ -250,13 +275,16 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
                                                                     </SelectContent>
                                                                 </Select>
                                                             </div>
-                                                            <div className="grid grid-cols-4 items-center gap-4">
-                                                                <Label className="text-right">Timeline</Label>
-                                                                <div className="col-span-3 space-y-2">
-                                                                    {selectedProject.timeline.map(item => (
-                                                                        <div key={item.event} className="flex items-center text-sm text-muted-foreground">
-                                                                            {item.completed ? <CheckCircle className="h-4 w-4 mr-2 text-green-500"/> : <div className="h-4 w-4 mr-2"/>}
-                                                                            <span>{item.event} - {item.date}</span>
+                                                            <div className="grid grid-cols-1 items-center gap-2">
+                                                                <Label>Timeline</Label>
+                                                                <div className="space-y-2">
+                                                                    {editingProject.timeline.map((item, index) => (
+                                                                        <div key={index} className="flex items-center gap-2 text-sm">
+                                                                            <div onClick={() => handleTimelineChange(index, 'completed', !item.completed)} className="cursor-pointer">
+                                                                                 {item.completed ? <CheckCircle className="h-5 w-5 text-green-500"/> : <div className="h-5 w-5 border rounded-full"/>}
+                                                                            </div>
+                                                                            <Input value={item.event} onChange={(e) => handleTimelineChange(index, 'event', e.target.value)} className="h-8"/>
+                                                                            <Input value={item.date} onChange={(e) => handleTimelineChange(index, 'date', e.target.value)} className="h-8 w-32"/>
                                                                         </div>
                                                                     ))}
                                                                 </div>
@@ -267,7 +295,7 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
                                                                 <Button type="button" variant="secondary">Close</Button>
                                                             </DialogClose>
                                                             <DialogClose asChild>
-                                                                <Button type="submit">Save changes</Button>
+                                                                <Button type="submit" onClick={handleUpdateProject}>Save changes</Button>
                                                             </DialogClose>
                                                         </DialogFooter>
                                                     </DialogContent>
@@ -327,3 +355,4 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
         </div>
     );
 }
+
