@@ -10,15 +10,14 @@ const isPublicRoute = createRouteMatcher([
   '/contact',
   '/privacy-policy',
   '/terms-conditions',
-  '/api/(.*)', // Allow all API routes
-  '/saasnextdbadmin/login',
+  '/api/(.*)', 
   '/custom-services'
 ]);
 
 // Define routes that should be protected (require authentication)
 const isProtectedRoute = createRouteMatcher([
     '/client-dashboard(.*)',
-    '/saasnextdbadmin'
+    '/saasnextdbadmin(.*)'
 ]);
 
 export default clerkMiddleware((auth, request) => {
