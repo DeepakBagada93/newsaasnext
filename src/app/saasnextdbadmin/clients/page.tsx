@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Metadata } from 'next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -18,6 +18,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { useToast } from "@/hooks/use-toast";
 import { signup } from '@/app/auth/actions';
+import { createClient } from '@/lib/supabase/client';
+import type { Profile } from '@/lib/types';
 
 
 /*
@@ -26,14 +28,6 @@ export const metadata: Metadata = {
   description: 'Create, view, and manage client accounts.',
 };
 */
-
-const clients = [
-  { id: 'C001', name: 'Alex Johnson', company: 'Innovate Inc.', email: 'alex.j@example.com', status: 'Active', joinedDate: '2024-01-15' },
-  { id: 'C002', name: 'Maria Garcia', company: 'Solutions Co.', email: 'maria.g@example.com', status: 'Active', joinedDate: '2024-02-20' },
-  { id: 'C003', name: 'Chen Wei', company: 'TechForward', email: 'chen.w@example.com', status: 'Inactive', joinedDate: '2024-03-10' },
-  { id: 'C004', name: 'David Smith', company: 'BuildRight', email: 'david.s@example.com', status: 'Active', joinedDate: '2024-04-05' },
-  { id: 'C005', name: 'Fatima Al-Sayed', company: 'Creative Minds', email: 'fatima.a@example.com', status: 'Pending', joinedDate: '2024-05-21' },
-];
 
 const newClientSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -46,9 +40,39 @@ type NewClientFormValues = z.infer<typeof newClientSchema>;
 
 
 export default function ManageClientsPage() {
+  const [clients, setClients] = useState<Profile[]>([]);
+  const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { toast } = useToast();
+  const supabase = createClient();
+
+  useEffect(() => {
+    const fetchClients = async () => {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select(`
+          id,
+          name,
+          company
+        `);
+      
+      if (error) {
+        console.error("Error fetching clients:", error);
+        toast({
+          variant: "destructive",
+          title: "Error fetching clients",
+          description: error.message,
+        });
+      } else {
+        setClients(data as Profile[]);
+      }
+      setLoading(false);
+    };
+
+    fetchClients();
+  }, [supabase, toast]);
+
 
   const form = useForm<NewClientFormValues>({
     resolver: zodResolver(newClientSchema),
@@ -84,7 +108,10 @@ export default function ManageClientsPage() {
         title: "Client created",
         description: "The new client account has been created successfully.",
       });
-      // Note: In a real app, you'd fetch and update the client list here
+      // In a real app, you'd fetch and update the client list here
+      // For now, we can manually add to the list to see the update
+      const newClient = { id: '', name: data.name, company: data.company };
+      setClients(prev => [...prev, newClient]);
       setIsDialogOpen(false);
       form.reset();
     }
@@ -183,27 +210,26 @@ export default function ManageClientsPage() {
           <CardDescription>An overview of all client accounts.</CardDescription>
         </CardHeader>
         <CardContent>
+          {loading ? (
+             <div className="flex justify-center items-center h-40">
+                <Loader2 className="h-8 w-8 animate-spin" />
+             </div>
+          ) : (
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Client ID</TableHead>
                 <TableHead>Name</TableHead>
                 <TableHead>Company</TableHead>
-                <TableHead>Email</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead className="whitespace-nowrap">Joined Date</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {clients.map((client) => (
                 <TableRow key={client.id}>
-                  <TableCell className="font-medium">{client.id}</TableCell>
                   <TableCell>{client.name}</TableCell>
                   <TableCell>{client.company}</TableCell>
-                  <TableCell>{client.email}</TableCell>
-                  <TableCell>{getStatusBadge(client.status)}</TableCell>
-                  <TableCell>{client.joinedDate}</TableCell>
+                  <TableCell>{getStatusBadge('Active')}</TableCell>
                   <TableCell className="text-right">
                      <DropdownMenu>
                       <DropdownMenuTrigger asChild>
@@ -215,13 +241,7 @@ export default function ManageClientsPage() {
                       <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuItem asChild>
-                           <Link href={`/saasnextdbadmin/clients/${client.id}`}>Edit Client</Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                          <Link href={`/saasnextdbadmin/clients/${client.id}`}>View Details</Link>
-                        </DropdownMenuItem>
-                         <DropdownMenuItem asChild>
-                           <Link href={`/saasnextdbadmin/clients/${client.id}`}>Manage Services</Link>
+                           <Link href={`/saasnextdbadmin/clients/${client.id}`}>View Details</Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem className="text-destructive">Deactivate</DropdownMenuItem>
                       </DropdownMenuContent>
@@ -231,10 +251,11 @@ export default function ManageClientsPage() {
               ))}
             </TableBody>
           </Table>
+          )}
         </CardContent>
         <CardFooter>
             <div className="text-xs text-muted-foreground">
-                Showing <strong>1-5</strong> of <strong>{clients.length}</strong> clients.
+                Showing <strong>{clients.length}</strong> of <strong>{clients.length}</strong> clients.
             </div>
         </CardFooter>
       </Card>

@@ -1,15 +1,18 @@
 
 'use client';
 
+import { useEffect, useState } from 'react';
 import type { Metadata } from 'next';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Activity, Target, DollarSign, Users } from 'lucide-react';
+import { Activity, Target, DollarSign, Users, Loader2 } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
+import type { Project } from '@/lib/types';
+
 
 // Note: Metadata export is not effective in a client component. 
-// Consider moving this to a parent layout or page if SEO is critical for this specific page.
 /*
 export const metadata: Metadata = {
   title: 'Lead Generation | Client Dashboard',
@@ -17,6 +20,7 @@ export const metadata: Metadata = {
 };
 */
 
+// Mock data, as we don't have this in the DB yet
 const chartData = [
   { month: 'Jan', leads: 65, signups: 40 },
   { month: 'Feb', leads: 59, signups: 33 },
@@ -35,6 +39,42 @@ const recentLeads = [
 ];
 
 export default function LeadGenerationPage() {
+  const [project, setProject] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const supabase = createClient();
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        setError("You must be logged in to view projects.");
+        setLoading(false);
+        return;
+      }
+
+      // Fetch the lead generation project for the current user
+      const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .eq('client_id', user.id)
+        .ilike('name', '%lead generation%') // Filter for lead gen
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single();
+      
+      if (error) {
+        console.error("Error fetching project:", error);
+        setError("Could not fetch project data. This page uses mock data for now.");
+      } else {
+        setProject(data);
+      }
+      setLoading(false);
+    };
+
+    fetchProject();
+  }, []);
+
   const getStatusBadge = (status: string) => {
     switch (status.toLowerCase()) {
       case 'new':
@@ -54,48 +94,54 @@ export default function LeadGenerationPage() {
     <div className="flex flex-col gap-8 p-4 md:p-8">
       <h1 className="text-3xl font-bold tracking-tight">Lead Generation</h1>
       
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Leads This Month</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">1,254</div>
-            <p className="text-xs text-muted-foreground">+15.2% from last month</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Conversion Rate</CardTitle>
-            <Target className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">12.5%</div>
-            <p className="text-xs text-muted-foreground">+2.1% from last month</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Cost Per Lead (CPL)</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">$25.50</div>
-            <p className="text-xs text-muted-foreground">-5% from last month</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Campaigns</CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">4</div>
-            <p className="text-xs text-muted-foreground">Google Ads, Meta, LinkedIn</p>
-          </CardContent>
-        </Card>
-      </div>
+      {loading ? (
+        <div className="flex items-center text-muted-foreground"><Loader2 className="mr-2 h-4 w-4 animate-spin" />Loading campaign data...</div>
+      ) : project ? (
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Campaign Budget</CardTitle>
+              <DollarSign className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">${project.total_budget?.toLocaleString()}</div>
+              <p className="text-xs text-muted-foreground">For Q3 2024</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Campaign Status</CardTitle>
+              <Activity className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{project.status}</div>
+              <p className="text-xs text-muted-foreground">Next step: {project.timeline?.find(t => !t.completed)?.event || 'Review'}</p>
+            </CardContent>
+          </Card>
+           <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Leads This Month</CardTitle>
+              <Users className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">1,254</div>
+              <p className="text-xs text-muted-foreground">+15.2% from last month</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Conversion Rate</CardTitle>
+              <Target className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">12.5%</div>
+              <p className="text-xs text-muted-foreground">+2.1% from last month</p>
+            </CardContent>
+          </Card>
+        </div>
+      ) : (
+         <div className="text-muted-foreground">No active lead generation campaign found. The data below is for demonstration only.</div>
+      )}
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
@@ -157,3 +203,4 @@ export default function LeadGenerationPage() {
     </div>
   );
 }
+
