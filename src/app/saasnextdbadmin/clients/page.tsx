@@ -79,6 +79,18 @@ export default function ManageClientsPage() {
                 </Label>
                 <Input id="email" type="email" placeholder="alex@example.com" className="col-span-3" />
               </div>
+               <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="username" className="text-right">
+                  Username
+                </Label>
+                <Input id="username" placeholder="alex.johnson" className="col-span-3" />
+              </div>
+               <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="password" aria-label="Password" className="text-right">
+                  Password
+                </Label>
+                <Input id="password" type="password" placeholder="••••••••" className="col-span-3" />
+              </div>
             </div>
             <DialogFooter>
               <DialogClose asChild>
