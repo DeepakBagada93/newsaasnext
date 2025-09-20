@@ -1,6 +1,6 @@
+
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
-// Define routes that should be public (not require authentication)
 const isPublicRoute = createRouteMatcher([
   '/',
   '/about',
@@ -14,18 +14,11 @@ const isPublicRoute = createRouteMatcher([
   '/custom-services'
 ]);
 
-// Define routes that should be protected (require authentication)
-const isProtectedRoute = createRouteMatcher([
-    '/client-dashboard(.*)',
-    '/saasnextdbadmin(.*)'
-]);
-
-export default clerkMiddleware((auth, request) => {
-  if (isProtectedRoute(request)) {
-    auth().protect(); // Protect the route if it's in the protected list
+export default clerkMiddleware((auth, req) => {
+  if (!isPublicRoute(req)) {
+    auth().protect();
   }
 });
-
 
 export const config = {
   matcher: [
