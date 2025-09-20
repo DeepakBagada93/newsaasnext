@@ -2,7 +2,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { Metadata } from 'next';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -42,17 +41,21 @@ export default function LeadGenerationPage() {
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  // Client-side Supabase client
   const supabase = createClient();
 
   useEffect(() => {
     const fetchProject = async () => {
-      // This is a placeholder for fetching data for the logged-in client.
-      // In a real app, you would get the client's ID from their session.
-      // For now, we fetch a project with a hardcoded name.
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        setError("You must be logged in to view project details.");
+        setLoading(false);
+        return;
+      }
+      
       const { data, error } = await supabase
         .from('projects')
         .select('*')
+        .eq('client_id', session.user.id)
         .ilike('name', '%lead generation%') // Simple filter for lead gen
         .order('created_at', { ascending: false })
         .limit(1)
@@ -60,7 +63,11 @@ export default function LeadGenerationPage() {
       
       if (error) {
         console.error("Error fetching project:", error);
-        setError("Could not fetch project data. This page uses mock data for now.");
+         if (error.code === 'PGRST116') { // "exact one row expected, but found no rows"
+             setError("No active lead generation project found for your account. The data below is for demonstration only.");
+        } else {
+             setError("Could not fetch project data. The data below is for demonstration only.");
+        }
       } else {
         setProject(data);
       }
@@ -135,7 +142,7 @@ export default function LeadGenerationPage() {
           </Card>
         </div>
       ) : (
-         <div className="text-muted-foreground">No active lead generation campaign found. The data below is for demonstration only.</div>
+         <div className="text-muted-foreground">{error}</div>
       )}
 
       <div className="grid gap-6 lg:grid-cols-2">

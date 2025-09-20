@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { createClient } from '@/lib/supabase/client';
-import type { Client, Project, ProjectStatus, TimelineEvent } from '@/lib/types';
+import type { Profile, Project, ProjectStatus, TimelineEvent } from '@/lib/types';
 import { useToast } from "@/hooks/use-toast";
 
 
@@ -40,7 +40,7 @@ const getStatusBadge = (status: ProjectStatus) => {
 export default function ClientDetailPage({ params }: { params: { clientId: string } }) {
     const { toast } = useToast();
     const supabase = createClient();
-    const [client, setClient] = useState<Client | null>(null);
+    const [client, setClient] = useState<Profile | null>(null);
     const [projects, setProjects] = useState<Project[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -52,7 +52,7 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
             setLoading(true);
             // Fetch client profile
             const { data: clientData, error: clientError } = await supabase
-                .from('clients')
+                .from('profiles')
                 .select('*')
                 .eq('id', params.clientId)
                 .single();
@@ -147,7 +147,7 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
                         <span className="sr-only">Back to Clients</span>
                     </Link>
                 </Button>
-                <h1 className="text-3xl font-bold tracking-tight">Manage Client: {client?.name || '...'}</h1>
+                <h1 className="text-3xl font-bold tracking-tight">Manage Client: {client?.full_name || '...'}</h1>
             </div>
 
             <div className="grid gap-8 lg:grid-cols-3">
@@ -166,7 +166,11 @@ export default function ClientDetailPage({ params }: { params: { clientId: strin
                             </div>
                              <div className="text-sm">
                                 <p className="font-medium text-muted-foreground">Contact Name</p>
-                                <p className="text-foreground">{client?.name || 'N/A'}</p>
+                                <p className="text-foreground">{client?.full_name || 'N/A'}</p>
+                            </div>
+                              <div className="text-sm">
+                                <p className="font-medium text-muted-foreground">Email</p>
+                                <p className="text-foreground">{client?.email || 'N/A'}</p>
                             </div>
                         </CardContent>
                         <CardFooter>

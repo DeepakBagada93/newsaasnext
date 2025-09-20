@@ -1,14 +1,13 @@
 
 
-export type Client = {
-  id: string;
-  name: string;
+export type Profile = {
+  id: string; // Corresponds to auth.users.id
+  full_name: string | null;
   company: string | null;
-  email: string;
-  username: string;
-  password_hash?: string; // Should not be sent to client
-  created_at: string;
+  email: string | null;
+  role: 'admin' | 'client';
 };
+
 
 export type ProjectStatus = "In Progress" | "Completed" | "Planning" | "On Hold" | "Archived";
 
@@ -20,7 +19,7 @@ export type TimelineEvent = {
 
 export type Project = {
   id: string;
-  client_id: string;
+  client_id: string; // Foreign key to profiles.id
   name: string;
   status: ProjectStatus;
   progress: number;
@@ -29,5 +28,5 @@ export type Project = {
   paid: number | null;
   timeline: TimelineEvent[] | null;
   created_at: string;
-  clients?: Client; // Optional client data if joining tables
+  profiles?: Profile; // Optional profile data if joining tables
 };

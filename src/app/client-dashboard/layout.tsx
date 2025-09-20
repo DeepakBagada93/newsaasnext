@@ -29,7 +29,7 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { signOutClient } from '@/app/auth/actions';
+import { signOut } from '@/app/auth/actions';
 
 
 const menuItems = [
@@ -86,10 +86,12 @@ export default function ClientDashboardLayout({
                 </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                 <form action={signOutClient} className="w-full">
-                    <SidebarMenuButton tooltip="Logout" className="w-full">
+                 <form action={signOut} className="w-full">
+                    <SidebarMenuButton tooltip="Logout" className="w-full" asChild>
+                      <button type="submit" className='w-full'>
                         <LogOut />
                         <span>Logout</span>
+                      </button>
                     </SidebarMenuButton>
                  </form>
               </SidebarMenuItem>

@@ -2,7 +2,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import type { Metadata } from 'next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -11,37 +10,27 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { MoreHorizontal, PlusCircle, Loader2, User, Lock, Building, Mail } from 'lucide-react';
+import { MoreHorizontal, PlusCircle, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger, DialogClose } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from "@/hooks/use-toast";
-import { createClientAccount } from '@/app/auth/actions';
 import { createClient } from '@/lib/supabase/client';
-import type { Client } from '@/lib/types';
+import type { Profile } from '@/lib/types';
 
-
-/*
-export const metadata: Metadata = {
-  title: 'Manage Clients | Admin Dashboard',
-  description: 'Create, view, and manage client accounts.',
-};
-*/
 
 const newClientSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  company: z.string().optional(),
   email: z.string().email('Invalid email address'),
-  username: z.string().min(3, 'Username must be at least 3 characters'),
-  password: z.string().min(8, 'Password must be at least 8 characters long'),
+  full_name: z.string().min(1, 'Name is required'),
+  company: z.string().optional(),
 });
 
 type NewClientFormValues = z.infer<typeof newClientSchema>;
 
 
 export default function ManageClientsPage() {
-  const [clients, setClients] = useState<Client[]>([]);
+  const [clients, setClients] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -51,8 +40,9 @@ export default function ManageClientsPage() {
   const fetchClients = async () => {
       setLoading(true);
       const { data, error } = await supabase
-        .from('clients')
-        .select(`id, name, company, email, username`);
+        .from('profiles')
+        .select(`id, full_name, company, email, role`)
+        .eq('role', 'client');
       
       if (error) {
         console.error("Error fetching clients:", error);
@@ -62,19 +52,18 @@ export default function ManageClientsPage() {
           description: error.message,
         });
       } else {
-        setClients(data as Client[]);
+        setClients(data as Profile[]);
       }
       setLoading(false);
   };
 
   useEffect(() => {
     fetchClients();
-  }, [supabase, toast]);
-
+  }, []); // removed dependencies as they are not needed
 
   const form = useForm<NewClientFormValues>({
     resolver: zodResolver(newClientSchema),
-    defaultValues: { name: '', company: '', email: '', username: '', password: '' },
+    defaultValues: { email: '', full_name: '', company: '' },
   });
   
   const getStatusBadge = (status: string) => {
@@ -83,8 +72,6 @@ export default function ManageClientsPage() {
         return <Badge className="bg-green-500/20 text-green-500">{status}</Badge>;
       case 'inactive':
         return <Badge variant="secondary">{status}</Badge>;
-      case 'pending':
-        return <Badge className="bg-yellow-500/20 text-yellow-500">{status}</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -92,19 +79,27 @@ export default function ManageClientsPage() {
 
   const handleCreateClient = async (data: NewClientFormValues) => {
     setIsSubmitting(true);
-    const result = await createClientAccount(data);
+    // With Supabase Auth, we invite a user, we don't create them directly with a password.
+    const { data: inviteData, error } = await supabase.auth.admin.inviteUserByEmail(data.email, {
+        data: {
+            full_name: data.full_name,
+            company: data.company,
+            role: 'client'
+        }
+    });
+
     setIsSubmitting(false);
 
-    if (!result.success) {
+    if (error) {
       toast({
         variant: "destructive",
-        title: "Failed to create client",
-        description: result.message,
+        title: "Failed to invite client",
+        description: error.message,
       });
     } else {
       toast({
-        title: "Client created",
-        description: "The new client account has been created successfully.",
+        title: "Client Invited",
+        description: "An invitation email has been sent to the new client.",
       });
       fetchClients(); // Re-fetch clients to update the list
       setIsDialogOpen(false);
@@ -120,21 +115,34 @@ export default function ManageClientsPage() {
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button>
-              <PlusCircle className="mr-2 h-4 w-4" /> Add New Client
+              <PlusCircle className="mr-2 h-4 w-4" /> Invite New Client
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-lg">
             <DialogHeader>
-              <DialogTitle>Add New Client Account</DialogTitle>
+              <DialogTitle>Invite New Client</DialogTitle>
               <DialogDescription>
-                Create a new client with their details and login credentials.
+                Send an invitation to a new client. They will be able to sign up with Google.
               </DialogDescription>
             </DialogHeader>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(handleCreateClient)} className="space-y-4 py-4">
                 <FormField
                   control={form.control}
-                  name="name"
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input type="email" placeholder="alex@example.com" {...field} disabled={isSubmitting} />
+                      </FormControl>
+                       <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="full_name"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Full Name</FormLabel>
@@ -158,52 +166,13 @@ export default function ManageClientsPage() {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input type="email" placeholder="alex@example.com" {...field} disabled={isSubmitting} />
-                      </FormControl>
-                       <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="username"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Username</FormLabel>
-                      <FormControl>
-                        <Input placeholder="alexj" {...field} disabled={isSubmitting} />
-                      </FormControl>
-                       <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input type="password" placeholder="••••••••" {...field} disabled={isSubmitting} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
                 <DialogFooter className="pt-4">
                     <DialogClose asChild>
                       <Button variant="outline" type="button">Cancel</Button>
                     </DialogClose>
                     <Button type="submit" disabled={isSubmitting}>
                       {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                      Save Client
+                      Send Invitation
                     </Button>
                 </DialogFooter>
               </form>
@@ -228,7 +197,7 @@ export default function ManageClientsPage() {
               <TableRow>
                 <TableHead>Name</TableHead>
                 <TableHead>Company</TableHead>
-                <TableHead>Username</TableHead>
+                <TableHead>Email</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
@@ -236,9 +205,9 @@ export default function ManageClientsPage() {
             <TableBody>
               {clients.map((client) => (
                 <TableRow key={client.id}>
-                  <TableCell>{client.name}</TableCell>
-                  <TableCell>{client.company}</TableCell>
-                  <TableCell>{client.username}</TableCell>
+                  <TableCell>{client.full_name}</TableCell>
+                  <TableCell>{client.company || 'N/A'}</TableCell>
+                  <TableCell>{client.email}</TableCell>
                   <TableCell>{getStatusBadge('Active')}</TableCell>
                   <TableCell className="text-right">
                      <DropdownMenu>

@@ -27,12 +27,17 @@ export default function WebDevelopmentPage() {
 
   useEffect(() => {
     const fetchProject = async () => {
-      // This is a placeholder for fetching data for the logged-in client.
-      // In a real app, you would get the client's ID from their session.
-      // For now, we fetch a project with a hardcoded name.
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        setError("You must be logged in to view project details.");
+        setLoading(false);
+        return;
+      }
+      
       const { data, error } = await supabase
         .from('projects')
         .select('*')
+        .eq('client_id', session.user.id)
         .ilike('name', '%web development%') // Simple filter for web dev
         .order('created_at', { ascending: false })
         .limit(1)
@@ -40,7 +45,11 @@ export default function WebDevelopmentPage() {
       
       if (error) {
         console.error("Error fetching project:", error);
-        setError("Could not fetch project data. Please ensure you have a 'Web Development' project for the demo client.");
+        if (error.code === 'PGRST116') { // "exact one row expected, but found no rows"
+             setError("No active web development project found for your account.");
+        } else {
+             setError("Could not fetch project data. Please try again later.");
+        }
       } else {
         setProject(data);
       }
@@ -59,8 +68,8 @@ export default function WebDevelopmentPage() {
     );
   }
 
-  if (error) {
-    return <div className="p-8 text-destructive">{error}</div>;
+  if (error && !project) {
+    return <div className="p-8 text-muted-foreground">{error}</div>;
   }
   
   if (!project) {
