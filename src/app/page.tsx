@@ -1,7 +1,6 @@
 
 import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/hero-section';
-import PortfolioSection from '@/components/sections/portfolio-section';
 import WhyChooseUsSection from '@/components/sections/why-choose-us-section';
 import WorkProcessSection from '@/components/sections/work-process-section';
 import ServicesOverviewSection from '@/components/sections/services-overview-section';
@@ -13,6 +12,7 @@ import ProblemSolutionSection from '@/components/sections/problem-solution-secti
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import AnimatedServicesShowcaseSection from '@/components/sections/animated-services-showcase-section';
+import FilterablePortfolioSection from '@/components/sections/filterable-portfolio-section';
 
 
 export const metadata: Metadata = {
@@ -72,7 +72,7 @@ export default function HomePage() {
       <WorkProcessSection />
       <ComprehensiveSolutionsSection /> 
       <ServicesOverviewSection />
-      <PortfolioSection />
+      <FilterablePortfolioSection />
       <ImageWithTextSection
         id="industry-specific-webapps"
         imageUrl="/saasnextweb2.png"
