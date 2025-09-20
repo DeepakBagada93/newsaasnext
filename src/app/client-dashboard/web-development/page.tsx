@@ -1,29 +1,26 @@
 
+'use client'
 import type { Metadata } from 'next';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { CheckCircle, Circle, Clock } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
-export const metadata: Metadata = {
-  title: 'Web Development | Client Dashboard',
-  description: 'Manage your web development projects with SaaSnext.',
-};
-
+// This data is now for demonstration and is consistent with the admin panel's source of truth.
+// In a real application, this would be fetched from a database.
 const project = {
   name: 'E-commerce Platform Launch',
   progress: 65,
   startDate: '2024-05-01',
   deadline: '2024-08-15',
   milestones: [
-    { name: 'Project Kick-off & Discovery', completed: true },
-    { name: 'UI/UX Design & Wireframing', completed: true },
-    { name: 'Frontend Development', completed: true },
-    { name: 'Backend & API Integration', completed: true },
-    { name: 'Testing & Quality Assurance', completed: false },
-    { name: 'Deployment to Staging Environment', completed: false },
-    { name: 'Final Client Review & UAT', completed: false },
-    { name: 'Launch & Handover', completed: false },
+      { event: "Project Kick-off", date: "2024-05-01", completed: true},
+      { event: "Design Phase", date: "2024-05-15", completed: true},
+      { event: "Frontend Development", date: "2024-06-01", completed: true},
+      { event: "Backend & API Integration", date: "2024-07-01", completed: false},
+      { event: "QA Testing", date: "2024-07-20", completed: false},
+      { event: "Deployment to Staging", date: "2024-08-01", completed: false},
+      { event: "Launch", date: "2024-08-15", completed: false},
   ],
 };
 
@@ -72,14 +69,14 @@ export default function WebDevelopmentPage() {
               <h3 className="text-lg font-semibold text-foreground mb-4">Project Milestones</h3>
               <div className="space-y-4">
                 {project.milestones.map((milestone) => (
-                  <div key={milestone.name} className="flex items-start space-x-3">
+                  <div key={milestone.event} className="flex items-start space-x-3">
                     {milestone.completed ? (
                       <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                     ) : (
                       <Circle className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
                     )}
                     <span className={milestone.completed ? "text-muted-foreground line-through" : "text-foreground"}>
-                      {milestone.name}
+                      {milestone.event}
                     </span>
                   </div>
                 ))}
@@ -102,7 +99,7 @@ export default function WebDevelopmentPage() {
                 </li>
                  <li className="flex items-center justify-between">
                     <span className="font-medium">Next Milestone:</span>
-                    <span className="font-semibold text-foreground">Testing & QA</span>
+                    <span className="font-semibold text-foreground">Backend & API Integration</span>
                 </li>
                  <li className="flex items-center justify-between">
                     <span className="font-medium">Project Manager:</span>
