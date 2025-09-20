@@ -9,6 +9,7 @@ import { Menu, Sparkles, User } from 'lucide-react';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -57,6 +58,16 @@ export default function Header() {
               );
             })}
           </nav>
+           <div className="flex items-center gap-2">
+              <SignedOut>
+                <Button asChild size="sm">
+                  <Link href="/client-dashboard">Client Login</Link>
+                </Button>
+              </SignedOut>
+              <SignedIn>
+                <UserButton afterSignOutUrl="/" />
+              </SignedIn>
+           </div>
         </div>
 
         {/* Mobile menu */}
@@ -97,6 +108,19 @@ export default function Header() {
                     );
                   })}
                 </nav>
+                 <div className="mt-8 flex flex-col gap-4">
+                    <SignedOut>
+                        <Button asChild size="lg" className="w-full">
+                           <Link href="/client-dashboard">Client Login</Link>
+                        </Button>
+                    </SignedOut>
+                    <SignedIn>
+                       <div className="flex items-center justify-between rounded-lg bg-muted/50 p-3">
+                           <span className="font-semibold">Manage Account</span>
+                           <UserButton afterSignOutUrl="/" />
+                       </div>
+                    </SignedIn>
+                </div>
               </div>
             </SheetContent>
           </Sheet>

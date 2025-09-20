@@ -26,6 +26,7 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { UserButton } from '@clerk/nextjs';
 
 const menuItems = [
   { href: '/saasnextdbadmin', label: 'Dashboard', icon: LayoutDashboard },
@@ -92,9 +93,12 @@ export default function AdminLayout({
             <div className="flex-1">
                 <h1 className="text-lg font-semibold">Admin Panel</h1>
             </div>
-            <Button asChild size="sm">
-                <Link href="/contact">Get Help</Link>
-            </Button>
+            <div className="flex items-center gap-4">
+                <Button asChild size="sm">
+                    <Link href="/contact">Get Help</Link>
+                </Button>
+                <UserButton afterSignOutUrl="/"/>
+            </div>
         </header>
         <main className="flex-1 overflow-y-auto">
             {children}

@@ -1,20 +1,38 @@
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
-import { type NextRequest, NextResponse } from 'next/server';
+// Define routes that should be public (not require authentication)
+const isPublicRoute = createRouteMatcher([
+  '/',
+  '/about',
+  '/services',
+  '/pricing',
+  '/recommendation',
+  '/contact',
+  '/privacy-policy',
+  '/terms-conditions',
+  '/api/(.*)', // Allow all API routes
+  '/saasnextdbadmin/login',
+  '/custom-services'
+]);
 
-export async function middleware(request: NextRequest) {
-  // Middleware is now empty, all routes are public.
-  return NextResponse.next();
-}
+// Define routes that should be protected (require authentication)
+const isProtectedRoute = createRouteMatcher([
+    '/client-dashboard(.*)',
+    '/saasnextdbadmin'
+]);
+
+export default clerkMiddleware((auth, request) => {
+  if (isProtectedRoute(request)) {
+    auth().protect(); // Protect the route if it's in the protected list
+  }
+});
+
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * Feel free to modify this pattern to include more paths.
-     */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\..*).*)',
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Always run for API routes
+    '/(api|trpc)(.*)',
   ],
 };
