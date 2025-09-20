@@ -31,7 +31,7 @@ export default function LoginPage() {
         </CardHeader>
         <CardContent>
           <form action={signInWithGoogle}>
-            <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" variant="outline">
+            <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
               <GoogleIcon className="mr-2 h-5 w-5" />
               Sign in with Google
             </Button>
