@@ -15,22 +15,20 @@ import { AuthProvider } from '@/contexts/auth-context';
 
 function RootLayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isClientDashboard = pathname.startsWith('/client-dashboard');
-  const isAdminPortal = pathname.startsWith('/saasnextdbadmin');
-  const isLoginPage = pathname === '/login';
-  const isAppView = isClientDashboard || isAdminPortal || isLoginPage;
+  // The login page and the admin portal itself are considered "app views"
+  const isAppView = pathname.startsWith('/client-dashboard') || pathname.startsWith('/saasnextdbadmin');
 
   return (
-    <AuthProvider>
+    <>
       {!isAppView && <Preloader />}
-      {!isAppView && <Header />}
-      <main className={cn('flex-grow', (isAppView) && 'contents', !isAppView && 'w-full')}>
+      {!isAppview && <Header />}
+      <main className={cn('flex-grow', isAppView ? 'contents' : 'w-full')}>
         {children}
       </main>
       {!isAppView && <Footer />}
       <Toaster />
       {!isAppView && <Chatbot />}
-    </AuthProvider>
+    </>
   );
 }
 
@@ -55,9 +53,11 @@ export default function RootLayout({
           <link rel="apple-touch-icon" href="/saasnext-site-icon.png" type="image/png" />
         </head>
         <body className={`${GeistSans.variable} ${GeistMono.variable} antialiased flex flex-col min-h-screen`}>
-           <RootLayoutContent>
-                {children}
-           </RootLayoutContent>
+           <AuthProvider>
+                <RootLayoutContent>
+                    {children}
+                </RootLayoutContent>
+           </AuthProvider>
         </body>
       </html>
   );

@@ -32,9 +32,8 @@ export default function AdminLoginPage() {
     defaultValues: { email: '', password: '' },
   });
 
+  // This effect handles redirecting an already logged-in admin.
   useEffect(() => {
-    // This effect handles the case where a user who is already logged in
-    // navigates to the login page.
     if (!loading && profile && profile.role === 'admin') {
       router.push('/saasnextdbadmin');
     }
@@ -48,7 +47,8 @@ export default function AdminLoginPage() {
         title: "Login Successful",
         description: "Redirecting to your dashboard...",
       });
-      // Directly redirect on success instead of waiting for the effect
+      // Directly redirect on success. The onAuthStateChanged in AuthProvider
+      // will eventually update the state, but we can navigate immediately.
       router.push('/saasnextdbadmin');
     } else {
       toast({
@@ -58,19 +58,19 @@ export default function AdminLoginPage() {
       });
       setIsSubmitting(false);
     }
-    // No need to setIsSubmitting(false) on success because the page will redirect.
   };
 
-  // If user is already an admin, show a loading state while redirecting
+  // While checking auth state, or if the user is an admin (and about to be redirected),
+  // show a loading state. This prevents the form from flashing.
   if (loading || (profile && profile.role === 'admin')) {
      return (
-      <div className="flex h-screen w-full items-center justify-center">
+      <div className="flex h-screen w-full items-center justify-center bg-background">
         <Loader2 className="h-8 w-8 animate-spin" />
-        <p className="ml-4">Redirecting to dashboard...</p>
       </div>
     );
   }
 
+  // Only show the login form if not loading and not an admin.
   return (
     <div className="flex items-center justify-center min-h-screen bg-background">
       <Card className="w-full max-w-md mx-4">
