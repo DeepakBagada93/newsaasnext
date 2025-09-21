@@ -1,6 +1,6 @@
 
 import type { Metadata } from 'next';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
 import Link from 'next/link';
 import { Users, Briefcase, CreditCard, Activity, DollarSign, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
