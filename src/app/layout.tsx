@@ -1,8 +1,8 @@
 
 'use client'; // This directive is now required at the top level for the hook to work inside a child component.
 import { usePathname } from 'next/navigation';
-import { Geist_Sans as Geist } from 'geist/font/sans';
-import { Geist_Mono } from 'geist/font/mono';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import Header from '@/components/layout/header';
@@ -54,7 +54,7 @@ export default function RootLayout({
           <link rel="icon" href="/saasnext-site-icon.png" type="image/png" />
           <link rel="apple-touch-icon" href="/saasnext-site-icon.png" type="image/png" />
         </head>
-        <body className={`${Geist.variable} ${Geist_Mono.variable} antialiased flex flex-col min-h-screen`}>
+        <body className={`${GeistSans.variable} ${GeistMono.variable} antialiased flex flex-col min-h-screen`}>
            <RootLayoutContent>
                 {children}
            </RootLayoutContent>
