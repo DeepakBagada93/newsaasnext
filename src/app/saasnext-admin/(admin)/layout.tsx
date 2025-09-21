@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, type ReactNode } from 'react';
@@ -40,25 +39,19 @@ const adminMenuItems = [
 ];
 
 export default function AdminProtectedLayout({ children }: { children: ReactNode }) {
-  const { profile, loading, logOut } = useAuth();
+  const { adminProfile, supabaseLoading, logOut } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    // This effect handles authentication and authorization for the admin portal.
-    // It waits until loading is complete before making any decisions.
-    if (!loading) {
-      // If there is no profile OR the user's role is NOT 'admin',
-      // they should not be here. Redirect them to the admin login page.
-      if (!profile || profile.role !== 'admin') {
+    if (!supabaseLoading) {
+      if (!adminProfile || adminProfile.role !== 'admin') {
         router.push('/saasnext-admin/login');
       }
     }
-  }, [profile, loading, router]);
+  }, [adminProfile, supabaseLoading, router]);
 
-  // While loading, or if the user is not an admin (and redirect is imminent),
-  // show a loading spinner. This prevents a flash of the admin content.
-  if (loading || !profile || profile.role !== 'admin') {
+  if (supabaseLoading || !adminProfile || adminProfile.role !== 'admin') {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-background">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -67,7 +60,6 @@ export default function AdminProtectedLayout({ children }: { children: ReactNode
     );
   }
 
-  // If we reach here, the user is a confirmed admin.
   return (
     <SidebarProvider>
       <Sidebar>
@@ -124,7 +116,7 @@ export default function AdminProtectedLayout({ children }: { children: ReactNode
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm text-muted-foreground">
-                Welcome, {profile.full_name || 'Admin'}
+                Welcome, {adminProfile.full_name || 'Admin'}
             </span>
             <Button variant="ghost" size="icon" className="rounded-full">
               <User />

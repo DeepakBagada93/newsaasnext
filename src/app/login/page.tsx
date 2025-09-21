@@ -1,4 +1,3 @@
-
 // src/app/login/page.tsx
 'use client';
 import { Button } from "@/components/ui/button";
@@ -10,18 +9,16 @@ import { Chrome } from "lucide-react"; // Using Chrome icon for Google
 import { Loader2 } from "lucide-react";
 
 export default function LoginPage() {
-  const { signInWithGoogle, user, loading } = useAuth();
+  const { signInWithGoogle, firebaseUser, firebaseLoading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    // If the check isn't loading and a user exists, redirect to dashboard.
-    if (!loading && user) {
+    if (!firebaseLoading && firebaseUser) {
       router.push('/client-dashboard');
     }
-  }, [user, loading, router]);
+  }, [firebaseUser, firebaseLoading, router]);
 
-  // While loading, or if user is present (and redirect is imminent), show a loader.
-  if (loading || user) {
+  if (firebaseLoading || firebaseUser) {
     return (
       <div className="flex h-screen items-center justify-center bg-background">
         <Loader2 className="h-8 w-8 animate-spin" />
@@ -29,7 +26,6 @@ export default function LoginPage() {
     );
   }
 
-  // Only show login card if not loading and no user is present.
   return (
     <div className="flex items-center justify-center min-h-screen bg-background">
       <Card className="w-full max-w-md mx-4">

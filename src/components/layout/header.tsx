@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -23,7 +22,7 @@ const navItems = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const currentPathname = usePathname();
-  const { user, logOut } = useAuth();
+  const { firebaseUser, logOut } = useAuth(); // Only need firebaseUser for the client login state
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -60,7 +59,7 @@ export default function Header() {
             })}
           </nav>
            <div className="flex items-center gap-2">
-              {user ? (
+              {firebaseUser ? (
                 <>
                   <Button asChild size="sm">
                     <Link href="/client-dashboard">Client Dashboard</Link>
@@ -116,7 +115,7 @@ export default function Header() {
                   })}
                 </nav>
                  <div className="mt-8 flex flex-col gap-4">
-                    {user ? (
+                    {firebaseUser ? (
                       <>
                         <Button asChild size="lg" className="w-full" onClick={() => setMobileMenuOpen(false)}>
                           <Link href="/client-dashboard">Client Dashboard</Link>

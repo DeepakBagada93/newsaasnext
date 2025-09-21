@@ -1,10 +1,9 @@
 
-
 export type Profile = {
   id: string; // Corresponds to auth.users.id
   full_name: string | null;
-  company: string | null;
   email: string | null;
+  company: string | null;
   role: 'admin' | 'client';
 };
 
@@ -30,3 +29,6 @@ export type Project = {
   created_at: string;
   profiles?: Profile; // Optional profile data if joining tables
 };
+
+// Supabase specific types can be added here if needed,
+// but auth-helpers-nextjs often handles this for you.

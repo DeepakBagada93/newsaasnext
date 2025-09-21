@@ -1,4 +1,3 @@
-
 'use client';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -13,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { createClient } from "@/lib/supabase/client";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email." }),
@@ -20,10 +20,11 @@ const loginSchema = z.object({
 });
 
 export default function AdminLoginPage() {
-  const { signInWithEmailAndPassword, profile, loading } = useAuth();
+  const { supabaseSession, adminProfile, supabaseLoading } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const supabase = createClient();
 
   const form = useForm<EmailPasswordForm>({
     resolver: zodResolver(loginSchema),
@@ -35,34 +36,33 @@ export default function AdminLoginPage() {
 
   // Redirect if user is already logged in as admin
   useEffect(() => {
-    if (!loading && profile?.role === 'admin') {
+    if (!supabaseLoading && adminProfile?.role === 'admin') {
       router.push('/saasnext-admin');
     }
-  }, [profile, loading, router]);
+  }, [adminProfile, supabaseLoading, router]);
 
   const onSubmit = async (data: EmailPasswordForm) => {
     setIsSubmitting(true);
-    const result = await signInWithEmailAndPassword(data);
+    const { error } = await supabase.auth.signInWithPassword(data);
     setIsSubmitting(false);
 
-    if (result.success) {
+    if (error) {
+      toast({
+        variant: "destructive",
+        title: "Login Failed",
+        description: error.message || "An unknown error occurred. Please check your credentials.",
+      });
+    } else {
       toast({
         title: "Login Successful",
         description: "Redirecting to the admin dashboard...",
       });
       router.push('/saasnext-admin');
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Login Failed",
-        description: result.error || "An unknown error occurred. Please check your credentials.",
-      });
+      router.refresh(); // Force a refresh to ensure layout re-evaluates auth state
     }
   };
 
-  // Don't render the form if we are still loading or if the user is an admin
-  // This prevents a flash of the login form before redirecting.
-  if (loading || profile?.role === 'admin') {
+  if (supabaseLoading || adminProfile?.role === 'admin') {
      return (
         <div className="flex h-screen w-full items-center justify-center">
             <Loader2 className="h-8 w-8 animate-spin" />
