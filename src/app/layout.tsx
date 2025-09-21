@@ -1,5 +1,5 @@
-'use client';
 
+'use client'; // This directive is now required at the top level for the hook to work inside a child component.
 import { usePathname } from 'next/navigation';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
@@ -21,15 +21,32 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+function RootLayoutContent({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isClientDashboard = pathname.startsWith('/client-dashboard');
+  const isAdminPortal = pathname.startsWith('/saasnextdbadmin');
+  const isAppView = isClientDashboard || isAdminPortal;
+
+  return (
+    <>
+      {!isAppView && <Preloader />}
+      {!isAppView && <Header />}
+      <main className={cn('flex-grow', (isClientDashboard || isAdminPortal) && 'contents', !isAppView && 'w-full')}>
+        {children}
+      </main>
+      {!isAppView && <Footer />}
+      <Toaster />
+      {!isAppView && <Chatbot />}
+    </>
+  );
+}
+
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
-  const isClientDashboard = pathname.startsWith('/client-dashboard');
-  const isAdminPortal = pathname.startsWith('/saasnextdbadmin');
-  const isAppView = isClientDashboard || isAdminPortal;
 
   return (
     <ClerkProvider>
@@ -46,14 +63,9 @@ export default function RootLayout({
           <link rel="apple-touch-icon" href="/saasnext-site-icon.png" type="image/png" />
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
-          {!isAppView && <Preloader />}
-          {!isAppView && <Header />}
-          <main className={cn('flex-grow', (isClientDashboard || isAdminPortal) && 'contents', !isAppView && 'w-full')}>
-            {children}
-          </main>
-          {!isAppView && <Footer />}
-          <Toaster />
-          {!isAppView && <Chatbot />}
+           <RootLayoutContent>
+                {children}
+           </RootLayoutContent>
         </body>
       </html>
     </ClerkProvider>
