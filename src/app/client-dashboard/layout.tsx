@@ -50,23 +50,33 @@ export default function ClientDashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const { user, loading, logOut } = useAuth();
+  const { user, profile, loading, logOut } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && !user) {
-      router.push('/login');
+    // This effect handles authentication and authorization for the client dashboard.
+    // It waits until the loading is complete before making any decisions.
+    if (!loading) {
+      // If there is no user OR the user's role is NOT 'client',
+      // they should not be here. Redirect them to the client login page.
+      if (!user || profile?.role !== 'client') {
+        router.push('/login');
+      }
     }
-  }, [user, loading, router]);
+  }, [user, profile, loading, router]);
 
-  if (loading || !user) {
-    // You can show a loading spinner or a message here
+
+  // While loading, or if the user is not a client (and redirect is imminent),
+  // show a loading spinner to prevent content flash.
+  if (loading || !user || profile?.role !== 'client') {
     return (
       <div className="flex h-screen items-center justify-center bg-background">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <p className="ml-2 text-muted-foreground">Verifying access...</p>
       </div>
     );
   }
+
 
   return (
       <SidebarProvider>

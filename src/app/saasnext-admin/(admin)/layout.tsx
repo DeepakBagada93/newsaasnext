@@ -45,17 +45,20 @@ export default function AdminProtectedLayout({ children }: { children: ReactNode
   const pathname = usePathname();
 
   useEffect(() => {
-    // Wait until loading is false before we check for profile and role
+    // This effect handles authentication and authorization for the admin portal.
+    // It waits until loading is complete before making any decisions.
     if (!loading) {
+      // If there is no profile OR the user's role is NOT 'admin',
+      // they should not be here. Redirect them to the admin login page.
       if (!profile || profile.role !== 'admin') {
-        // If not loading and no admin profile, redirect to login
         router.push('/saasnext-admin/login');
       }
     }
   }, [profile, loading, router]);
 
+  // While loading, or if the user is not an admin (and redirect is imminent),
+  // show a loading spinner. This prevents a flash of the admin content.
   if (loading || !profile || profile.role !== 'admin') {
-    // Show a loading screen while we verify the user's role
     return (
       <div className="flex h-screen w-full items-center justify-center bg-background">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -64,7 +67,7 @@ export default function AdminProtectedLayout({ children }: { children: ReactNode
     );
   }
 
-  // If we reach here, the user is a confirmed admin
+  // If we reach here, the user is a confirmed admin.
   return (
     <SidebarProvider>
       <Sidebar>
