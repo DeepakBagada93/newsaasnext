@@ -1,12 +1,5 @@
-
-export type Profile = {
-  id: string; // Corresponds to auth.users.id
-  full_name: string | null;
-  email: string | null;
-  company: string | null;
-  role: 'admin' | 'client';
-};
-
+// This file can be removed if no longer used by other parts of the application,
+// but is kept for now as it contains general-purpose types.
 
 export type ProjectStatus = "In Progress" | "Completed" | "Planning" | "On Hold" | "Archived";
 
@@ -18,7 +11,7 @@ export type TimelineEvent = {
 
 export type Project = {
   id: string;
-  client_id: string; // Foreign key to profiles.id
+  client_id: string; 
   name: string;
   status: ProjectStatus;
   progress: number;
@@ -27,8 +20,4 @@ export type Project = {
   paid: number | null;
   timeline: TimelineEvent[] | null;
   created_at: string;
-  profiles?: Profile; // Optional profile data if joining tables
 };
-
-// Supabase specific types can be added here if needed,
-// but auth-helpers-nextjs often handles this for you.

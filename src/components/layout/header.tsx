@@ -4,11 +4,10 @@ import Link from 'next/link';
 import Logo from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Sparkles, User, LogOut } from 'lucide-react';
+import { Menu, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { useAuth } from '@/contexts/auth-context';
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -22,7 +21,6 @@ const navItems = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const currentPathname = usePathname();
-  const { firebaseUser, logOut } = useAuth(); // Only need firebaseUser for the client login state
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -58,22 +56,6 @@ export default function Header() {
               );
             })}
           </nav>
-           <div className="flex items-center gap-2">
-              {firebaseUser ? (
-                <>
-                  <Button asChild size="sm">
-                    <Link href="/client-dashboard">Client Dashboard</Link>
-                  </Button>
-                  <Button onClick={logOut} size="sm" variant="outline">
-                    <LogOut className="mr-2 h-4 w-4" /> Sign Out
-                  </Button>
-                </>
-              ) : (
-                <Button asChild size="sm">
-                  <Link href="/login">Client Login</Link>
-                </Button>
-              )}
-           </div>
         </div>
 
         {/* Mobile menu */}
@@ -114,22 +96,6 @@ export default function Header() {
                     );
                   })}
                 </nav>
-                 <div className="mt-8 flex flex-col gap-4">
-                    {firebaseUser ? (
-                      <>
-                        <Button asChild size="lg" className="w-full" onClick={() => setMobileMenuOpen(false)}>
-                          <Link href="/client-dashboard">Client Dashboard</Link>
-                        </Button>
-                        <Button onClick={() => {logOut(); setMobileMenuOpen(false);}} size="lg" variant="outline" className="w-full">
-                           <LogOut className="mr-2 h-4 w-4" /> Sign Out
-                        </Button>
-                      </>
-                    ) : (
-                      <Button asChild size="lg" className="w-full" onClick={() => setMobileMenuOpen(false)}>
-                          <Link href="/login">Client Login</Link>
-                      </Button>
-                    )}
-                </div>
               </div>
             </SheetContent>
           </Sheet>
