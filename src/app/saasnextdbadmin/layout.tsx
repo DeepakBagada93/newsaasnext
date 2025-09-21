@@ -91,12 +91,20 @@ export default function AdminLayout({
                   </Link>
                 </SidebarMenuItem>
                  {profile && (
+                  <>
+                    <SidebarMenuItem>
+                      <div className="flex items-center gap-2 px-2 py-1.5 text-xs font-medium text-muted-foreground">
+                        <User className="size-4" />
+                        <span className="truncate">{profile.full_name || 'Admin'}</span>
+                      </div>
+                    </SidebarMenuItem>
                     <SidebarMenuItem>
                         <SidebarMenuButton onClick={logOut} tooltip="Sign Out">
                             <LogOut />
                             <span>Sign Out</span>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
+                  </>
                 )}
             </SidebarMenu>
           </SidebarFooter>
