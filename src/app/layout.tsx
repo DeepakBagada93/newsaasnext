@@ -14,8 +14,8 @@ import { AuthProvider } from '@/contexts/auth-context';
 
 function RootLayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  // The login page and the client dashboard are considered "app views"
-  const isAppView = pathname.startsWith('/client-dashboard') || pathname.startsWith('/login');
+  // The login page and the client/admin dashboards are considered "app views"
+  const isAppView = pathname.startsWith('/client-dashboard') || pathname.startsWith('/login') || pathname.startsWith('/saasnext-admin');
 
   return (
     <>
