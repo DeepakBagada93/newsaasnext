@@ -4,7 +4,6 @@
 /node_modules
 /.pnp
 .pnp.js
-.yarn/install-state.gz
 
 # testing
 /coverage
@@ -37,19 +36,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# studio
-.web
-.idea
-.vscode/launch.json
-.firebase/
-firebase.json
-auth.json
-database.rules.json
-storage.rules
-
-# Supabase
-.supabase
-
-# Env files
-.env

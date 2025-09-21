@@ -9,7 +9,7 @@ import { Loader2 } from 'lucide-react';
 import type { Profile } from '@/lib/types';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/client';
-import type { User as SupabaseUser, Session } from '@supabase/supabase-js';
+import type { User as SupabaseUser, Session, SupabaseClient } from '@supabase/supabase-js';
 
 // Mock function to get user profile/role
 const getMockUserProfile = async (userId: string, isFirebaseUser: boolean): Promise<Profile | null> => {
@@ -48,6 +48,7 @@ interface AuthContextType {
   signInWithGoogle: () => Promise<void>;
   
   // Supabase state for admins
+  supabase: SupabaseClient;
   supabaseSession: Session | null;
   adminProfile: Profile | null; // This will hold the static 'admin' role info
   supabaseLoading: boolean;
@@ -59,9 +60,10 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const firebaseAuth = getAuth(app);
-const supabase = createClient();
+
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const supabase = createClient();
   // Firebase state
   const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(null);
   const [clientProfile, setClientProfile] = useState<Profile | null>(null);
@@ -141,7 +143,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [supabase]);
 
   const overallLoading = firebaseLoading || supabaseLoading;
 
@@ -158,6 +160,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       clientProfile, 
       firebaseLoading, 
       signInWithGoogle,
+      supabase,
       supabaseSession,
       adminProfile,
       supabaseLoading,
