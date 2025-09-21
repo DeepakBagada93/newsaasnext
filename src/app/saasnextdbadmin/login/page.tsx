@@ -33,6 +33,8 @@ export default function AdminLoginPage() {
   });
 
   useEffect(() => {
+    // This effect handles the case where a user who is already logged in
+    // navigates to the login page.
     if (!loading && profile && profile.role === 'admin') {
       router.push('/saasnextdbadmin');
     }
@@ -42,19 +44,21 @@ export default function AdminLoginPage() {
     setIsSubmitting(true);
     const result = await signInWithEmailAndPassword(data);
     if (result.success) {
-      // Successful login is handled by the useEffect which will redirect to the dashboard
       toast({
         title: "Login Successful",
         description: "Redirecting to your dashboard...",
       });
+      // Directly redirect on success instead of waiting for the effect
+      router.push('/saasnextdbadmin');
     } else {
       toast({
         variant: "destructive",
         title: "Login Failed",
         description: result.error || "An unknown error occurred. Please try again.",
       });
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
+    // No need to setIsSubmitting(false) on success because the page will redirect.
   };
 
   // If user is already an admin, show a loading state while redirecting
