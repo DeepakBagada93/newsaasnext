@@ -41,16 +41,31 @@ export default function AdminLoginPage() {
   const onSubmit = async (data: EmailPasswordForm) => {
     setIsSubmitting(true);
     const result = await signInWithEmailAndPassword(data);
-    if (!result.success) {
+    if (result.success) {
+      // Successful login is handled by the useEffect which will redirect to the dashboard
+      toast({
+        title: "Login Successful",
+        description: "Redirecting to your dashboard...",
+      });
+    } else {
       toast({
         variant: "destructive",
         title: "Login Failed",
         description: result.error || "An unknown error occurred. Please try again.",
       });
     }
-    // Successful login is handled by the useEffect
     setIsSubmitting(false);
   };
+
+  // If user is already an admin, show a loading state while redirecting
+  if (loading || (profile && profile.role === 'admin')) {
+     return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin" />
+        <p className="ml-4">Redirecting to dashboard...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-background">
