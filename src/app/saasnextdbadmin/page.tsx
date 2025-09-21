@@ -17,9 +17,10 @@ export default function AdminPage() {
   }, [profile, loading, router]);
 
   if (loading || !profile || profile.role !== 'admin') {
-    // This will be shown briefly while redirecting
+    // This will be shown briefly while redirecting or loading
     return null;
   }
 
+  // If the user is an admin, show the dashboard.
   return <AdminDashboardPage />;
 }

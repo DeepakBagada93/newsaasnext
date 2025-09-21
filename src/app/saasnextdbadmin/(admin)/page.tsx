@@ -5,27 +5,11 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Users, Briefcase, CreditCard, Activity, DollarSign, UserPlus } from 'lucide-react';
 import { useAuth } from '@/contexts/auth-context';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { Loader2 } from 'lucide-react';
 
 
 export default function AdminDashboardPage() {
-    const { profile, loading } = useAuth();
-    const router = useRouter();
-
-     // This component is now wrapped by the layout which handles auth checks.
-     // The main check is moved to the entry page for the admin section.
-
-    if (loading || !profile || profile.role !== 'admin') {
-        return (
-        <div className="flex h-screen w-full items-center justify-center">
-            <Loader2 className="h-8 w-8 animate-spin" />
-            <p className="ml-4">Loading Dashboard...</p>
-        </div>
-        );
-    }
-
+    const { profile } = useAuth();
+    
   return (
     <div className="flex flex-col gap-8 p-4 md:p-8">
       <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
@@ -76,7 +60,7 @@ export default function AdminDashboardPage() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle>Welcome, Admin</CardTitle>
+            <CardTitle>Welcome, {profile?.full_name || 'Admin'}</CardTitle>
             <CardDescription>Oversee and manage all operations from here.</CardDescription>
           </CardHeader>
           <CardContent>
