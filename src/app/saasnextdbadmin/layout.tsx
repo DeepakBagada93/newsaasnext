@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import {
@@ -23,10 +24,13 @@ import {
   Shield,
   Home,
   User,
+  LogOut,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/auth-context';
+
 
 const menuItems = [
   { href: '/saasnextdbadmin', label: 'Dashboard', icon: LayoutDashboard },
@@ -42,6 +46,8 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { profile, logOut } = useAuth();
+
 
   return (
       <SidebarProvider>
@@ -84,6 +90,14 @@ export default function AdminLayout({
                     </SidebarMenuButton>
                   </Link>
                 </SidebarMenuItem>
+                 {profile && (
+                    <SidebarMenuItem>
+                        <SidebarMenuButton onClick={logOut} tooltip="Sign Out">
+                            <LogOut />
+                            <span>Sign Out</span>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                )}
             </SidebarMenu>
           </SidebarFooter>
         </Sidebar>
@@ -97,9 +111,12 @@ export default function AdminLayout({
                   <Button asChild size="sm">
                       <Link href="/contact">Get Help</Link>
                   </Button>
-                  <Button variant="ghost" size="icon" className="rounded-full">
-                    <User />
-                  </Button>
+                  {profile && (
+                    <Button variant="ghost" size="icon" className="rounded-full">
+                        <User />
+                        <span className="sr-only">Admin Profile</span>
+                    </Button>
+                  )}
               </div>
           </header>
           <main className="flex-1 overflow-y-auto">
