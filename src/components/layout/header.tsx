@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Logo from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import { Menu, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
@@ -67,6 +67,12 @@ export default function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <SheetHeader className="sr-only">
+                <SheetTitle>Mobile Navigation Menu</SheetTitle>
+                <SheetDescription>
+                  A list of links to navigate the SaaSnext website.
+                </SheetDescription>
+              </SheetHeader>
               <div className="p-6">
                 <Link href="/" className="mb-8 block" onClick={() => setMobileMenuOpen(false)}>
                   <Logo />
