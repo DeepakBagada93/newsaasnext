@@ -15,13 +15,16 @@ export default function AdminProtectedLayout({
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading) {
-      if (!profile || profile.role !== 'admin') {
-        router.push('/saasnextdbadmin/login');
-      }
+    // This effect runs when loading is finished.
+    // If loading is done and there's no admin profile, redirect to login.
+    if (!loading && (!profile || profile.role !== 'admin')) {
+      router.push('/saasnextdbadmin/login');
     }
   }, [profile, loading, router]);
 
+  // While the auth state is loading, or if the user is not an admin,
+  // show a loading screen. This prevents rendering the page content prematurely
+  // and avoids flicker or incorrect redirects.
   if (loading || !profile || profile.role !== 'admin') {
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -31,5 +34,6 @@ export default function AdminProtectedLayout({
     );
   }
 
+  // If loading is complete and the user is an admin, render the children.
   return <>{children}</>;
 }
