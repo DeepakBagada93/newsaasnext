@@ -1,7 +1,8 @@
 
 'use client'; // This directive is now required at the top level for the hook to work inside a child component.
 import { usePathname } from 'next/navigation';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist_Sans as Geist } from 'geist/font/sans';
+import { Geist_Mono } from 'geist/font/mono';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import Header from '@/components/layout/header';
@@ -11,15 +12,6 @@ import Preloader from '@/components/common/preloader';
 import { cn } from '@/lib/utils';
 import { ClerkProvider } from '@clerk/nextjs';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
 
 function RootLayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -62,7 +54,7 @@ export default function RootLayout({
           <link rel="icon" href="/saasnext-site-icon.png" type="image/png" />
           <link rel="apple-touch-icon" href="/saasnext-site-icon.png" type="image/png" />
         </head>
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
+        <body className={`${Geist.variable} ${Geist_Mono.variable} antialiased flex flex-col min-h-screen`}>
            <RootLayoutContent>
                 {children}
            </RootLayoutContent>
