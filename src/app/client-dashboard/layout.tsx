@@ -31,6 +31,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/auth-context';
 import { useEffect } from 'react';
+import { Loader2 } from 'lucide-react';
 
 
 const menuItems = [
@@ -60,7 +61,11 @@ export default function ClientDashboardLayout({
 
   if (loading || !user) {
     // You can show a loading spinner or a message here
-    return <div className="flex h-screen items-center justify-center">Loading...</div>;
+    return (
+      <div className="flex h-screen items-center justify-center bg-background">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
   }
 
   return (

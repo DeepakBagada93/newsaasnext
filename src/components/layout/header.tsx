@@ -62,14 +62,16 @@ export default function Header() {
            <div className="flex items-center gap-2">
               {user ? (
                 <>
-                  <span className="text-sm text-muted-foreground">Welcome, {user.displayName?.split(' ')[0]}</span>
+                  <Button asChild size="sm">
+                    <Link href="/client-dashboard">Client Dashboard</Link>
+                  </Button>
                   <Button onClick={logOut} size="sm" variant="outline">
                     <LogOut className="mr-2 h-4 w-4" /> Sign Out
                   </Button>
                 </>
               ) : (
                 <Button asChild size="sm">
-                  <Link href="/client-dashboard">Client Portal</Link>
+                  <Link href="/login">Client Login</Link>
                 </Button>
               )}
            </div>
@@ -116,14 +118,16 @@ export default function Header() {
                  <div className="mt-8 flex flex-col gap-4">
                     {user ? (
                       <>
-                        <p className="text-center text-muted-foreground">Welcome, {user.displayName}</p>
+                        <Button asChild size="lg" className="w-full" onClick={() => setMobileMenuOpen(false)}>
+                          <Link href="/client-dashboard">Client Dashboard</Link>
+                        </Button>
                         <Button onClick={() => {logOut(); setMobileMenuOpen(false);}} size="lg" variant="outline" className="w-full">
                            <LogOut className="mr-2 h-4 w-4" /> Sign Out
                         </Button>
                       </>
                     ) : (
-                      <Button asChild size="lg" className="w-full">
-                          <Link href="/login">Client Portal</Link>
+                      <Button asChild size="lg" className="w-full" onClick={() => setMobileMenuOpen(false)}>
+                          <Link href="/login">Client Login</Link>
                       </Button>
                     )}
                 </div>
