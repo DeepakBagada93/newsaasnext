@@ -32,7 +32,7 @@ export default function RootLayout({
   const isAppView = isClientDashboard || isAdminPortal;
 
   return (
-    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+    <ClerkProvider publishableKey="pk_test_ZHluYW1pYy1wZWFjb2NrLTIwLmNsZXJrLmFjY291bnRzLmRldiQ">
       <html lang="en" className="dark">
         <head>
           {/*
