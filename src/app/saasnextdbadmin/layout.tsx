@@ -65,19 +65,27 @@ export default function AdminLayout({
                   <Shield className="size-3" /> Admin Portal
                 </div>
               </SidebarMenuItem>
-              {menuItems.map((item) => (
-                <SidebarMenuItem key={item.label}>
-                  <Link href={item.href} legacyBehavior passHref>
-                    <SidebarMenuButton
-                      isActive={pathname.startsWith(item.href) && (item.href !== '/saasnextdbadmin' || pathname === '/saasnextdbadmin')}
-                      tooltip={item.label}
-                    >
-                      <item.icon />
-                      <span>{item.label}</span>
-                    </SidebarMenuButton>
-                  </Link>
-                </SidebarMenuItem>
-              ))}
+              {menuItems.map((item) => {
+                // For the dashboard, check for an exact match.
+                // For other items, check if the pathname starts with the href.
+                const isActive = item.href === '/saasnextdbadmin' 
+                  ? pathname === item.href 
+                  : pathname.startsWith(item.href);
+
+                return (
+                  <SidebarMenuItem key={item.label}>
+                    <Link href={item.href} legacyBehavior passHref>
+                      <SidebarMenuButton
+                        isActive={isActive}
+                        tooltip={item.label}
+                      >
+                        <item.icon />
+                        <span>{item.label}</span>
+                      </SidebarMenuButton>
+                    </Link>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarContent>
           <SidebarFooter>
