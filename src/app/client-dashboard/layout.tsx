@@ -23,11 +23,11 @@ import {
   Settings,
   Home,
   Layers,
+  User,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { SignedIn, UserButton } from '@clerk/nextjs';
 
 
 const menuItems = [
@@ -48,7 +48,6 @@ export default function ClientDashboardLayout({
   const pathname = usePathname();
 
   return (
-    <SignedIn>
       <SidebarProvider>
         <Sidebar>
           <SidebarHeader>
@@ -97,7 +96,9 @@ export default function ClientDashboardLayout({
                   <Button asChild size="sm">
                       <Link href="/contact">Contact Support</Link>
                   </Button>
-                  <UserButton afterSignOutUrl="/" />
+                  <Button variant="ghost" size="icon" className="rounded-full">
+                    <User />
+                  </Button>
               </div>
           </header>
           <main className="flex-1 overflow-y-auto">
@@ -105,6 +106,5 @@ export default function ClientDashboardLayout({
           </main>
         </SidebarInset>
       </SidebarProvider>
-    </SignedIn>
   );
 }

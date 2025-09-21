@@ -10,7 +10,6 @@ import Footer from '@/components/layout/footer';
 import Chatbot from '@/components/common/chatbot';
 import Preloader from '@/components/common/preloader';
 import { cn } from '@/lib/utils';
-import { ClerkProvider } from '@clerk/nextjs';
 
 
 function RootLayoutContent({ children }: { children: React.ReactNode }) {
@@ -41,7 +40,6 @@ export default function RootLayout({
 }>) {
 
   return (
-    <ClerkProvider>
       <html lang="en" className="dark">
         <head>
           {/*
@@ -60,6 +58,5 @@ export default function RootLayout({
            </RootLayoutContent>
         </body>
       </html>
-    </ClerkProvider>
   );
 }

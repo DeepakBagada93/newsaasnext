@@ -22,11 +22,11 @@ import {
   Settings,
   Shield,
   Home,
+  User,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { SignedIn, UserButton } from '@clerk/nextjs';
 
 const menuItems = [
   { href: '/saasnextdbadmin', label: 'Dashboard', icon: LayoutDashboard },
@@ -44,7 +44,6 @@ export default function AdminLayout({
   const pathname = usePathname();
 
   return (
-    <SignedIn>
       <SidebarProvider>
         <Sidebar>
           <SidebarHeader>
@@ -98,7 +97,9 @@ export default function AdminLayout({
                   <Button asChild size="sm">
                       <Link href="/contact">Get Help</Link>
                   </Button>
-                  <UserButton afterSignOutUrl="/"/>
+                  <Button variant="ghost" size="icon" className="rounded-full">
+                    <User />
+                  </Button>
               </div>
           </header>
           <main className="flex-1 overflow-y-auto">
@@ -106,6 +107,5 @@ export default function AdminLayout({
           </main>
         </SidebarInset>
       </SidebarProvider>
-    </SignedIn>
   );
 }
