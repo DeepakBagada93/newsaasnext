@@ -24,10 +24,13 @@ import {
   Home,
   Layers,
   User,
+  LogOut,
 } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/auth-context';
+import { useEffect } from 'react';
 
 
 const menuItems = [
@@ -46,6 +49,19 @@ export default function ClientDashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { user, loading, logOut } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/login');
+    }
+  }, [user, loading, router]);
+
+  if (loading || !user) {
+    // You can show a loading spinner or a message here
+    return <div className="flex h-screen items-center justify-center">Loading...</div>;
+  }
 
   return (
       <SidebarProvider>
@@ -83,6 +99,12 @@ export default function ClientDashboardLayout({
                     </SidebarMenuButton>
                   </Link>
                 </SidebarMenuItem>
+                 <SidebarMenuItem>
+                    <SidebarMenuButton onClick={logOut} tooltip="Sign Out">
+                      <LogOut />
+                      <span>Sign Out</span>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
             </SidebarMenu>
           </SidebarFooter>
         </Sidebar>
@@ -98,6 +120,7 @@ export default function ClientDashboardLayout({
                   </Button>
                   <Button variant="ghost" size="icon" className="rounded-full">
                     <User />
+                    <span className="sr-only">User Profile</span>
                   </Button>
               </div>
           </header>

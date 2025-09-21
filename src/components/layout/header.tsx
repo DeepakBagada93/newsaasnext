@@ -5,10 +5,11 @@ import Link from 'next/link';
 import Logo from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Sparkles, User } from 'lucide-react';
+import { Menu, Sparkles, User, LogOut } from 'lucide-react';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/contexts/auth-context';
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -22,6 +23,7 @@ const navItems = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const currentPathname = usePathname();
+  const { user, logOut } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -58,9 +60,18 @@ export default function Header() {
             })}
           </nav>
            <div className="flex items-center gap-2">
-              <Button asChild size="sm">
-                <Link href="/client-dashboard">Client Portal</Link>
-              </Button>
+              {user ? (
+                <>
+                  <span className="text-sm text-muted-foreground">Welcome, {user.displayName?.split(' ')[0]}</span>
+                  <Button onClick={logOut} size="sm" variant="outline">
+                    <LogOut className="mr-2 h-4 w-4" /> Sign Out
+                  </Button>
+                </>
+              ) : (
+                <Button asChild size="sm">
+                  <Link href="/client-dashboard">Client Portal</Link>
+                </Button>
+              )}
            </div>
         </div>
 
@@ -103,9 +114,18 @@ export default function Header() {
                   })}
                 </nav>
                  <div className="mt-8 flex flex-col gap-4">
-                    <Button asChild size="lg" className="w-full">
-                        <Link href="/client-dashboard">Client Portal</Link>
-                    </Button>
+                    {user ? (
+                      <>
+                        <p className="text-center text-muted-foreground">Welcome, {user.displayName}</p>
+                        <Button onClick={() => {logOut(); setMobileMenuOpen(false);}} size="lg" variant="outline" className="w-full">
+                           <LogOut className="mr-2 h-4 w-4" /> Sign Out
+                        </Button>
+                      </>
+                    ) : (
+                      <Button asChild size="lg" className="w-full">
+                          <Link href="/login">Client Portal</Link>
+                      </Button>
+                    )}
                 </div>
               </div>
             </SheetContent>

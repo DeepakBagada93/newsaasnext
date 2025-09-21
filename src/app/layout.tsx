@@ -1,5 +1,5 @@
 
-'use client'; // This directive is now required at the top level for the hook to work inside a child component.
+'use client'; 
 import { usePathname } from 'next/navigation';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
@@ -10,25 +10,27 @@ import Footer from '@/components/layout/footer';
 import Chatbot from '@/components/common/chatbot';
 import Preloader from '@/components/common/preloader';
 import { cn } from '@/lib/utils';
+import { AuthProvider } from '@/contexts/auth-context';
 
 
 function RootLayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isClientDashboard = pathname.startsWith('/client-dashboard');
   const isAdminPortal = pathname.startsWith('/saasnextdbadmin');
-  const isAppView = isClientDashboard || isAdminPortal;
+  const isLoginPage = pathname === '/login';
+  const isAppView = isClientDashboard || isAdminPortal || isLoginPage;
 
   return (
-    <>
+    <AuthProvider>
       {!isAppView && <Preloader />}
       {!isAppView && <Header />}
-      <main className={cn('flex-grow', (isClientDashboard || isAdminPortal) && 'contents', !isAppView && 'w-full')}>
+      <main className={cn('flex-grow', (isAppView) && 'contents', !isAppView && 'w-full')}>
         {children}
       </main>
       {!isAppView && <Footer />}
       <Toaster />
       {!isAppView && <Chatbot />}
-    </>
+    </AuthProvider>
   );
 }
 
