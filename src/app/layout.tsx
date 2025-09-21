@@ -1,4 +1,3 @@
-
 'use client'; 
 import { usePathname } from 'next/navigation';
 import { GeistSans } from 'geist/font/sans';
@@ -15,8 +14,8 @@ import { AuthProvider } from '@/contexts/auth-context';
 
 function RootLayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  // The login page and the admin portal itself are considered "app views"
-  const isAppView = pathname.startsWith('/client-dashboard') || pathname.startsWith('/saasnextdbadmin');
+  // The login page and the client dashboard are considered "app views"
+  const isAppView = pathname.startsWith('/client-dashboard') || pathname.startsWith('/login');
 
   return (
     <>
