@@ -1,11 +1,6 @@
 
-import type { Metadata } from 'next';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 
-export const metadata: Metadata = {
-  title: 'Admin Settings | Admin Dashboard',
-  description: 'Configure admin portal settings and integrations.',
-};
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 
 export default function AdminSettingsPage() {
   return (

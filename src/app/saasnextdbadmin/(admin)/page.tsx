@@ -1,17 +1,37 @@
 
+'use client';
 
-import type { Metadata } from 'next';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Users, Briefcase, CreditCard, Activity, DollarSign, UserPlus } from 'lucide-react';
+import { useAuth } from '@/contexts/auth-context';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { Loader2 } from 'lucide-react';
 
-export const metadata: Metadata = {
-  title: 'Admin Dashboard',
-  description: 'Manage clients, services, and payments.',
-};
 
 export default function AdminDashboardPage() {
+    const { profile, loading } = useAuth();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!loading) {
+        if (!profile || profile.role !== 'admin') {
+            router.push('/saasnextdbadmin/login');
+        }
+        }
+    }, [profile, loading, router]);
+
+    if (loading || !profile || profile.role !== 'admin') {
+        return (
+        <div className="flex h-screen w-full items-center justify-center">
+            <Loader2 className="h-8 w-8 animate-spin" />
+            <p className="ml-4">Verifying admin access...</p>
+        </div>
+        );
+    }
+
   return (
     <div className="flex flex-col gap-8 p-4 md:p-8">
       <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
@@ -98,4 +118,3 @@ export default function AdminDashboardPage() {
     </div>
   );
 }
-
