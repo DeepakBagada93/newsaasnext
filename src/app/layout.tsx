@@ -21,7 +21,7 @@ function RootLayoutContent({ children }: { children: React.ReactNode }) {
   return (
     <>
       {!isAppView && <Preloader />}
-      {!isAppview && <Header />}
+      {!isAppView && <Header />}
       <main className={cn('flex-grow', isAppView ? 'contents' : 'w-full')}>
         {children}
       </main>
