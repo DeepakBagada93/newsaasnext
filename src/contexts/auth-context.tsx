@@ -2,7 +2,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut, User, signInWithEmailAndPassword as firebaseSignInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signInWithRedirect, GoogleAuthProvider, signOut, User, signInWithEmailAndPassword as firebaseSignInWithEmailAndPassword, getRedirectResult } from 'firebase/auth';
 import { app } from '@/lib/firebase/client-app';
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
@@ -58,7 +58,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const auth = getAuth(app);
 
-export const AuthProvider = ({ children }: { children: React.Node }) => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
@@ -67,10 +67,10 @@ export const AuthProvider = ({ children }: { children: React.Node }) => {
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
-      // Let the onAuthStateChanged handle the redirect
+      // Use signInWithRedirect instead of signInWithPopup
+      await signInWithRedirect(auth, provider);
     } catch (error) {
-      console.error("Error signing in with Google:", error);
+      console.error("Error initiating Google sign-in redirect:", error);
     }
   };
 
@@ -101,8 +101,23 @@ export const AuthProvider = ({ children }: { children: React.Node }) => {
         const userProfile = await getMockUserProfile(currentUser.uid);
         setProfile(userProfile);
       } else {
-        setUser(null);
-        setProfile(null);
+        // Handle the redirect result when the user comes back from Google
+        try {
+            const result = await getRedirectResult(auth);
+            if (result?.user) {
+                 setUser(result.user);
+                 const userProfile = await getMockUserProfile(result.user.uid);
+                 setProfile(userProfile);
+            }
+        } catch (error) {
+             console.error("Error getting redirect result:", error);
+        }
+        
+        // If still no user after checking redirect, set to null
+        if (!auth.currentUser) {
+            setUser(null);
+            setProfile(null);
+        }
       }
       setLoading(false);
     });
